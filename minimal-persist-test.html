@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html><head><meta charset="UTF-8"><title>持久化最小测试</title>
+<style>
+body{font-family:monospace;padding:20px;background:#1a1a1a;color:#fff}
+input,button{padding:8px;margin:4px;font-size:14px}
+.panel{background:#333;padding:16px;margin:10px 0;border-radius:8px}
+pre{background:#111;padding:10px;font-size:11px;max-height:200px;overflow:auto}
+.green{color:#0f0}.red{color:#f00}.yellow{color:#ff0}
+</style></head><body>
+
+<h1>🔬 最小持久化测试</h1>
+
+<div id="loginPanel" class="panel">
+  <h3>登录</h3>
+  <input id="user" placeholder="账号" value="3056898">
+  <input id="pass" type="password" placeholder="密码" value="pan3056898">
+  <button onclick="doLogin()">登录</button>
+</div>
+
+<div id="mainPanel" class="panel" style="display:none">
+  <h3>项目列表 (<span id="count">0</span>个)</h3>
+  <div id="list"></div>
+  <button onclick="createProject()">+ 新建项目</button>
+  <button onclick="doLogout()">退出</button>
+  <button onclick="location.reload()">🔄 刷新页面测试</button>
+</div>
+
+<pre id="log"></pre>
+
+<script>
+const KEY = 'minimal_test_v1';
+const USERS = {"3056898":{pass:"pan3056898",name:"管理员"}};
+
+let currentUser = null;
+let projects = [];
+
+function log(msg, color) {
+  var l = document.getElementById('log');
+  var time = new Date().toLocaleTimeString();
+  l.innerHTML += '<span class="'+(color||'')+'">['+time+'] '+msg+'</span>\n';
+  l.scrollTop = l.scrollHeight;
+}
+
+function save() {
+  var data = { user: currentUser, projects: projects };
+  try {
+    var json = JSON.stringify(data);
+    localStorage.setItem(KEY, json);
+    log('💾 已保存: ' + projects.length + '个项目, ' + json.length + '字节', 'green');
+  } catch(e) {
+    log('❌ 保存失败: ' + e.message, 'red');
+  }
+}
+
+function load() {
+  var raw = localStorage.getItem(KEY);
+  if (!raw) { log('📭 localStorage 无数据', 'yellow'); return false; }
+  try {
+    var data = JSON.parse(raw);
+    currentUser = data.user;
+    projects = data.projects || [];
+    log('📂 已加载: ' + projects.length + '个项目, user=' + (currentUser?currentUser.name:'no'), 'green');
+    return true;
+  } catch(e) {
+    log('❌ 加载失败: ' + e.message, 'red');
+    return false;
+  }
+}
+
+function render() {
+  if (currentUser) {
+    document.getElementById('loginPanel').style.display = 'none';
+    document.getElementById('mainPanel').style.display = 'block';
+    document.getElementById('count').textContent = projects.length;
+    var list = document.getElementById('list');
+    if (projects.length === 0) {
+      list.innerHTML = '<div style="color:#666">暂无项目</div>';
+    } else {
+      list.innerHTML = projects.map(function(p, i) {
+        return '<div style="padding:8px;margin:4px 0;background:#444;border-radius:4px">' +
+          '📋 <b>' + p.name + '</b> | 创建: ' + new Date(p.createdAt).toLocaleString() +
+          ' | 天数: ' + (p.days || 0) +
+          ' <button onclick="deleteProject('+i+')" style="color:#f00;background:none;border:none;cursor:pointer">✕</button>' +
+          '</div>';
+      }).join('');
+    }
+  } else {
+    document.getElementById('loginPanel').style.display = 'block';
+    document.getElementById('mainPanel').style.display = 'none';
+  }
+}
+
+function doLogin() {
+  var u = document.getElementById('user').value.trim();
+  var p = document.getElementById('pass').value.trim();
+  if (USERS[u] && USERS[u].pass === p) {
+    currentUser = { id: u, name: USERS[u].name };
+    save();
+    render();
+    log('✅ 登录成功: ' + currentUser.name, 'green');
+  } else {
+    log('❌ 登录失败', 'red');
+  }
+}
+
+function createProject() {
+  var nm = prompt('项目名称:', '测试项目' + (projects.length + 1));
+  if (!nm) return;
+  projects.push({
+    id: Date.now(),
+    name: nm,
+    createdAt: Date.now(),
+    days: Math.floor(Math.random() * 10) + 1
+  });
+  save();
+  render();
+  log('✅ 创建项目: ' + nm + ' (共' + projects.length + '个)', 'green');
+}
+
+function deleteProject(i) {
+  var nm = projects[i].name;
+  projects.splice(i, 1);
+  save();
+  render();
+  log('🗑 删除: ' + nm, 'yellow');
+}
+
+function doLogout() {
+  currentUser = null;
+  projects = [];
+  localStorage.removeItem(KEY);
+  render();
+  log('👋 已退出并清除数据', 'yellow');
+}
+
+// Init
+log('🚀 页面加载', 'green');
+log('localStorage key: ' + KEY, 'yellow');
+log('localStorage 总大小: ~' + JSON.stringify(localStorage).length + ' 字符', 'yellow');
+load();
+render();
+
+// Show raw localStorage
+log('--- localStorage 原始内容 ---');
+for (var i = 0; i < localStorage.length; i++) {
+  var k = localStorage.key(i);
+  var v = localStorage.getItem(k);
+  log('  ' + k + ' = ' + (v.length > 100 ? v.substring(0,100)+'...' : v));
+}
+</script>
+</body></html>

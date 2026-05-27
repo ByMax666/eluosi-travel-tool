@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>阿杜俄旅 · 定制报价系统</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{--bg:#F0F2F5;--card:#FFFFFF;--primary:#1E3A5F;--primary-light:#EBF0F6;--accent:#D45141;--accent-light:#FEF2F1;--text:#1A1D23;--text2:#6B7280;--text3:#9CA3AF;--border:#E2E6EC;--border2:#F3F4F6;--success:#059669;--shadow:0 1px 3px rgba(0,0,0,0.04);--radius:10px;--radius-sm:6px}
+body{font-family:'Inter','PingFang SC',sans-serif;background:var(--bg);color:var(--text)}
+/* Quick bar */
+.quick-bar{background:var(--primary);color:#fff;padding:6px 24px;display:flex;justify-content:space-between;font-size:11px;align-items:center}
+.quick-bar .status{display:flex;gap:16px}.quick-bar .status span{opacity:0.7}
+.quick-bar .status .live{background:var(--accent);color:#fff;padding:1px 8px;border-radius:3px;font-size:10px;font-weight:600;opacity:1}
+/* Nav */
+nav{display:flex;justify-content:space-between;align-items:center;padding:0 24px;height:56px;background:var(--card);border-bottom:1px solid var(--border)}
+.nav-logo{font-weight:700;font-size:16px;color:var(--primary);display:flex;align-items:center;gap:6px}
+.nav-logo .badge{background:var(--accent);color:#fff;font-size:9px;padding:1px 6px;border-radius:3px;font-weight:600}
+.nav-right{display:flex;gap:4px;align-items:center}
+.nav-right a{font-size:12px;color:var(--text2);text-decoration:none;padding:6px 12px;border-radius:4px;font-weight:500}
+.nav-right a:hover{background:var(--border2);color:var(--text)}
+.nav-right a.active{background:var(--primary-light);color:var(--primary);font-weight:600}
+.nav-right .user{width:28px;height:28px;border-radius:50%;background:var(--primary-light);display:flex;align-items:center;justify-content:center;font-size:12px;margin-left:8px;cursor:pointer}
+/* Dashboard layout */
+.dashboard{display:grid;grid-template-columns:280px 1fr 320px;gap:16px;padding:16px 24px;max-width:1400px;margin:0 auto}
+/* Sidebar */
+.sidebar{background:var(--card);border-radius:var(--radius);border:1px solid var(--border);padding:16px}
+.sidebar h3{font-size:11px;font-weight:600;color:var(--text3);text-transform:uppercase;letter-spacing:0.5px;margin-bottom:12px}
+.sidebar .city-list{display:flex;flex-direction:column;gap:4px}
+.sidebar .city-item{display:flex;align-items:center;gap:8px;padding:8px 10px;border-radius:var(--radius-sm);cursor:pointer;font-size:13px;transition:all 0.15s;border:1px solid transparent}
+.sidebar .city-item:hover{background:var(--border2)}
+.sidebar .city-item.active{background:var(--primary-light);border-color:var(--primary);color:var(--primary);font-weight:600}
+.sidebar .city-item .drag{color:var(--text3);font-size:10px;cursor:grab}
+.sidebar .city-item .num{font-size:10px;color:var(--text3);margin-left:auto}
+.sidebar .city-item .del{font-size:10px;color:var(--text3);cursor:pointer;padding:2px}
+.sidebar .city-item .del:hover{color:var(--accent)}
+.sidebar .add-btn{display:flex;align-items:center;gap:6px;padding:8px 10px;margin-top:8px;color:var(--text2);font-size:12px;cursor:pointer;border:1px dashed var(--border);border-radius:var(--radius-sm);justify-content:center}
+.sidebar .add-btn:hover{border-color:var(--primary);color:var(--primary)}
+/* Main area */
+.main{display:flex;flex-direction:column;gap:12px}
+.main .top-bar{display:flex;justify-content:space-between;align-items:center}
+.main .top-bar h1{font-size:18px;font-weight:700}
+.main .top-bar .actions{display:flex;gap:6px}
+.main .top-bar .actions button{padding:6px 14px;font-size:11px;border-radius:var(--radius-sm);border:none;cursor:pointer;font-family:inherit;font-weight:500}
+.main .top-bar .actions .save{background:var(--primary);color:#fff}
+.main .top-bar .actions .export{background:var(--card);color:var(--text);border:1px solid var(--border)}
+.main .top-bar .actions .preview{background:var(--accent);color:#fff}
+/* Day cards */
+.day-cards{display:flex;flex-direction:column;gap:8px}
+.day-card{background:var(--card);border-radius:var(--radius);border:1px solid var(--border);padding:14px 16px;transition:all 0.2s}
+.day-card:hover{border-color:var(--primary)}
+.day-card .day-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px}
+.day-card .day-header .day-num{font-size:13px;font-weight:700;color:var(--primary);display:flex;align-items:center;gap:6px}
+.day-card .day-header .day-num .city-tag{font-size:10px;font-weight:500;color:#fff;background:var(--primary);padding:1px 8px;border-radius:10px}
+.day-card .day-header .day-controls{display:flex;gap:4px}
+.day-card .day-header .day-controls button{background:none;border:none;color:var(--text3);font-size:12px;cursor:pointer;padding:2px 6px;border-radius:3px}
+.day-card .day-header .day-controls button:hover{background:var(--border2);color:var(--text)}
+.day-card .day-content{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.day-card .day-content .spot{font-size:12px;color:var(--text2);display:flex;align-items:center;gap:6px;padding:3px 0}
+.day-card .day-content .spot .time{color:var(--text3);font-size:10px;min-width:40px}
+.day-card .day-content .spot .loc{color:var(--text)}
+.day-card .day-content .meal{font-size:11px;color:var(--text3);display:flex;gap:8px;align-items:center}
+.day-card .day-content .meal span{padding:1px 6px;border-radius:3px;font-size:10px;font-weight:500}
+.day-card .day-content .meal .lunch{background:#FFF7ED;color:#C2410C}
+.day-card .day-content .meal .dinner{background:#FEF2F2;color:#DC2626}
+/* Right panel - quote */
+.right-panel{background:var(--card);border-radius:var(--radius);border:1px solid var(--border);padding:16px}
+.right-panel h3{font-size:11px;font-weight:600;color:var(--text3);text-transform:uppercase;letter-spacing:0.5px;margin-bottom:12px}
+.right-panel .sum{background:var(--primary-light);border-radius:var(--radius-sm);padding:12px;margin-bottom:12px}
+.right-panel .sum .total{font-size:24px;font-weight:800;color:var(--primary)}
+.right-panel .sum .total span{font-size:12px;font-weight:400;color:var(--text2)}
+.right-panel .sum .per{font-size:12px;color:var(--text2);margin-top:2px}
+.right-panel .breakdown{display:flex;flex-direction:column;gap:6px}
+.right-panel .breakdown .row{display:flex;justify-content:space-between;font-size:12px;color:var(--text2);padding:4px 0;border-bottom:1px solid var(--border2)}
+.right-panel .breakdown .row .val{font-weight:500;color:var(--text)}
+.right-panel .buttons{display:flex;flex-direction:column;gap:6px;margin-top:12px}
+.right-panel .buttons button{padding:8px;border:none;border-radius:var(--radius-sm);font-size:12px;font-weight:600;cursor:pointer;font-family:inherit}
+.right-panel .buttons .gen{background:var(--accent);color:#fff}
+.right-panel .buttons .gen:hover{background:#C43D2E}
+.right-panel .buttons .save{background:var(--primary);color:#fff}
+.right-panel .buttons .share{background:var(--card);color:var(--text);border:1px solid var(--border)}
+/* Footer */
+footer{text-align:center;padding:20px 24px;font-size:11px;color:var(--text3);border-top:1px solid var(--border);margin-top:24px}
+@media(max-width:1200px){.dashboard{grid-template-columns:1fr}.sidebar{display:none}.right-panel{order:-1}}
+</style>
+</head>
+<body>
+<div class="quick-bar"><div class="status"><span class="live">LIVE</span><span>阿杜俄旅 · 定制报价系统</span></div><span>👤 管理员 · 在线</span></div>
+<nav><div class="nav-logo">🎯 阿杜俄旅 <span class="badge">BETA</span></div><div class="nav-right"><a href="#" class="active">工作台</a><a href="#">方案库</a><a href="#">AI助手</a><a href="#">设置</a><div class="user">👨</div></div></nav>
+<div class="dashboard">
+<!-- Left sidebar -->
+<div class="sidebar"><h3>📍 已选城市</h3><div class="city-list"><div class="city-item active"><span class="drag">⠿</span><span>🏛️ 莫斯科</span><span class="num">4天</span><span class="del">✕</span></div><div class="city-item"><span class="drag">⠿</span><span>🌊 圣彼得堡</span><span class="num">3天</span><span class="del">✕</span></div><div class="city-item"><span class="drag">⠿</span><span>🌳 图拉</span><span class="num">2天</span><span class="del">✕</span></div><div class="add-btn">+ 添加更多城市</div></div><h3 style="margin-top:16px">🧭 全部城市</h3><div class="city-list" style="font-size:12px"><div style="padding:4px 10px;color:var(--text3)">🏰 金环小镇</div><div style="padding:4px 10px;color:var(--text3)">💎 贝加尔湖</div><div style="padding:4px 10px;color:var(--text3)">🏰 喀山</div><div style="padding:4px 10px;color:var(--text3)">🏔️ 索契</div></div></div>
+<!-- Main -->
+<div class="main"><div class="top-bar"><h1>📋 行程编辑器</h1><div class="actions"><button class="save">💾 保存方案</button><button class="export">📄 导出行程单</button><button class="preview">👁️ 预览</button></div></div>
+<div class="day-cards">
+<div class="day-card"><div class="day-header"><div class="day-num">D1 · 抵达莫斯科 <span class="city-tag">莫斯科</span></div><div class="day-controls"><button>✏️</button><button>⬆</button><button>⬇</button><button style="color:#DC2626">🗑</button></div></div><div class="day-content"><div class="spot"><span class="time">14:00</span><span class="loc">✈️ 抵达谢列梅捷沃机场</span></div><div class="spot"><span class="time">15:30</span><span class="loc">🏨 入住酒店，休息调整</span></div><div class="meal"><span class="lunch">🍱 午餐</span><span class="dinner">🍽️ 晚餐</span><span>🚐 接机</span></div></div></div>
+<div class="day-card"><div class="day-header"><div class="day-num">D2 · 红场精华 <span class="city-tag">莫斯科</span></div><div class="day-controls"><button>✏️</button><button>⬆</button><button>⬇</button><button style="color:#DC2626">🗑</button></div></div><div class="day-content"><div class="spot"><span class="time">09:00</span><span class="loc">🔴 红场 · 圣瓦西里大教堂</span></div><div class="spot"><span class="time">12:00</span><span class="loc">🛍️ 古姆百货 · 午餐</span></div><div class="spot"><span class="time">14:00</span><span class="loc">🏰 克里姆林宫 · 军械库</span></div><div class="meal"><span class="lunch">🍱 俄式午餐</span><span class="dinner">🍽️ 中餐</span><span>🚐 全天用车</span></div></div></div>
+<div class="day-card"><div class="day-header"><div class="day-num">D3 · 莫斯科→彼得堡 <span class="city-tag">莫斯科</span></div><div class="day-controls"><button>✏️</button><button>⬆</button><button>⬇</button><button style="color:#DC2626">🗑</button></div></div><div class="day-content"><div class="spot"><span class="time">10:00</span><span class="loc">🏛️ 特列季亚科夫画廊</span></div><div class="spot"><span class="time">15:00</span><span class="loc">🚄 高铁赴圣彼得堡（4h）</span></div><div class="meal"><span class="lunch">🍱 午餐</span><span class="dinner">🍽️ 彼得堡晚餐</span><span>🚐 送站+接站</span></div></div></div>
+</div></div>
+<!-- Right panel -->
+<div class="right-panel"><h3>💰 实时报价</h3><div class="sum"><div class="total">¥32,400 <span>≈ ₽405,000</span></div><div class="per">人均 ¥6,480 · 5人团</div></div><div class="breakdown"><div class="row"><span>🏨 酒店（7晚×3间）</span><span class="val">¥12,600</span></div><div class="row"><span>🚐 用车（6天）</span><span class="val">¥8,400</span></div><div class="row"><span>🎫 门票（预估）</span><span class="val">¥3,600</span></div><div class="row"><span>👨 中文导游（6天）</span><span class="val">¥6,000</span></div><div class="row"><span>🚄 高铁（2程）</span><span class="val">¥2,400</span></div></div><div class="buttons"><button class="gen">📄 生成行程单+报价单</button><button class="save">💾 保存方案</button><button class="share">📤 分享给客户</button></div></div></div>
+<footer>俄罗斯导游阿杜 · 定制报价系统 v0.3 · 二十年俄语导游经验 · 64万抖音粉丝信赖</footer>
+</body></html>

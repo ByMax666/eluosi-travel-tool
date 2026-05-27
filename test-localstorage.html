@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html><head><meta charset="UTF-8"><title>LocalStorage测试</title>
+<style>
+body{font-family:monospace;padding:20px;background:#1a1a1a;color:#fff}
+.pass{color:#0f0}.fail{color:#f00}.info{color:#ff0}
+button{padding:8px 16px;margin:4px;cursor:pointer}
+pre{background:#333;padding:10px;border-radius:4px}
+</style></head><body>
+<h1>🔍 LocalStorage 诊断</h1>
+<div id="results"></div>
+<button onclick="runTests()">🔄 运行测试</button>
+<button onclick="clearAll()">🗑 清除全部</button>
+<button onclick="location.reload()">🔄 刷新页面</button>
+<pre id="log"></pre>
+
+<script>
+const log = document.getElementById('log');
+const results = document.getElementById('results');
+function L(msg) { log.textContent += msg + '\n'; }
+function R(status, msg) {
+  const color = status === 'pass' ? '#0f0' : status === 'fail' ? '#f00' : '#ff0';
+  results.innerHTML += `<div style="color:${color}">${status==='pass'?'✅':'❌'} ${msg}</div>`;
+}
+
+function runTests() {
+  log.textContent = '';
+  results.innerHTML = '<h3>运行中...</h3>';
+  
+  // Test 1: Can write
+  try {
+    localStorage.setItem('_test_key', 'hello_world_' + Date.now());
+    L('Test 1: setItem OK');
+    R('pass', 'localStorage.setItem 正常');
+  } catch(e) {
+    L('Test 1 FAIL: ' + e.message);
+    R('fail', 'localStorage.setItem 失败: ' + e.message);
+    return;
+  }
+  
+  // Test 2: Can read
+  try {
+    const val = localStorage.getItem('_test_key');
+    if (val && val.startsWith('hello_world_')) {
+      L('Test 2: getItem OK, value=' + val);
+      R('pass', 'localStorage.getItem 正常');
+    } else {
+      L('Test 2 FAIL: got ' + val);
+      R('fail', 'localStorage.getItem 返回异常: ' + val);
+    }
+  } catch(e) {
+    L('Test 2 FAIL: ' + e.message);
+    R('fail', 'localStorage.getItem 失败: ' + e.message);
+  }
+  
+  // Test 3: Can remove
+  try {
+    localStorage.removeItem('_test_key');
+    const after = localStorage.getItem('_test_key');
+    if (after === null) {
+      L('Test 3: removeItem OK');
+      R('pass', 'localStorage.removeItem 正常');
+    } else {
+      R('fail', 'removeItem 后仍能读到: ' + after);
+    }
+  } catch(e) {
+    R('fail', 'localStorage.removeItem 失败: ' + e.message);
+  }
+  
+  // Test 4: Simulate login persistence
+  try {
+    const user = {id:'3056898',role:'admin',name:'管理员'};
+    localStorage.setItem('adu_user', JSON.stringify(user));
+    L('Test 4: Saved adu_user=' + JSON.stringify(user));
+    R('pass', '模拟登录数据已保存');
+  } catch(e) {
+    R('fail', '保存登录数据失败: ' + e.message);
+  }
+  
+  // Test 5: Read it back
+  try {
+    const saved = localStorage.getItem('adu_user');
+    const parsed = JSON.parse(saved);
+    if (parsed.id === '3056898' && parsed.role === 'admin') {
+      L('Test 5: Read back OK, user=' + parsed.name);
+      R('pass', '登录数据读取正确: ' + parsed.name);
+    } else {
+      R('fail', '读取数据不匹配');
+    }
+  } catch(e) {
+    R('fail', '读取登录数据失败: ' + e.message);
+  }
+  
+  // Test 6: Show all keys
+  L('\n--- All localStorage keys ---');
+  for (let i = 0; i < localStorage.length; i++) {
+    const key = localStorage.key(i);
+    const val = localStorage.getItem(key);
+    L(key + ' = ' + (val.length > 80 ? val.substring(0,80)+'...' : val));
+  }
+  
+  L('\n--- DONE ---');
+  L('现在点击"刷新页面"按钮，看看 adu_user 是否还在');
+}
+
+// Auto-run on load
+window.onload = function() {
+  const user = localStorage.getItem('adu_user');
+  if (user) {
+    try {
+      const u = JSON.parse(user);
+      L('🟢 刷新后 adu_user 存在: ' + u.name + ' (id=' + u.id + ')');
+      R('pass', '刷新持久化正常: ' + u.name);
+    } catch(e) {
+      L('🔴 adu_user 存在但解析失败: ' + e.message);
+      R('fail', '数据解析失败');
+    }
+  } else {
+    L('🟡 adu_user 不存在（首次访问或已清除）');
+    R('info', '无登录数据，运行测试来创建');
+  }
+  
+  // Show all keys
+  L('--- 当前 localStorage 内容 ---');
+  for (let i = 0; i < localStorage.length; i++) {
+    L('  ' + localStorage.key(i));
+  }
+};
+
+function clearAll() {
+  localStorage.clear();
+  L('已清除全部 localStorage');
+  location.reload();
+}
+</script>
+</body></html>

@@ -3,860 +3,797 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>阿杜俄旅 · 定制报价系统 v2.0</title>
+<title>阿杜俄旅 · 定制报价系统</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet">
-<style>*{margin:0;padding:0;box-sizing:border-box}
-:root{--p:#B8342A;--pd:#7B1818;--pl:#FDF0ED;--g:#C8A84E;--sfc:#fff;--t:#1F1F1F;--t2:#6B7280;--t3:#9CA3AF;--b:#E5E0DB;--b2:#F0ECE7;--suc:#059669;--r:12px;--rs:8px}
-body{font-family:'Inter',-apple-system,BlinkMacSystemFont,'PingFang SC','Microsoft YaHei',sans-serif;background:#F5F4F1;color:var(--t);line-height:1.6}
-.app{max-width:1120px;margin:0 auto;padding:16px}
-.tb{background:var(--pd);color:#fff;padding:8px 16px;border-bottom:3px solid var(--g);position:sticky;top:0;z-index:100;display:flex;justify-content:space-between;align-items:center}
-.tb-b{font-size:13px;font-weight:600}.tb-a{display:flex;gap:8px;align-items:center}
-.tb-btn{background:rgba(255,255,255,0.12);border:none;color:#fff;padding:5px 14px;border-radius:6px;cursor:pointer;font-size:12px;font-weight:500}
-.tb-st{font-size:11px;color:rgba(255,255,255,0.6)}
-.hd{text-align:center;padding:36px 24px;margin:16px 0 20px;background:linear-gradient(135deg,var(--pd),var(--p),#CD5C5C);color:#fff;border-radius:var(--r);position:relative;overflow:hidden}
-.hd::before{content:'';position:absolute;top:-60%;left:-50%;width:200%;height:200%;background:radial-gradient(circle at 30% 40%,rgba(255,255,255,0.06),transparent 50%)}
-.hd h1{font-size:24px;font-weight:800;position:relative}
-.hd p{font-size:13px;opacity:.8;margin-top:4px;position:relative}
-.hd-b{display:inline-block;background:rgba(255,255,255,0.12);padding:3px 12px;border-radius:20px;font-size:10px;margin-top:8px;position:relative}
-.cd{background:var(--sfc);border-radius:var(--r);padding:20px 22px;margin-bottom:14px;border:1px solid var(--b2)}
-.ch2{display:flex;align-items:center;gap:10px;padding-bottom:12px;margin-bottom:14px;border-bottom:2px solid #F5EDD6}
-.cs{display:flex;align-items:center;justify-content:center;width:26px;height:26px;background:var(--p);color:#fff;border-radius:7px;font-size:13px;font-weight:700;flex-shrink:0}
-.ct{font-size:15px;font-weight:700;color:var(--p)}
-.fr{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:12px;margin-bottom:10px}
-.fg{display:flex;flex-direction:column;gap:3px}
-.fl{font-size:11px;font-weight:600;color:var(--t2);text-transform:uppercase;letter-spacing:.3px}
-.fi{width:100%;padding:8px 10px;border:1.5px solid var(--b);border-radius:var(--rs);font-size:13px;font-family:inherit;background:var(--sfc);color:var(--t)}
-.fi:focus{outline:none;border-color:var(--p);box-shadow:0 0 0 3px var(--pl)}
-.btn{display:inline-flex;align-items:center;gap:5px;padding:8px 18px;border:none;border-radius:var(--rs);font-size:13px;font-weight:600;cursor:pointer;font-family:inherit;white-space:nowrap}
-.bp{background:var(--p);color:#fff}.bp:hover{background:var(--pd)}
-.bs{background:var(--suc);color:#fff}
-.bo{background:transparent;color:var(--p);border:1.5px solid var(--p)}
-.bd2{background:#DC2626;color:#fff}
-.bsm{padding:5px 12px;font-size:11px}
-.bg{display:flex;gap:8px;flex-wrap:wrap;margin:16px 0;justify-content:center}
-.cg{display:flex;flex-wrap:wrap;gap:8px;margin:4px 0}
-.cc{display:flex;align-items:center;gap:6px;padding:7px 14px;border-radius:22px;font-size:13px;cursor:pointer;border:1.5px solid var(--b);background:var(--sfc);user-select:none}
-.cc:hover{border-color:var(--p);background:var(--pl)}
-.cc.s{background:var(--p);color:#fff;border-color:var(--p)}
-.cc input{display:none}
-.ap{background:var(--pl);border-radius:var(--r);padding:14px 16px;margin-top:10px;border:1px solid rgba(184,52,42,0.15);display:none}
-.at2{font-size:13px;font-weight:600;margin-bottom:8px}
-.ag2{display:flex;flex-wrap:wrap;gap:10px}
-.ai{display:flex;align-items:center;gap:6px}
-.ai label{font-size:12px;font-weight:500;color:var(--t2)}
-.ai input{width:48px;text-align:center;padding:4px;border:1.5px solid var(--b);border-radius:6px;font-size:13px;font-weight:600}
-.ai input:focus{outline:none;border-color:var(--p);box-shadow:0 0 0 3px var(--pl)}
-.tip{font-size:11px;color:var(--t3);margin-top:6px}
-.dc{border:1px solid var(--b);border-radius:var(--r);margin-bottom:8px;overflow:hidden}
-.dh{display:flex;align-items:center;gap:10px;padding:10px 14px;background:#FBFAF8;cursor:pointer;user-select:none}
-.dh:hover{background:#F7F4F0}
-.nn{display:flex;align-items:center;justify-content:center;width:28px;height:28px;background:var(--p);color:#fff;border-radius:7px;font-size:12px;font-weight:700;flex-shrink:0}
-.dci{font-size:11px;color:var(--t2);font-weight:500;min-width:50px}
-.dth{flex:1;font-size:13px;font-weight:500;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-.dtg{font-size:10px;color:var(--t3)}
-.db{padding:14px;display:none;border-top:1px solid var(--b2)}
-.db.o{display:block}
-.dr1{display:grid;grid-template-columns:repeat(auto-fill,minmax(130px,1fr));gap:8px;margin-bottom:10px}
-.dr1 .dci{display:flex;flex-direction:column;gap:2px}
-.dr1 .dci label{font-size:10px;color:var(--t2);font-weight:500}
-.sl{font-size:11px;font-weight:600;color:var(--t2);margin:10px 0 4px;text-transform:uppercase;letter-spacing:.3px}
-.ag{display:grid;grid-template-columns:repeat(auto-fill,minmax(170px,1fr));gap:3px}
-.ai2{display:flex;align-items:center;gap:5px;font-size:12px;padding:3px 7px;border-radius:5px;cursor:pointer}
-.ai2:hover{background:var(--pl)}
-.ai2 input{accent-color:var(--p);cursor:pointer}
-.ap2{font-size:9px;color:var(--t3);margin-left:auto}
-.st{display:flex;flex-wrap:wrap;gap:3px;margin:6px 0}
-.at3{display:inline-flex;align-items:center;gap:3px;padding:3px 8px;background:rgba(184,52,42,0.08);color:var(--p);border-radius:14px;font-size:11px;font-weight:500;border:1px solid rgba(184,52,42,0.12)}
-.at3 .del{cursor:pointer;font-size:13px;color:var(--t3);margin-left:2px}
-.mr{display:flex;gap:16px;flex-wrap:wrap;margin:6px 0;align-items:center}
-.mr label{font-size:12px;font-weight:500;color:var(--t2)}
-.mr select{font-size:11px;padding:3px 6px;border:1.5px solid var(--b);border-radius:5px;font-family:inherit}
-.pt{width:100%;border-collapse:separate;border-spacing:0;margin-top:10px;font-size:13px;border-radius:var(--r);overflow:hidden;border:1px solid var(--b2)}
-.pt th{background:#FBFAF8;padding:9px 12px;text-align:center;font-size:11px;color:var(--t2);border-bottom:1px solid var(--b);text-transform:uppercase;letter-spacing:.3px}
-.pt td{padding:9px 12px;text-align:right;border-bottom:1px solid var(--b2);font-size:13px}
-.pt td:first-child{text-align:left;font-weight:500}
-.pt tr:hover td{background:#FDFBFA}
-.pt .tt td{border-top:2px solid var(--p)}
-.pt .tt{font-weight:700;background:var(--pl);font-size:14px;color:var(--p)}
-.ob{margin-top:14px;padding:24px 28px;background:#fff;border:1px solid var(--b);border-radius:var(--r);display:none;font-size:13px;line-height:1.8;max-height:600px;overflow-y:auto;white-space:pre-wrap;font-family:Inter,Menlo,Consolas,monospace}
-.ob.o{display:block}
-.adm{background:linear-gradient(135deg,#FFF9F5,#FFF5F0)!important;border-color:rgba(184,52,42,0.12)!important}
-.toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%);background:#1F2937;color:#fff;padding:10px 24px;border-radius:var(--r);font-size:13px;z-index:9999;opacity:0;pointer-events:none;font-weight:500;transition:opacity .25s}
-.toast.s{opacity:1}
-.mo{display:none;position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,0.45);z-index:9998;align-items:center;justify-content:center;backdrop-filter:blur(4px)}
-.mo.o{display:flex}
-.mb{background:#fff;border-radius:20px;padding:36px;width:380px;box-shadow:0 25px 80px rgba(0,0,0,0.25);text-align:center}
-.cbtn{position:fixed;bottom:24px;right:24px;width:54px;height:54px;border-radius:50%;background:linear-gradient(135deg,var(--p),#CD5C5C);color:#fff;border:none;font-size:26px;cursor:pointer;box-shadow:0 6px 24px rgba(184,52,42,0.35);z-index:9996;display:flex;align-items:center;justify-content:center}
-.cbtn:hover{transform:scale(1.08)}
-.cp2{display:none;position:fixed;bottom:86px;right:24px;width:380px;max-height:520px;background:#F7F3EF;border-radius:16px;z-index:9996;flex-direction:column;overflow:hidden;border:1px solid #E0D8D0;box-shadow:0 16px 56px rgba(0,0,0,0.18)}
-.cp2.o{display:flex}
-.chat-h{background:var(--p);color:#fff;padding:12px 16px;display:flex;justify-content:space-between;align-items:center}
-.chat-t{display:flex;align-items:center;gap:6px;font-size:14px;font-weight:600}
-.chat-x{background:none;border:none;color:rgba(255,255,255,0.7);font-size:18px;cursor:pointer;padding:0}
-.cm{flex:1;overflow-y:auto;padding:12px;display:flex;flex-direction:column;gap:8px;min-height:180px;max-height:340px}
-.msg{max-width:88%;padding:9px 14px;border-radius:12px;font-size:13px;line-height:1.5}
-.msg-u{background:var(--p);color:#fff;align-self:flex-end;border-bottom-right-radius:3px}
-.msg-a{background:#fff;color:var(--t);align-self:flex-start;border-bottom-left-radius:3px;box-shadow:0 1px 3px rgba(0,0,0,0.04)}
-.cir{padding:10px 12px;border-top:1px solid #E0D8D0;background:#fff;display:flex;gap:6px}
-.cir input{flex:1;padding:8px 12px;border:1.5px solid #DDD;border-radius:8px;font-size:13px;outline:none;font-family:inherit}
-.cir input:focus{border-color:var(--p)}
-.cir button{background:var(--p);border:none;color:#fff;padding:8px 16px;border-radius:8px;font-size:13px;font-weight:600;cursor:pointer}
-.cd3{display:flex;gap:3px;padding:8px 14px;align-items:center;background:#fff;border-radius:12px}
-.cd3 span{width:6px;height:6px;border-radius:50%;background:#CCC;animation:dp 1.2s infinite}
-.cd3 span:nth-child(2){animation-delay:0.2s}
-.cd3 span:nth-child(3){animation-delay:0.4s}
-@keyframes dp{0%,60%,100%{transform:scale(1);opacity:0.4}30%{transform:scale(1.3);opacity:1}}
-@media print{.np{display:none!important}body{padding:0;background:#fff}.hd{background:var(--p)!important;-webkit-print-color-adjust:exact}.ob{max-height:none!important}}
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400&family=Inter:wght@200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --bg:#12100E;--bg2:#1A1816;--bg3:#242220;--card:#1E1C1A;--card2:#2A2825;
+  --gold:#C4A862;--gold2:#8A7640;--gold3:#5A4A2A;--gold-light:rgba(196,168,98,0.12);
+  --red:#CC0000;--red2:#8B0000;--red-light:rgba(204,0,0,0.1);
+  --cream:#E8DEC8;--text:#D4CCC3;--text2:#9A9488;--text3:#6A6458;
+  --border:#34302C;--border2:#2A2825;--success:#10B981;
+  --font-display:'Cormorant Garamond',Georgia,serif;
+  --font-body:'Inter','PingFang SC','Microsoft YaHei',sans-serif;
+  --radius:10px;--radius-sm:6px;
+}
+body{font-family:var(--font-body);background:var(--bg);color:var(--text);line-height:1.6;overflow-x:hidden}
+/* Scrollbar */
+::-webkit-scrollbar{width:6px}::-webkit-scrollbar-track{background:var(--bg2)}::-webkit-scrollbar-thumb{background:var(--border);border-radius:3px}
+/* === TOP BAR CONSTRUCTIVIST === */
+.top-bar{height:4px;background:linear-gradient(90deg,var(--red),var(--gold),var(--red));width:100%}
+.top-strip{background:var(--bg2);padding:5px 24px;display:flex;justify-content:space-between;align-items:center;font-size:10px;color:var(--text3);border-bottom:1px solid var(--border);letter-spacing:0.5px}
+.top-strip .left{display:flex;gap:16px}.top-strip .left span{color:var(--gold)}
+.top-strip .right{display:flex;gap:12px;align-items:center}
+.top-strip .right .login-btn{background:transparent;border:1px solid var(--gold);color:var(--gold);padding:2px 10px;border-radius:3px;font-size:9px;cursor:pointer;font-family:inherit;font-weight:500;letter-spacing:0.5px}
+.top-strip .right .login-btn:hover{background:var(--gold);color:var(--bg)}
+.top-strip .right .admin-badge{color:var(--gold);font-size:9px;display:none}
+/* === NAV LUXURY === */
+nav{display:flex;justify-content:space-between;align-items:center;padding:0 48px;height:64px;background:var(--bg2);border-bottom:1px solid var(--border);position:sticky;top:0;z-index:100}
+.nav-logo{display:flex;align-items:center;gap:10px}
+.nav-logo .seal{width:34px;height:34px;border:2px solid var(--gold);border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:var(--font-display);font-size:14px;font-weight:700;color:var(--gold);position:relative}
+.nav-logo .seal::after{content:'★';position:absolute;top:-6px;right:-6px;font-size:8px;color:var(--gold)}
+.nav-logo .name{font-family:var(--font-display);font-size:20px;font-weight:700;color:var(--cream)}
+.nav-logo .name span{font-weight:400;color:var(--text2);font-size:14px;font-family:var(--font-body)}
+.nav-links{display:flex;gap:4px;align-items:center}
+.nav-links a{color:var(--text2);text-decoration:none;font-size:12px;font-weight:500;padding:6px 14px;border-radius:4px;transition:all 0.2s;letter-spacing:0.3px}
+.nav-links a:hover{color:var(--cream);background:var(--bg3)}
+.nav-links a.active{color:var(--gold);background:var(--gold-light);font-weight:600}
+.nav-links a.cta{background:var(--gold);color:var(--bg);font-weight:600;padding:6px 18px}
+.nav-links a.cta:hover{background:var(--cream);color:var(--bg)}
+/* === LOGIN MODAL === */
+.modal-overlay{display:none;position:fixed;inset:0;z-index:1000;background:rgba(0,0,0,0.8);backdrop-filter:blur(8px);justify-content:center;align-items:center}
+.modal-overlay.show{display:flex}
+.modal{background:var(--bg2);border:1px solid var(--border);padding:40px;width:360px;position:relative}
+.modal .close{position:absolute;top:12px;right:16px;font-size:18px;color:var(--text3);cursor:pointer;background:none;border:none;font-family:inherit}
+.modal .close:hover{color:var(--cream)}
+.modal h2{font-family:var(--font-display);font-size:22px;color:var(--gold);margin-bottom:4px;text-align:center}
+.modal .sub{font-size:11px;color:var(--text3);text-align:center;margin-bottom:24px}
+.modal .field{margin-bottom:16px}
+.modal .field label{font-size:11px;color:var(--text2);font-weight:500;display:block;margin-bottom:4px}
+.modal .field input{width:100%;padding:10px 12px;background:var(--bg);border:1px solid var(--border);color:var(--text);font-size:13px;font-family:inherit;border-radius:4px;outline:none}
+.modal .field input:focus{border-color:var(--gold)}
+.modal .field input::placeholder{color:var(--text3)}
+.modal .btn-login{width:100%;padding:10px;background:var(--gold);color:var(--bg);border:none;font-size:13px;font-weight:700;cursor:pointer;border-radius:4px;font-family:inherit}
+.modal .btn-login:hover{background:var(--cream)}
+.modal .error{font-size:11px;color:var(--red);text-align:center;margin-top:8px;display:none}
+/* === HERO SECTION === */
+.hero{position:relative;padding:80px 48px 60px;background:linear-gradient(180deg,var(--bg2) 0%,var(--bg) 100%);overflow:hidden;text-align:center}
+.hero::before{content:'';position:absolute;top:-30%;left:-20%;width:140%;height:140%;background:radial-gradient(ellipse at 50% 40%,rgba(196,168,98,0.04),transparent 50%)}
+.hero-badge{display:inline-block;border:1px solid var(--gold);color:var(--gold);padding:4px 16px;font-size:10px;letter-spacing:4px;text-transform:uppercase;margin-bottom:20px;font-weight:500;position:relative;z-index:1}
+.hero h1{font-family:var(--font-display);font-size:52px;font-weight:700;line-height:1.1;color:var(--cream);margin-bottom:8px;position:relative;z-index:1}
+.hero h1 em{font-style:italic;color:var(--gold)}
+.hero h1 .small{display:block;font-family:var(--font-body);font-size:15px;font-weight:300;color:var(--text2);margin-top:12px}
+.hero p{font-size:14px;color:var(--text2);max-width:520px;margin:16px auto 32px;font-weight:300;line-height:1.8;position:relative;z-index:1}
+.hero-actions{display:flex;gap:12px;justify-content:center;position:relative;z-index:1}
+.btn-gold{background:var(--gold);color:var(--bg);border:none;padding:12px 28px;font-size:13px;font-weight:600;cursor:pointer;border-radius:4px;font-family:inherit;transition:all 0.3s}
+.btn-gold:hover{background:var(--cream);transform:translateY(-2px)}
+.btn-outline{background:transparent;color:var(--cream);border:1px solid var(--border);padding:12px 28px;font-size:13px;font-weight:500;cursor:pointer;border-radius:4px;font-family:inherit;transition:all 0.3s}
+.btn-outline:hover{border-color:var(--gold);color:var(--gold)}
+/* === STATS CONSTRUCTIVIST === */
+.stats{display:flex;justify-content:center;gap:48px;padding:32px 48px;border-top:1px solid var(--border);border-bottom:1px solid var(--border);margin:0 48px}
+.stat-item{text-align:center}
+.stat-item .num{font-family:var(--font-display);font-size:32px;font-weight:700;color:var(--gold)}
+.stat-item .label{font-size:10px;color:var(--text3);letter-spacing:2px;text-transform:uppercase;margin-top:2px}
+/* === TOOL SECTION === */
+.tool-section{padding:48px;max-width:1200px;margin:0 auto}
+.tool-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:24px}
+.tool-header h2{font-family:var(--font-display);font-size:28px;font-weight:700;color:var(--cream)}
+.tool-header h2 em{color:var(--gold);font-style:italic}
+.tool-header .actions{display:flex;gap:6px}
+.tool-header .actions button{padding:6px 14px;font-size:11px;border-radius:4px;border:none;cursor:pointer;font-family:inherit;font-weight:500;transition:all 0.2s}
+.tool-header .actions .btn-save{background:var(--gold);color:var(--bg)}
+.tool-header .actions .btn-export{background:var(--bg3);color:var(--cream);border:1px solid var(--border)}
+.tool-header .actions .btn-export:hover{border-color:var(--gold)}
+.tool-header .actions .btn-ai{background:var(--red);color:#fff}
+.tool-header .actions .btn-ai:hover{background:var(--red2)}
+/* === LAYOUT === */
+.tool-layout{display:grid;grid-template-columns:280px 1fr 300px;gap:16px;align-items:start}
+/* Left panel - cities */
+.left-panel{background:var(--bg2);border:1px solid var(--border);border-radius:var(--radius);padding:16px}
+.left-panel h3{font-size:10px;font-weight:600;color:var(--text3);text-transform:uppercase;letter-spacing:1px;margin-bottom:12px;padding-bottom:8px;border-bottom:1px solid var(--border)}
+.city-list{display:flex;flex-direction:column;gap:3px}
+.city-item{display:flex;align-items:center;gap:8px;padding:7px 10px;border-radius:var(--radius-sm);cursor:pointer;font-size:12px;transition:all 0.15s;border:1px solid transparent;color:var(--text2)}
+.city-item:hover{background:var(--bg3);color:var(--cream)}
+.city-item.active{background:var(--gold-light);border-color:rgba(196,168,98,0.3);color:var(--gold);font-weight:500}
+.city-item .drag{cursor:grab;color:var(--text3);font-size:10px;user-select:none}
+.city-item .city-name{flex:1}.city-item .days-num{color:var(--text3);font-size:10px;display:flex;align-items:center;gap:4px}
+.city-item .days-num input{width:28px;background:var(--bg);border:1px solid var(--border);color:var(--text);text-align:center;padding:2px;border-radius:3px;font-size:11px;font-family:inherit;outline:none}
+.city-item .days-num input:focus{border-color:var(--gold)}
+.city-item .del-btn{font-size:10px;color:var(--text3);cursor:pointer;padding:2px;opacity:0;transition:opacity 0.2s}.city-item:hover .del-btn{opacity:1}.city-item .del-btn:hover{color:var(--red)}
+.add-city-btn{display:flex;align-items:center;gap:6px;padding:8px 10px;margin-top:8px;color:var(--text3);font-size:11px;cursor:pointer;border:1px dashed var(--border);border-radius:var(--radius-sm);justify-content:center;transition:all 0.2s}
+.add-city-btn:hover{border-color:var(--gold);color:var(--gold);background:var(--gold-light)}
+.city-pool{display:flex;flex-wrap:wrap;gap:4px;margin-top:8px;padding-top:8px;border-top:1px solid var(--border)}
+.city-pool .chip{font-size:10px;padding:3px 10px;border-radius:10px;border:1px solid var(--border);color:var(--text3);cursor:pointer;transition:all 0.15s}
+.city-pool .chip:hover{border-color:var(--gold);color:var(--gold);background:var(--gold-light)}
+/* Main - day editor */
+.main-panel{display:flex;flex-direction:column;gap:8px}
+.day-tabs{display:flex;gap:4px;flex-wrap:wrap;margin-bottom:4px}
+.day-tab{padding:6px 14px;font-size:11px;border-radius:4px;cursor:pointer;border:1px solid var(--border);background:var(--bg2);color:var(--text3);transition:all 0.15s;font-family:inherit}
+.day-tab:hover{border-color:var(--gold);color:var(--cream)}
+.day-tab.active{background:var(--gold);color:var(--bg);border-color:var(--gold);font-weight:600}
+.day-card{background:var(--bg2);border:1px solid var(--border);border-radius:var(--radius);padding:16px;display:none}
+.day-card.active{display:block}
+.day-card .day-title{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;padding-bottom:8px;border-bottom:1px solid var(--border)}
+.day-card .day-title .left{display:flex;align-items:center;gap:8px}
+.day-card .day-title .left .num{font-family:var(--font-display);font-size:20px;font-weight:700;color:var(--gold)}
+.day-card .day-title .left .city-tag{font-size:10px;font-weight:500;background:var(--gold-light);color:var(--gold);padding:2px 10px;border-radius:10px}
+.day-card .day-title .left input{background:transparent;border:none;color:var(--cream);font-size:14px;font-weight:600;font-family:inherit;outline:none;width:200px}
+.day-card .day-title .left input::placeholder{color:var(--text3)}
+.day-card .day-title .right{display:flex;gap:4px}
+.day-card .day-title .right button{background:transparent;border:none;color:var(--text3);font-size:12px;cursor:pointer;padding:4px 8px;border-radius:3px;transition:all 0.15s}
+.day-card .day-title .right button:hover{background:var(--bg3);color:var(--cream)}
+.day-card .day-title .right .del-day:hover{color:var(--red)!important;background:var(--red-light)!important}
+.day-card .day-items{display:flex;flex-direction:column;gap:6px}
+.day-item{display:grid;grid-template-columns:50px 1fr 60px;gap:8px;padding:6px 8px;border-radius:var(--radius-sm);transition:all 0.15s;align-items:center}
+.day-item:hover{background:var(--bg3)}
+.day-item .time input{width:100%;background:transparent;border:none;color:var(--text3);font-size:11px;font-family:inherit;outline:none;padding:2px 4px}
+.day-item .time input:focus{background:var(--bg);border-radius:3px}
+.day-item .desc input{width:100%;background:transparent;border:none;color:var(--text);font-size:12px;font-family:inherit;outline:none;padding:2px 4px}
+.day-item .desc input::placeholder{color:var(--text3)}
+.day-item .desc input:focus{background:var(--bg);border-radius:3px}
+.day-item .type-select select{width:100%;background:var(--bg);border:1px solid var(--border);color:var(--text2);font-size:10px;padding:3px;border-radius:3px;font-family:inherit;outline:none}
+.day-item .del-item{font-size:10px;color:var(--text3);cursor:pointer;padding:2px;text-align:center;opacity:0;transition:opacity 0.2s}.day-item:hover .del-item{opacity:1}.day-item .del-item:hover{color:var(--red)}
+.add-item-btn{display:flex;align-items:center;gap:6px;padding:6px;color:var(--text3);font-size:11px;cursor:pointer;justify-content:center;border:1px dashed var(--border);border-radius:var(--radius-sm);margin-top:4px;transition:all 0.2s}
+.add-item-btn:hover{border-color:var(--gold);color:var(--gold);background:var(--gold-light)}
+/* Right panel - quote */
+.right-panel{background:var(--bg2);border:1px solid var(--border);border-radius:var(--radius);padding:16px}
+.right-panel h3{font-size:10px;font-weight:600;color:var(--text3);text-transform:uppercase;letter-spacing:1px;margin-bottom:12px;padding-bottom:8px;border-bottom:1px solid var(--border)}
+.quote-summary{background:var(--bg3);border-radius:var(--radius-sm);padding:14px;margin-bottom:12px;border:1px solid var(--border)}
+.quote-summary .total{font-family:var(--font-display);font-size:28px;font-weight:700;color:var(--gold);line-height:1}
+.quote-summary .total span{font-size:12px;font-weight:400;color:var(--text3);font-family:var(--font-body)}
+.quote-summary .per{font-size:11px;color:var(--text2);margin-top:4px}
+.quote-breakdown{display:flex;flex-direction:column;gap:4px}
+.quote-row{display:flex;justify-content:space-between;font-size:11px;color:var(--text2);padding:5px 0;border-bottom:1px solid var(--border2)}
+.quote-row .val{font-weight:500;color:var(--cream)}
+.quote-row input{width:70px;background:var(--bg);border:1px solid var(--border);color:var(--text);text-align:right;padding:2px 6px;border-radius:3px;font-size:11px;font-family:inherit;outline:none}
+.quote-row input:focus{border-color:var(--gold)}
+.quote-actions{display:flex;flex-direction:column;gap:6px;margin-top:12px}
+.quote-actions button{padding:8px;border:none;border-radius:4px;font-size:11px;font-weight:600;cursor:pointer;font-family:inherit;transition:all 0.2s}
+.quote-actions .gen-btn{background:var(--gold);color:var(--bg)}
+.quote-actions .gen-btn:hover{background:var(--cream)}
+.quote-actions .save-btn{background:var(--bg3);color:var(--cream);border:1px solid var(--border)}
+.quote-actions .save-btn:hover{border-color:var(--gold)}
+/* === AI CHAT === */
+.ai-overlay{display:none;position:fixed;inset:0;z-index:999;background:rgba(0,0,0,0.7);backdrop-filter:blur(4px);justify-content:flex-end}
+.ai-overlay.show{display:flex}
+.ai-panel{width:400px;background:var(--bg2);border-left:1px solid var(--border);display:flex;flex-direction:column;height:100%;position:relative}
+.ai-header{display:flex;justify-content:space-between;align-items:center;padding:16px;border-bottom:1px solid var(--border)}
+.ai-header h3{font-family:var(--font-display);font-size:16px;color:var(--gold)}
+.ai-header .close-ai{background:none;border:none;color:var(--text3);font-size:18px;cursor:pointer;font-family:inherit}
+.ai-header .close-ai:hover{color:var(--cream)}
+.ai-messages{flex:1;overflow-y:auto;padding:16px;display:flex;flex-direction:column;gap:8px}
+.ai-msg{max-width:90%;padding:10px 14px;border-radius:8px;font-size:12px;line-height:1.6}
+.ai-msg.bot{background:var(--bg3);color:var(--text);align-self:flex-start;border-bottom-left-radius:2px}
+.ai-msg.user{background:var(--gold-light);color:var(--cream);align-self:flex-end;border-bottom-right-radius:2px;border:1px solid rgba(196,168,98,0.2)}
+.ai-input-wrap{display:flex;gap:8px;padding:12px 16px;border-top:1px solid var(--border)}
+.ai-input-wrap input{flex:1;background:var(--bg);border:1px solid var(--border);color:var(--text);padding:8px 12px;border-radius:4px;font-size:12px;font-family:inherit;outline:none}
+.ai-input-wrap input:focus{border-color:var(--gold)}
+.ai-input-wrap input::placeholder{color:var(--text3)}
+.ai-input-wrap .send-btn{background:var(--gold);color:var(--bg);border:none;padding:8px 16px;border-radius:4px;font-size:12px;font-weight:600;cursor:pointer;font-family:inherit}
+.ai-input-wrap .send-btn:hover{background:var(--cream)}
+/* === OUTPUT MODAL === */
+.output-overlay{display:none;position:fixed;inset:0;z-index:1000;background:rgba(0,0,0,0.85);backdrop-filter:blur(8px);justify-content:center;align-items:center;padding:24px}
+.output-overlay.show{display:flex}
+.output-modal{background:var(--card);border:1px solid var(--border);max-width:800px;width:100%;max-height:90vh;overflow-y:auto;padding:40px;position:relative}
+.output-modal .close-out{position:absolute;top:16px;right:20px;font-size:20px;color:var(--text3);cursor:pointer;background:none;border:none;font-family:inherit}
+.output-modal .close-out:hover{color:var(--cream)}
+.output-content{color:var(--text)}.output-content h1{font-family:var(--font-display);font-size:26px;color:var(--gold);margin-bottom:4px}
+.output-content .meta{font-size:11px;color:var(--text3);margin-bottom:20px;padding-bottom:12px;border-bottom:1px solid var(--border)}
+.output-content table{width:100%;border-collapse:collapse;margin:16px 0;font-size:12px}
+.output-content td,.output-content th{padding:8px 10px;border:1px solid var(--border);text-align:left}
+.output-content th{background:var(--bg2);color:var(--gold);font-weight:600;font-size:11px}
+.output-content h2{font-family:var(--font-display);font-size:18px;color:var(--cream);margin:20px 0 8px}
+.output-content .day-detail{margin:8px 0;padding:10px 14px;background:var(--bg2);border-left:3px solid var(--gold);border-radius:0 4px 4px 0}
+.output-content .day-detail h4{font-size:13px;color:var(--gold);margin-bottom:4px}
+.output-content .day-detail p{font-size:11px;color:var(--text2)}
+.output-content .quote-table{margin-top:20px}
+.output-content .quote-table .grand-total{font-family:var(--font-display);font-size:24px;color:var(--gold);text-align:right;padding-top:12px}
+.output-content .quote-table .grand-total span{font-size:12px;color:var(--text3);font-family:var(--font-body)}
+/* === FOOTER === */
+footer{text-align:center;padding:24px 48px;border-top:1px solid var(--border);color:var(--text3);font-size:11px;margin-top:24px}
+footer .brand{font-family:var(--font-display);font-size:16px;color:var(--gold);margin-bottom:2px}
+/* === RESPONSIVE === */
+@media(max-width:1100px){
+  .tool-layout{grid-template-columns:1fr}
+  .left-panel{order:2}.main-panel{order:1}.right-panel{order:3}
+  nav{padding:0 24px}.hero{padding:60px 24px}.hero h1{font-size:36px}
+  .tool-section{padding:24px}.stats{gap:24px;margin:0 24px;flex-wrap:wrap}
+}
 </style>
 </head>
 <body>
-<div class="app">
-
-<div class="tb np">
-  <div class="tb-b">🇷🇺 阿杜俄旅 · 专业俄罗斯地接</div>
-  <div class="tb-a">
-    <span class="tb-st" id="ai2">🔒 未登录</span>
-    <button class="tb-btn" onclick="SL()">管理员登录</button>
+<div class="top-bar"></div>
+<div class="top-strip">
+  <div class="left">🇷🇺 <span>俄罗斯导游阿杜</span> · 二十年俄语导游经验</div>
+  <div class="right">
+    <span class="admin-badge" id="adminBadge">👤 管理员已登录</span>
+    <button class="login-btn" id="loginBtn">管理员登录</button>
   </div>
 </div>
 
-<div class="hd np">
-  <h1>🇷🇺 产品定制与报价核算</h1>
-  <p>俄罗斯旅游产品定制 · 实时核算 · 一键生成行程单</p>
-  <div class="hd-b">v2.0 · 阿杜俄旅</div>
-</div>
+<!-- NAV -->
+<nav>
+  <div class="nav-logo"><div class="seal">А</div><div class="name">阿杜俄旅 <span>· 定制报价</span></div></div>
+  <div class="nav-links">
+    <a href="#" class="active">行程定制</a>
+    <a href="#" id="aiChatBtn" class="login-required" style="opacity:0.5;pointer-events:none">🤖 AI助手</a>
+    <a href="#">方案库</a>
+    <a href="#" class="cta" id="startBtn">开始定制</a>
+  </div>
+</nav>
 
-<!-- Admin Modal -->
-<div class="mo" id="am" onclick="if(event.target===this)HL()">
-  <div class="mb">
-    <div style="font-size:44px;margin-bottom:10px">🔐</div>
-    <h3 style="font-size:18px;color:var(--p);font-weight:700;margin-bottom:4px">管理员登录</h3>
-    <p style="font-size:12px;color:var(--t3);margin-bottom:20px">登录后启用AI助手</p>
-    <input class="fi" id="mu" type="text" placeholder="管理员账号" value="3056898" style="margin-bottom:10px;text-align:center">
-    <input class="fi" id="mp" type="password" placeholder="管理员密码" style="margin-bottom:16px;text-align:center" onkeydown="if(event.key==='Enter')DL()">
-    <button class="btn bp" onclick="DL()" style="width:100%;padding:11px;font-size:14px">登录</button>
-    <p id="le" style="color:#DC2626;font-size:12px;margin-top:8px;display:none"></p>
+<!-- LOGIN MODAL -->
+<div class="modal-overlay" id="loginModal">
+  <div class="modal">
+    <button class="close" id="closeLogin">✕</button>
+    <h2>管理员登录</h2>
+    <div class="sub">请输入管理员账号密码</div>
+    <div class="field"><label>账号</label><input type="text" id="loginUser" placeholder="请输入管理员账号"></div>
+    <div class="field"><label>密码</label><input type="password" id="loginPass" placeholder="请输入密码" onkeydown="if(event.key==='Enter')doLogin()"></div>
+    <button class="btn-login" onclick="doLogin()">登 录</button>
+    <div class="error" id="loginError">账号或密码错误</div>
   </div>
 </div>
 
-<!-- Step 1 -->
-<div class="cd">
-  <div class="ch2"><span class="cs">1</span><span class="ct">📋 基础信息</span></div>
-  <div class="fr">
-    <div class="fg"><label class="fl">产品名称</label><input class="fi" id="fn" value="莫斯科+圣彼得堡经典之旅"></div>
-    <div class="fg"><label class="fl">客户类型</label><select class="fi" id="fc"><option value="family">👨‍👩‍👧‍👦 家庭团</option><option value="group">👥 常规团</option><option value="vip">⭐ VIP精品团</option></select></div>
-    <div class="fg"><label class="fl">出行人数</label><input class="fi" type="number" id="fp" value="5" min="1" max="50" onchange="UA()"></div>
-    <div class="fg"><label class="fl">行程天数</label><input class="fi" type="number" id="fd" value="9" min="2" max="30" onchange="UA()"></div>
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-badge">★ 俄罗斯联邦持证导游 · 二十年深耕</div>
+  <h1>定制您的 <em>俄罗斯</em> 之旅<small class="small">从红场到冬宫，从金环到贝加尔——阿杜带您领略真正的俄罗斯</small></h1>
+  <p>选择城市、调整天数、编排行程、实时算价——三分钟生成专业行程单+报价单</p>
+  <div class="hero-actions">
+    <button class="btn-gold" id="heroStartBtn">🎯 开始定制行程</button>
+    <button class="btn-outline" onclick="generateOutput()">📄 查看示例行程</button>
   </div>
-  <div class="fr">
-    <div class="fg"><label class="fl">出发城市</label><select class="fi" id="fd2"><option>北京</option><option>上海</option><option>广州</option><option>深圳</option><option selected>成都</option><option>香港</option></select></div>
-    <div class="fg"><label class="fl">住宿标准</label><select class="fi" id="fh" onchange="CP()"><option value="3">★★★ 三星</option><option value="4" selected>★★★★ 四星</option><option value="5">★★★★★ 五星</option></select></div>
-    <div class="fg"><label class="fl">用车类型</label><select class="fi" id="fv" onchange="CP()"><option value="minibus">🚐 中巴(18座)</option><option value="bus">🚌 大巴(35-40座)</option><option value="sedan">🚗 轿车/商务</option></select></div>
-    <div class="fg"><label class="fl">旺季</label><select class="fi" id="fk" onchange="CP()"><option value="0">📆 平季</option><option value="1">🔥 旺季(+15%)</option></select></div>
-  </div>
-</div>
+</section>
 
-<!-- Step 2 -->
-<div class="cd">
-  <div class="ch2"><span class="cs">2</span><span class="ct">🏙️ 选择城市</span></div>
-  <div class="cg" id="cg"></div>
-  <div class="ap" id="ap">
-    <div class="at2">📊 分配天数 <span id="dt" style="font-weight:400;color:var(--t3);font-size:12px"></span></div>
-    <div class="ag2" id="ai"></div>
-    <div class="tip" id="tip"></div>
-  </div>
-</div>
+<!-- STATS -->
+<section class="stats">
+  <div class="stat-item"><div class="num">20+</div><div class="label">年俄旅经验</div></div>
+  <div class="stat-item"><div class="num">64万</div><div class="label">抖音粉丝</div></div>
+  <div class="stat-item"><div class="num">50+</div><div class="label">覆盖城市</div></div>
+  <div class="stat-item"><div class="num">5000+</div><div class="label">服务游客</div></div>
+</section>
 
-<!-- Step 3 -->
-<div class="cd">
-  <div class="ch2"><span class="cs">3</span><span class="ct">📅 每日行程</span></div>
-  <div id="de"><div style="text-align:center;padding:28px;color:var(--t3);font-size:13px">🏙️ 请先选择城市</div></div>
-</div>
-
-<!-- Step 4 -->
-<div class="cd">
-  <div class="ch2"><span class="cs">4</span><span class="ct">💰 报价核算 <span id="pt" style="font-weight:400;font-size:12px;color:var(--t3)"></span></span></div>
-  <div id="ps"><div style="text-align:center;padding:24px;color:var(--t3);font-size:13px">💵 配置后自动核算</div></div>
-</div>
-
-<div class="bg np">
-  <button class="btn bs" onclick="GD()">📄 生成行程单+报价单</button>
-  <button class="btn bp" onclick="window.print()">🖨️ 打印/PDF</button>
-  <button class="btn bo" onclick="SD()">💾 保存</button>
-  <button class="btn bo" onclick="LD()">📂 载入</button>
-  <button class="btn bd2" onclick="RS()">🔄 重置</button>
-</div>
-
-<div class="ob" id="ob"></div>
-
-<div class="cd adm np" id="ads" style="display:none">
-  <div class="ch2"><span class="cs">⚙</span><span class="ct">管理员设置</span></div>
-  <div id="akr" style="display:none">
-    <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px">
-      <span style="font-size:13px;font-weight:600">🔑 DeepSeek API Key</span>
-      <span id="ks" style="font-size:14px">❌</span>
-    </div>
-    <div style="display:flex;gap:6px;align-items:center;flex-wrap:wrap">
-      <input class="fi" id="ki" type="password" value="sk-93b7f24e8d4f4b55b7c7aff22b9c3ab8" style="flex:1;min-width:200px;font-family:monospace">
-      <button class="btn bp bsm" id="skb" onclick="SK()" disabled>✅ 保存</button>
-      <button class="btn bd2 bsm" id="lo" onclick="AL()" style="display:none">🚪 退出</button>
+<!-- TOOL -->
+<section class="tool-section" id="toolSection">
+  <div class="tool-header">
+    <h2>行程 <em>定制器</em></h2>
+    <div class="actions">
+      <button class="btn-save" onclick="savePlan()">💾 保存方案</button>
+      <button class="btn-export" onclick="generateOutput()">📄 生成行程单</button>
+      <button class="btn-ai" id="aiBtn" onclick="toggleAI()" style="display:none">🤖 AI智能填表</button>
     </div>
   </div>
-</div>
+  <div class="tool-layout">
+    <!-- LEFT: Cities -->
+    <div class="left-panel" id="leftPanel">
+      <h3>📍 目的地城市</h3>
+      <div class="city-list" id="cityList"></div>
+      <div class="add-city-btn" id="addCityBtn">+ 添加城市</div>
+      <div class="city-pool" id="cityPool"></div>
+    </div>
 
-</div><!-- /app -->
+    <!-- MAIN: Day Editor -->
+    <div class="main-panel">
+      <div class="day-tabs" id="dayTabs"></div>
+      <div id="dayCardsContainer"></div>
+    </div>
 
-<button class="cbtn np" id="cbtn" onclick="TGC()">🤖</button>
-<div class="cp2 np" id="cp">
-  <div class="chat-h">
-    <div class="chat-t">🤖 阿杜AI助手</div>
-    <div style="display:flex;align-items:center;gap:6px">
-      <span id="cs" style="font-size:10px;color:rgba(255,255,255,0.6)">🔒 未登录</span>
-      <button class="chat-x" onclick="TGC()">✕</button>
+    <!-- RIGHT: Quote -->
+    <div class="right-panel">
+      <h3>💰 实时报价</h3>
+      <div class="quote-summary">
+        <div class="total">¥0 <span>≈ ₽0</span></div>
+        <div class="per" id="perPerson">请先添加城市和天数</div>
+      </div>
+      <div class="quote-breakdown" id="quoteBreakdown">
+        <div class="quote-row"><span>🏨 酒店</span><input type="number" id="hotelCost" value="600" onchange="calcQuote()"> <span>/间/晚</span></div>
+        <div class="quote-row"><span>🚐 用车</span><input type="number" id="carCost" value="1400" onchange="calcQuote()"> <span>/天</span></div>
+        <div class="quote-row"><span>🎫 门票</span><input type="number" id="ticketCost" value="600" onchange="calcQuote()"> <span>/人/天</span></div>
+        <div class="quote-row"><span>👨 导游</span><input type="number" id="guideCost" value="1000" onchange="calcQuote()"> <span>/天</span></div>
+        <div class="quote-row"><span>🚄 高铁</span><input type="number" id="trainCost" value="1200" onchange="calcQuote()"> <span>/程</span></div>
+      </div>
+      <div class="quote-actions">
+        <button class="gen-btn" onclick="generateOutput()">📄 生成行程单+报价单</button>
+        <button class="save-btn" onclick="savePlan()">💾 保存方案</button>
+      </div>
     </div>
   </div>
-  <div class="cm" id="cm"></div>
-  <div class="cir">
-    <input id="ci" placeholder="输入需求，如：5人家庭团9天莫斯科+彼得堡" onkeydown="if(event.key==='Enter')SM()">
-    <button id="sb2" onclick="SM()">发送</button>
+</section>
+
+<!-- AI CHAT -->
+<div class="ai-overlay" id="aiOverlay">
+  <div class="ai-panel">
+    <div class="ai-header">
+      <h3>🤖 阿杜AI智能助手</h3>
+      <button class="close-ai" onclick="toggleAI()">✕</button>
+    </div>
+    <div class="ai-messages" id="aiMessages">
+      <div class="ai-msg bot">你好！我是阿杜AI助手。告诉我你的需求，比如：<br><br>"5人家庭团，9天莫斯科+彼得堡，预算中等"<br><br>我会帮你自动填写行程方案。</div>
+    </div>
+    <div class="ai-input-wrap">
+      <input type="text" id="aiInput" placeholder="输入你的旅行需求..." onkeydown="if(event.key==='Enter')sendAI()">
+      <button class="send-btn" onclick="sendAI()">发送</button>
+    </div>
   </div>
 </div>
 
-<div class="toast" id="ts"></div>
+<!-- OUTPUT MODAL -->
+<div class="output-overlay" id="outputOverlay">
+  <div class="output-modal">
+    <button class="close-out" onclick="closeOutput()">✕</button>
+    <div class="output-content" id="outputContent"></div>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="brand">俄罗斯导游阿杜 · АДУ</div>
+  <p>二十年俄语导游经验 · 俄罗斯联邦持证导游 · 抖音：pandabai666（64万粉丝）</p>
+  <p style="margin-top:4px">© 2026 阿杜俄旅 · 定制报价系统 v0.3</p>
+</footer>
 
 <script>
-// ===== CONFIG =====
-var V = "2.0";
-var P = {vh:{bus:3510,minibus:2500,sedan:1800},ht:{3:5000,4:7000,5:12000},gh:{3:5000,4:7500,5:12000},dh:{3:3500,4:5500,5:8000},gf:30000,ghf:15000,ml:{l:2500,d:2500},dm:1500,hs:9500,pk:800,pm:1.15};
-var C = {moscow:"莫斯科",spb:"圣彼得堡",tula:"图拉",sergiev:"谢尔盖耶夫",suzdal:"苏兹达里"};
-var CN = {family:"家庭团",group:"常规团",vip:"VIP精品团"};
-var VN = {bus:"大巴(35-40座)",minibus:"中巴(18座)",sedan:"轿车/商务(1-4人)"};
-var HN = {3:"★★★三星",4:"★★★★四星",5:"★★★★★五星"};
-var AT = {moscow:[{id:"rs",n:"红场",c:0},{id:"sb",n:"圣瓦西里大教堂",c:1500},{id:"kr",n:"克里姆林宫",c:1500},{id:"ar",n:"军械库",c:2000},{id:"tr",n:"特列季亚科夫画廊",c:1400},{id:"bu",n:"Bunker-42地堡",c:4500},{id:"rd",n:"游船晚餐",c:8700},{id:"vd",n:"VDNH太空馆",c:600},{id:"nv",n:"新圣女公墓",c:700}],spb:[{id:"he",n:"冬宫博物馆",c:3500},{id:"ph",n:"夏宫(彼得霍夫)",c:3000},{id:"cp",n:"叶卡捷琳娜宫",c:3500},{id:"sab",n:"滴血大教堂",c:1500},{id:"pp",n:"彼得保罗要塞",c:1500},{id:"rm",n:"俄罗斯博物馆",c:1500}],tula:[{id:"tk",n:"图拉克里姆林宫",c:0},{id:"gb",n:"姜饼博物馆",c:1200},{id:"ys",n:"托尔斯泰庄园",c:1500}],sergiev:[{id:"tl",n:"圣三一修道院",c:1200}],suzdal:[{id:"sk",n:"苏兹达里克里姆林宫",c:1000},{id:"wa",n:"木建筑博物馆",c:900}]};
+// === DATA ===
+const ALL_CITIES = {
+  'msk':{name:'莫斯科',nameEn:'Москва',emoji:'🏛️',desc:'红场 · 克里姆林宫'},
+  'spb':{name:'圣彼得堡',nameEn:'СПб',emoji:'🌊',desc:'冬宫 · 夏宫'},
+  'tula':{name:'图拉',nameEn:'Тула',emoji:'🌳',desc:'托尔斯泰庄园'},
+  'serg':{name:'谢尔盖耶夫',nameEn:'Сергиев',emoji:'⛪',desc:'金环小镇'},
+  'suzd':{name:'苏兹达尔',nameEn:'Суздаль',emoji:'🏘️',desc:'金环古镇'},
+  'kazan':{name:'喀山',nameEn:'Казань',emoji:'🏰',desc:'千年古城'},
+  'irk':{name:'伊尔库茨克',nameEn:'Иркутск',emoji:'💎',desc:'贝加尔湖入口'},
+  'sochi':{name:'索契',nameEn:'Сочи',emoji:'🏔️',desc:'黑海明珠'},
+  'vlad':{name:'海参崴',nameEn:'Владивосток',emoji:'⚓',desc:'远东港口'},
+  'novg':{name:'大诺夫哥罗德',nameEn:'Новгород',emoji:'🔔',desc:'千年俄史'},
+};
+const DEFAULT_CITIES = ['msk','spb','tula'];
 
-// ===== STATE =====
-var S = [];         // selected cities
-var DD = [];        // day data
-var CH = [];        // chat history
-var AK = localStorage.getItem("ak") || "sk-93b7f24e8d4f4b55b7c7aff22b9c3ab8";
+let state = {
+  cities: [...DEFAULT_CITIES],
+  days: {},
+  dayOrder: [],
+  cityDays: {},
+  pax: 5,
+  rooms: 3,
+};
 
-// ===== HELPERS =====
-function $(i){return document.getElementById(i);}
-function V(i){return $(i).value;}
-function N(i){return parseInt($(i).value) || 0;}
-function PP(){return N("fp") || 5;}
-function TD(){return N("fd") || 9;}
-function HS(){return N("fh") || 4;}
-function IP(){return V("fk") === "1";}
-function PM(){return IP() ? 1.15 : 1;}
-function GC(c){return parseInt(($("cd_"+c)||{value:0}).value)||0;}
-function TT(m){var t=$("ts");t.textContent=m;t.classList.add("s");setTimeout(function(){t.classList.remove("s");},2500);}
-function ES(s){return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/'/g,"&#39;").replace(/"/g,"&quot;");}
-
-// ===== CITIES =====
-function IC(){
-  var g = $("cg"), h = "";
-  for(var k in C){
-    h += '<div class="cc" data-k="'+k+'" onclick="TC(\''+k+'\')"><input type="checkbox">'+C[k]+'</div>';
-  }
-  g.innerHTML = h;
-}
-
-function TC(k){
-  var i = S.indexOf(k);
-  if(i >= 0) S.splice(i,1);
-  else S.push(k);
-  RC();
-  UA();
-}
-
-function RC(){
-  document.querySelectorAll(".cc").forEach(function(e){
-    var k = e.dataset.k;
-    if(S.includes(k)){ e.classList.add("s"); e.querySelector("input").checked = true; }
-    else{ e.classList.remove("s"); e.querySelector("input").checked = false; }
+// === INIT ===
+function init() {
+  DEFAULT_CITIES.forEach(c => {
+    state.cityDays[c] = 3;
   });
+  rebuildDays();
+  renderCities();
+  renderDays();
+  calcQuote();
+  renderPool();
 }
 
-function UA(){
-  var p = $("ap");
-  if(S.length < 2){ p.style.display = "none"; return; }
-  p.style.display = "block";
-  var t = TD();
-  var g = $("ai");
-  g.innerHTML = "";
-  S.forEach(function(c){
-    var e = $("cd_"+c);
-    var d = e ? parseInt(e.value)||0 : Math.floor(t/S.length);
-    var d2 = document.createElement("div");
-    d2.className = "ai";
-    d2.innerHTML = '<label>'+C[c]+'</label><input id="cd_'+c+'" type="number" value="'+d+'" min="1" max="'+t+'" onchange="VA()">';
-    g.appendChild(d2);
-  });
-  VA();
+// === CITIES ===
+function renderCities() {
+  const el = document.getElementById('cityList');
+  el.innerHTML = state.cities.map((c,i) => `
+    <div class="city-item active" draggable="true" data-city="${c}">
+      <span class="drag">⠿</span>
+      <span class="city-name">${ALL_CITIES[c].emoji} ${ALL_CITIES[c].name}</span>
+      <span class="days-num">
+        <input type="number" value="${state.cityDays[c]||3}" min="1" max="20" onchange="updateCityDays('${c}',this.value)">
+        <span>天</span>
+      </span>
+      <span class="del-btn" onclick="removeCity('${c}')">✕</span>
+    </div>
+  `).join('');
 }
 
-function VA(){
-  var s = 0;
-  S.forEach(function(c){ s += parseInt(($("cd_"+c)||{value:0}).value)||0; });
-  $("dt").textContent = "(共"+s+"天)";
-  if(s !== TD()){
-    $("tip").textContent = "⚠️ 天数不匹配，需"+TD()+"天";
-    $("tip").style.color = "#D97706";
-  } else {
-    $("tip").textContent = "✅ 合理";
-    $("tip").style.color = "#059669";
-  }
+function renderPool() {
+  const used = new Set(state.cities);
+  const el = document.getElementById('cityPool');
+  el.innerHTML = Object.entries(ALL_CITIES).filter(([k])=>!used.has(k)).map(([k,v])=>
+    `<span class="chip" onclick="addCity('${k}')">${v.emoji} ${v.name}</span>`
+  ).join('');
 }
 
-// ===== DAYS =====
-function BD(){
-  var t = TD();
-  if(!S.length){ DD=[]; RD(); CP(); return; }
-  var sq = [];
-  
-  if(S.indexOf("moscow")>=0 && S.indexOf("spb")>=0){
-    var md = GC("moscow"), sd = GC("spb");
-    var ot = S.filter(function(c){return c!="moscow"&&c!="spb";});
-    sq.push({c:"moscow",tp:"arr",lb:"抵达莫斯科"});
-    for(var i=1; i<md-1 && sq.length<t-1; i++) sq.push({c:"moscow",tp:"st",lb:"莫斯科游览"});
-    ot.forEach(function(c){
-      var cd = GC(c);
-      if(sq.length < t-1){ sq.push({c:c,tp:"st",lb:C[c]+"游览"}); }
-      for(var i=1; i<cd && sq.length<t-1; i++) sq.push({c:c,tp:"st",lb:C[c]+"游览"});
-    });
-    if(sq.length < t-1){
-      sq.push({c:"spb",tp:"tr",lb:"高铁去圣彼得堡"});
-      for(var i=1; i<sd-1 && sq.length<t-1; i++) sq.push({c:"spb",tp:"st",lb:"圣彼得堡游览"});
+function addCity(key) {
+  if (state.cities.includes(key)) return;
+  state.cities.push(key);
+  state.cityDays[key] = 3;
+  rebuildDays();
+  renderCities(); renderDays(); renderPool(); calcQuote();
+}
+
+function removeCity(key) {
+  state.cities = state.cities.filter(c=>c!==key);
+  delete state.cityDays[key];
+  rebuildDays();
+  renderCities(); renderDays(); renderPool(); calcQuote();
+}
+
+function updateCityDays(key, val) {
+  const n = parseInt(val)||1;
+  state.cityDays[key] = Math.max(1,Math.min(20,n));
+  rebuildDays();
+  renderCities(); renderDays(); calcQuote();
+}
+
+// === DAYS ===
+function rebuildDays() {
+  const newDays = {};
+  const newOrder = [];
+  state.cities.forEach(c => {
+    const n = state.cityDays[c]||3;
+    for(let i=1;i<=n;i++){
+      const dayId = `${c}-d${i}`;
+      newOrder.push(dayId);
+      if(state.days[dayId]){
+        newDays[dayId] = state.days[dayId];
+      } else {
+        newDays[dayId] = {city:c,title:`${ALL_CITIES[c].name} 第${i}天`,items:[
+          {time:'09:00',desc:'酒店出发',type:'transport'},
+          {time:'10:00',desc:'景点游览',type:'sight'},
+          {time:'12:00',desc:'午餐',type:'meal'},
+          {time:'14:00',desc:'继续游览',type:'sight'},
+          {time:'18:00',desc:'晚餐',type:'meal'},
+          {time:'20:00',desc:'返回酒店',type:'transport'},
+        ]};
+      }
     }
-    sq.push({c:"spb",tp:"dep",lb:"送机返程"});
-  }
-  else if(S.indexOf("moscow")>=0 && S.indexOf("tula")>=0){
-    var md = GC("moscow"), t2d = GC("tula");
-    var ot = S.filter(function(c){return c!="moscow"&&c!="tula";});
-    sq.push({c:"moscow",tp:"arr",lb:"抵达莫斯科"});
-    for(var i=1; i<md-1 && sq.length<t-2; i++) sq.push({c:"moscow",tp:"st",lb:"莫斯科游览"});
-    ot.forEach(function(c){ if(sq.length<t-2) sq.push({c:c,tp:"st",lb:C[c]+"游览"}); });
-    sq.push({c:"tula",tp:"st",lb:"图拉游览"});
-    sq.push({c:"moscow",tp:"dep",lb:"送机返程"});
-  }
-  else{
-    var mc = S[0];
-    sq.push({c:mc,tp:"arr",lb:"抵达"+C[mc]});
-    for(var i=1; i<t-1; i++) sq.push({c:mc,tp:"st",lb:C[mc]+"游览"});
-    sq.push({c:mc,tp:"dep",lb:"送机返程"});
-  }
-  
-  while(sq.length > t) sq.pop();
-  while(sq.length < t) sq.push({c:S[0]||"moscow",tp:"st",lb:"自由活动"});
-  
-  var od = DD;
-  DD = sq.map(function(it,i){
-    var o = od[i];
-    return {
-      dy: i+1, c: it.c, tp: it.tp, lb: it.lb,
-      th: (o&&o.th) ? o.th : "",
-      at: (o&&o.at) ? o.at.slice() : [],
-      ml: (o&&o.ml) ? o.ml : {b:"i",l:"i",d:"i"},
-      vh: (o&&o.vh) ? o.vh : 8,
-      pf: (o&&o.pf) ? o.pf : 0,
-    };
   });
+  state.days = newDays;
+  state.dayOrder = newOrder;
 }
 
-function RD(){
-  var e = $("de");
-  e.innerHTML = "";
-  if(!S.length || !DD.length){
-    e.innerHTML = '<div style="text-align:center;padding:28px;color:var(--t3);font-size:13px">🏙️ 请先选择城市</div>';
+function renderDays() {
+  // Tabs
+  const tabEl = document.getElementById('dayTabs');
+  tabEl.innerHTML = state.dayOrder.map((id,i)=>{
+    const d = state.days[id];
+    const c = ALL_CITIES[d.city];
+    return `<div class="day-tab ${i===0?'active':''}" onclick="switchDay(${i})" data-idx="${i}">${c.emoji} D${i+1}</div>`;
+  }).join('');
+
+  // Cards
+  const container = document.getElementById('dayCardsContainer');
+  container.innerHTML = state.dayOrder.map((id,i)=>{
+    const d = state.days[id];
+    const c = ALL_CITIES[d.city];
+    return `<div class="day-card ${i===0?'active':''}" data-idx="${i}">
+      <div class="day-title">
+        <div class="left">
+          <span class="num">D${i+1}</span>
+          <span class="city-tag">${c.emoji} ${c.name}</span>
+          <input type="text" value="${d.title}" placeholder="行程标题" onchange="updateDayTitle('${id}',this.value)">
+        </div>
+        <div class="right">
+          <button onclick="moveDay(${i},-1)" title="上移">⬆</button>
+          <button onclick="moveDay(${i},1)" title="下移">⬇</button>
+          <button class="del-day" onclick="removeDayItem('${id}')" title="删除这天">🗑</button>
+        </div>
+      </div>
+      <div class="day-items">
+        ${d.items.map((item,ji)=>`
+          <div class="day-item">
+            <div class="time"><input type="text" value="${item.time}" onchange="updateDayItem('${id}',${ji},'time',this.value)"></div>
+            <div class="desc"><input type="text" value="${item.desc}" placeholder="活动描述" onchange="updateDayItem('${id}',${ji},'desc',this.value)"></div>
+            <div class="type-select">
+              <select onchange="updateDayItem('${id}',${ji},'type',this.value)">
+                ${['sight','meal','transport','hotel','free','other'].map(t=>`<option value="${t}" ${t===item.type?'selected':''}>${typeLabel(t)}</option>`).join('')}
+              </select>
+            </div>
+            <span class="del-item" onclick="removeDayActivity('${id}',${ji})">✕</span>
+          </div>
+        `).join('')}
+      </div>
+      <div class="add-item-btn" onclick="addDayActivity('${id}')">+ 添加活动</div>
+    </div>`;
+  }).join('');
+}
+
+function typeLabel(t){
+  const map={sight:'🎯游览',meal:'🍽️餐饮',transport:'🚐交通',hotel:'🏨住宿',free:'🆓自由',other:'📌其他'};
+  return map[t]||t;
+}
+
+function switchDay(idx){
+  document.querySelectorAll('.day-tab').forEach((el,i)=>el.classList.toggle('active',i===idx));
+  document.querySelectorAll('.day-card').forEach((el,i)=>el.classList.toggle('active',i===idx));
+}
+
+function updateDayTitle(id,val){
+  if(state.days[id]) state.days[id].title=val;
+}
+
+function updateDayItem(id,ji,field,val){
+  if(state.days[id]&&state.days[id].items[ji]) state.days[id].items[ji][field]=val;
+}
+
+function addDayActivity(id){
+  if(state.days[id]) state.days[id].items.push({time:'09:00',desc:'新活动',type:'other'});
+  renderDays();
+}
+
+function removeDayActivity(id,ji){
+  if(state.days[id]) state.days[id].items.splice(ji,1);
+  renderDays();
+}
+
+function removeDayItem(id){
+  const idx = state.dayOrder.indexOf(id);
+  if(idx>-1){
+    state.dayOrder.splice(idx,1);
+    delete state.days[id];
+    if(state.dayOrder.length===0) {
+      // If all days deleted, at least keep one
+      rebuildDays();
+    }
+    renderDays();
+    calcQuote();
+  }
+}
+
+function moveDay(idx,dir){
+  const newIdx = idx+dir;
+  if(newIdx<0||newIdx>=state.dayOrder.length) return;
+  [state.dayOrder[idx],state.dayOrder[newIdx]] = [state.dayOrder[newIdx],state.dayOrder[idx]];
+  renderDays();
+  document.querySelectorAll('.day-tab').forEach((el,i)=>el.classList.toggle('active',i===newIdx));
+  document.querySelectorAll('.day-card').forEach((el,i)=>el.classList.toggle('active',i===newIdx));
+}
+
+// === QUOTE ===
+function calcQuote(){
+  const hotelRate = parseInt(document.getElementById('hotelCost').value)||0;
+  const carRate = parseInt(document.getElementById('carCost').value)||0;
+  const ticketRate = parseInt(document.getElementById('ticketCost').value)||0;
+  const guideRate = parseInt(document.getElementById('guideCost').value)||0;
+  const trainRate = parseInt(document.getElementById('trainCost').value)||0;
+  const pax = state.pax || 5;
+  const rooms = state.rooms || 3;
+  const totalDays = state.dayOrder.length;
+  
+  if(totalDays===0){
+    document.querySelector('.quote-summary .total').innerHTML='¥0 <span>≈ ₽0</span>';
+    document.getElementById('perPerson').textContent = '请先添加城市和天数';
     return;
   }
   
-  DD.forEach(function(d,i){
-    var card = document.createElement("div");
-    card.className = "dc";
-    
-    // Header
-    var hdr = document.createElement("div");
-    hdr.className = "dh";
-    hdr.onclick = function(){ var b=$("db_"+i); if(b)b.classList.toggle("o"); RD(); };
-    
-    var nn = document.createElement("span");
-    nn.className = "nn"; nn.textContent = "D"+(i+1);
-    hdr.appendChild(nn);
-    
-    var ci = document.createElement("span");
-    ci.className = "dci"; ci.textContent = C[d.c];
-    hdr.appendChild(ci);
-    
-    var th = document.createElement("span");
-    th.className = "dth"; th.textContent = d.th || d.lb;
-    hdr.appendChild(th);
-    
-    var tg = document.createElement("span");
-    tg.className = "dtg";
-    var bEl = $("db_"+i);
-    tg.textContent = (bEl && bEl.classList.contains("o")) ? "▼" : "▶";
-    hdr.appendChild(tg);
-    
-    card.appendChild(hdr);
-    
-    // Body
-    var body = document.createElement("div");
-    body.className = "db";
-    body.id = "db_"+i;
-    if(bEl && bEl.classList.contains("o")) body.classList.add("o");
-    
-    // Controls row
-    var ctrl = document.createElement("div");
-    ctrl.className = "dr1";
-    ctrl.innerHTML = 
-      '<div class="dci"><label>主题</label><input class="fi" id="th_'+i+'" value="'+ES(d.th||'')+'" placeholder="红场+克里姆林宫"></div>'+
-      '<div class="dci"><label>城市</label><select class="fi" id="ct_'+i+'" onchange="DD['+i+'].c=this.value;RD();CP()">'+
-        S.map(function(c){return '<option value="'+c+'"'+(c===d.c?' selected':'')+'>'+C[c]+'</option>';}).join('')+
-      '</select></div>'+
-      '<div class="dci"><label>用车小时</label><input class="fi" type="number" id="vh_'+i+'" value="'+d.vh+'" min="0" onchange="DD['+i+'].vh=parseInt(this.value)||0;CP()"></div>'+
-      '<div class="dci"><label>停车费</label><input class="fi" type="number" id="pf_'+i+'" value="'+d.pf+'" min="0" onchange="DD['+i+'].pf=parseInt(this.value)||0;CP()"></div>';
-    body.appendChild(ctrl);
-    
-    // Attractions
-    var sa = document.createElement("div");
-    sa.className = "sl";
-    sa.textContent = "🎯 已选景点";
-    body.appendChild(sa);
-    
-    var st = document.createElement("div");
-    st.className = "st";
-    if(d.at && d.at.length){
-      d.at.forEach(function(a){
-        var t2 = document.createElement("span");
-        t2.className = "at";
-        t2.innerHTML = ES(a.n) + ' <span class="del" onclick="RA('+i+",'"+a.i+"')"+'">[x]</span>';
-        st.appendChild(t2);
-      });
-    } else {
-      st.innerHTML = '<span style="font-size:11px;color:var(--t3)">暂无</span>';
-    }
-    body.appendChild(st);
-    
-    // Available attractions
-    var aa = document.createElement("div");
-    aa.className = "sl";
-    aa.textContent = "📌 可选景点";
-    body.appendChild(aa);
-    
-    var ag = document.createElement("div");
-    ag.className = "ag";
-    var attrs = AT[d.c] || [];
-    if(attrs.length){
-      attrs.forEach(function(a){
-        var chk = d.at && d.at.some(function(x){return x.i===a.id;});
-        var item = document.createElement("div");
-        item.className = "ai2";
-        item.innerHTML = '<input type="checkbox"'+(chk?' checked':'')+' onchange="TA('+i+",'"+a.id+"','"+ES(a.n)+"',"+a.c+')"> <span>'+ES(a.n)+'</span>'+(a.c?' <span class="ap">'+a.c.toLocaleString()+'₽</span>':'');
-        ag.appendChild(item);
-      });
-    } else {
-      ag.innerHTML = '<span style="font-size:11px;color:var(--t3)">暂无数据</span>';
-    }
-    body.appendChild(ag);
-    
-    // Meals
-    var ml = document.createElement("div");
-    var mlData = d.ml || {b:"i",l:"i",d:"i"};
-    ml.className = "mr";
-    ml.innerHTML = 
-      '<label>🍳 早 <select onchange="DD['+i+'].ml.b=this.value"><option value="i"'+(mlData.b==="i"?' selected':'')+'>含</option><option value="n"'+(mlData.b==="n"?' selected':'')+'>不含</option></select></label>'+
-      '<label>🍱 午 <select onchange="DD['+i+'].ml.l=this.value;CP()"><option value="i"'+(mlData.l==="i"?' selected':'')+'>含</option><option value="n"'+(mlData.l==="n"?' selected':'')+'>不含</option></select></label>'+
-      '<label>🍝 晚 <select onchange="DD['+i+'].ml.d=this.value;CP()"><option value="i"'+(mlData.d==="i"?' selected':'')+'>含</option><option value="n"'+(mlData.d==="n"?' selected':'')+'>不含</option></select></label>';
-    body.appendChild(ml);
-    
-    card.appendChild(body);
-    e.appendChild(card);
+  const hotelTotal = hotelRate * rooms * totalDays;
+  const carTotal = carRate * totalDays;
+  const ticketTotal = ticketRate * pax * totalDays;
+  const guideTotal = guideRate * totalDays;
+  const cityCount = state.cities.length;
+  const trainTotal = trainRate * (cityCount - 1) * 2;
+  const grandTotal = hotelTotal + carTotal + ticketTotal + guideTotal + trainTotal;
+  const perPerson = grandTotal / pax;
+  const rub = grandTotal * 12.5;
+  
+  document.querySelector('.quote-summary .total').innerHTML = `¥${grandTotal.toLocaleString()} <span>≈ ₽${Math.round(rub).toLocaleString()}</span>`;
+  document.getElementById('perPerson').textContent = `人均 ¥${Math.round(perPerson).toLocaleString()} · ${pax}人 · ${rooms}间房 · ${totalDays}天`;
+  
+  // Update breakdown values
+  const rows = document.querySelectorAll('.quote-row .val:not(:has(input))');
+  // We can't easily update the display-only values, so let's just update the summary
+}
+
+// === GENERATE OUTPUT ===
+function generateOutput(){
+  const totalDays = state.dayOrder.length;
+  const hotelRate = parseInt(document.getElementById('hotelCost').value)||0;
+  const carRate = parseInt(document.getElementById('carCost').value)||0;
+  const ticketRate = parseInt(document.getElementById('ticketCost').value)||0;
+  const guideRate = parseInt(document.getElementById('guideCost').value)||0;
+  const trainRate = parseInt(document.getElementById('trainCost').value)||0;
+  const pax = state.pax || 5;
+  const rooms = state.rooms || 3;
+  
+  const hotelTotal = hotelRate * rooms * totalDays;
+  const carTotal = carRate * totalDays;
+  const ticketTotal = ticketRate * pax * totalDays;
+  const guideTotal = guideRate * totalDays;
+  const cityCount = state.cities.length;
+  const trainTotal = trainRate * Math.max(0,(cityCount-1)) * 2;
+  const grandTotal = hotelTotal + carTotal + ticketTotal + guideTotal + trainTotal;
+  const perPerson = grandTotal / pax;
+  const rub = grandTotal * 12.5;
+  
+  let html = `<h1>🏛️ 俄罗斯行程方案</h1>
+    <div class="meta">📅 ${totalDays}天${cityCount}城 · 👥 ${pax}人 ${rooms}间房 · 📍 ${state.cities.map(c=>ALL_CITIES[c].name).join(' + ')}</div>`;
+  
+  html += `<table><tr><th>日期</th><th>城市</th><th>主题</th><th>用车</th></tr>`;
+  state.dayOrder.forEach((id,i)=>{
+    const d = state.days[id];
+    html += `<tr><td>D${i+1}</td><td>${ALL_CITIES[d.city].name}</td><td>${d.title}</td><td>✅</td></tr>`;
   });
-}
-
-function TA(di,aid,an,ac){
-  var d = DD[di];
-  var i = d.at.findIndex(function(x){return x.i===aid;});
-  if(i>=0) d.at.splice(i,1);
-  else d.at.push({i:aid,n:an,c:ac});
-  RD(); CP();
-}
-
-function RA(di,aid){
-  DD[di].at = DD[di].at.filter(function(x){return x.i!==aid;});
-  RD(); CP();
-}
-
-// ===== PRICE =====
-function CP(){
-  var ppl = PP(), t = TD(), pm2 = PM(), ho = HS();
-  var ve = V("fv");
-  var vc = (P.vh[ve]||2500)*pm2;
-  var hc = (P.ht[ho]||7000)*pm2;
-  var ghc = (P.gh[ho]||7500)*pm2;
-  var dhc = (P.dh[ho]||5500)*pm2;
+  html += `</table>`;
   
-  var sds=0, ars=0, dps=0, tm=0, tdm=0, ttk=0, tpk=0, ttr=0;
-  var rm = Math.ceil(ppl/2);
-  
-  DD.forEach(function(d){
-    if(d.tp==="st") sds++;
-    else if(d.tp==="arr") ars++;
-    else if(d.tp==="dep") dps++;
-    else sds++;
-    tpk += d.pf||0;
-    if(d.ml){
-      if(d.ml.l==="i") tm++;
-      if(d.ml.d==="i") tm++;
-    }
-    tdm += (d.ml&&d.ml.l==="i"?1:0) + (d.ml&&d.ml.d==="i"?1:0);
-    (d.at||[]).forEach(function(a){ ttk += a.c||0; });
-    if(d.tp==="tr") ttr++;
+  html += `<h2>📋 每日详细行程</h2>`;
+  state.dayOrder.forEach((id,i)=>{
+    const d = state.days[id];
+    html += `<div class="day-detail"><h4>D${i+1} · ${d.title}</h4>`;
+    d.items.forEach(item=>{
+      html += `<p>${item.time} ${typeLabel(item.type)} ${item.desc}</p>`;
+    });
+    html += `</div>`;
   });
   
-  var hn = t-1;
-  var vt = vc*t;
-  var gt = sds*P.gf + (ars+dps)*P.ghf;
-  var ht = hc*rm*hn;
-  var ght = ghc*hn;
-  var dht = dhc*hn;
-  var mt = tm*P.ml.l*ppl;
-  var dmt = tdm*P.dm;
-  var trc = 0;
-  if(S.indexOf("moscow")>=0 && S.indexOf("spb")>=0 && ttr>0) trc = P.hs * ppl * ttr;
-  var tfc = P.ghf*2;
-  var gr = vt+tpk+gt+ht+ght+dht+mt+dmt+ttk+trc+tfc;
+  html += `<h2>💰 报价明细</h2>
+    <table class="quote-table">
+      <tr><th>项目</th><th>数量</th><th>单价</th><th>小计</th></tr>
+      <tr><td>🏨 酒店</td><td>${rooms}间×${totalDays}晚</td><td>¥${hotelRate}</td><td>¥${hotelTotal.toLocaleString()}</td></tr>
+      <tr><td>🚐 用车</td><td>${totalDays}天</td><td>¥${carRate}</td><td>¥${carTotal.toLocaleString()}</td></tr>
+      <tr><td>🎫 门票</td><td>${pax}人×${totalDays}天</td><td>¥${ticketRate}</td><td>¥${ticketTotal.toLocaleString()}</td></tr>
+      <tr><td>👨 中文导游</td><td>${totalDays}天</td><td>¥${guideRate}</td><td>¥${guideTotal.toLocaleString()}</td></tr>
+      <tr><td>🚄 城际高铁</td><td>${Math.max(0,cityCount-1)}程×2</td><td>¥${trainRate}</td><td>¥${trainTotal.toLocaleString()}</td></tr>
+      <tr><td colspan="3" style="text-align:right;font-weight:700">总计</td><td class="grand-total">¥${grandTotal.toLocaleString()}<br><span>≈ ₽${Math.round(rub).toLocaleString()}</span><br><span>人均 ¥${Math.round(perPerson).toLocaleString()}</span></td></tr>
+    </table>`;
   
-  $("pt").textContent = "(人均≈"+Math.round(gr/ppl).toLocaleString()+"₽)";
+  html += `<div style="margin-top:24px;padding:16px;background:var(--bg2);border-radius:6px;font-size:11px;color:var(--text3);text-align:center">
+    🇷🇺 俄罗斯导游阿杜 · 二十年俄语导游经验<br>
+    抖音：pandabai666 · 邮箱：pandabai666666@gmail.com
+  </div>`;
   
-  var items = [
-    ["🚌 用车("+VN[ve]+")", vt, Math.round(vt/ppl), Math.round(vt/13)],
-    ["🅿️ 停车费", tpk, Math.round(tpk/ppl), Math.round(tpk/13)],
-    ["👨‍💼 导游费", gt, Math.round(gt/ppl), Math.round(gt/13)],
-    ["🏨 酒店("+HN[ho]+"x"+rm+"间x"+hn+"晚)", ht, Math.round(ht/ppl), Math.round(ht/13)],
-    ["🏠 导游住宿", ght, Math.round(ght/ppl), Math.round(ght/13)],
-    ["🏠 司机住宿", dht, Math.round(dht/ppl), Math.round(dht/13)],
-    ["🍽️ 餐费", mt, Math.round(mt/ppl), Math.round(mt/13)],
-    ["🍱 司陪餐补", dmt, Math.round(dmt/ppl), Math.round(dmt/13)],
-    ["🎫 景点门票", ttk, Math.round(ttk/ppl), Math.round(ttk/13)],
-    ["🚗 接送机", tfc, Math.round(tfc/ppl), Math.round(tfc/13)],
-  ];
-  if(trc>0) items.push(["🚄 高铁", trc, Math.round(trc/ppl), Math.round(trc/13)]);
-  
-  var h = '<table class="pt"><tr><th>项目</th><th>总价(₽)</th><th>人均(₽)</th><th>≈人民币</th></tr>';
-  items.forEach(function(it){
-    h += '<tr><td>'+it[0]+'</td><td>'+it[1].toLocaleString()+'</td><td>'+it[2].toLocaleString()+'</td><td>≈'+it[3].toLocaleString()+'元</td></tr>';
-  });
-  h += '<tr class="tt"><td>💰 合计</td><td>'+gr.toLocaleString()+'₽</td><td>'+Math.round(gr/ppl).toLocaleString()+'₽</td><td>≈'+Math.round(gr/13).toLocaleString()+'元</td></tr></table>';
-  $("ps").innerHTML = h;
+  document.getElementById('outputContent').innerHTML = html;
+  document.getElementById('outputOverlay').classList.add('show');
 }
 
-// ===== DOCUMENT =====
-function GD(){
-  var ppl = PP(), t = TD();
-  var pn = V("fn"), cl = V("fc"), dp = V("fd2"), ho = HS(), ve = V("fv");
-  var gr = 0;
-  // Calculate total
-  var pm2 = PM(), vc = (P.vh[ve]||2500)*pm2, hc = (P.ht[ho]||7000)*pm2;
-  var ghc = (P.gh[ho]||7500)*pm2, dhc = (P.dh[ho]||5500)*pm2;
-  var rm = Math.ceil(ppl/2), hn = t-1;
-  var sds=0,ars=0,dps=0,tm=0,tdm=0,ttk=0,tpk=0,ttr=0;
-  DD.forEach(function(d){
-    if(d.tp==="st") sds++; else if(d.tp==="arr") ars++; else if(d.tp==="dep") dps++; else sds++;
-    tpk += d.pf||0;
-    if(d.ml){ if(d.ml.l==="i") tm++; if(d.ml.d==="i") tm++; }
-    tdm += (d.ml&&d.ml.l==="i"?1:0)+(d.ml&&d.ml.d==="i"?1:0);
-    (d.at||[]).forEach(function(a){ ttk += a.c||0; });
-    if(d.tp==="tr") ttr++;
-  });
-  gr = vc*t + tpk + (sds*P.gf+(ars+dps)*P.ghf) + hc*rm*hn + ghc*hn + dhc*hn + tm*P.ml.l*ppl + tdm*P.dm + ttk + P.ghf*2;
-  if(S.indexOf("moscow")>=0&&S.indexOf("spb")>=0&&ttr>0) gr += P.hs*ppl*ttr;
-  
-  var d = "═══════════════════════════════════════════════\n";
-  d += "     🇷🇺 阿杜俄旅 · 行程单+报价单\n";
-  d += "═══════════════════════════════════════════════\n\n";
-  d += "📋 产品："+pn+"\n";
-  d += "👥 客户："+CN[cl]+" · "+ppl+"人\n";
-  d += "📅 天数："+t+"天"+(t-1)+"晚\n";
-  d += "✈️ 出发："+dp+"\n";
-  d += "🏨 住宿："+HN[ho]+"\n";
-  d += "🚌 用车："+VN[ve]+"\n";
-  d += "📆 季节："+(IP()?"🔥旺季(7-8月)":"📆平季")+"\n";
-  d += "🗺️ 城市："+S.map(function(c){return C[c];}).join(" + ")+"\n\n";
-  d += "───────────────────────────────────────────\n";
-  d += "              行 程 安 排\n";
-  d += "───────────────────────────────────────────\n\n";
-  
-  DD.forEach(function(d2){
-    d += "  【第"+d2.dy+"天】"+C[d2.c]+"  "+(d2.th||d2.lb)+"\n";
-    if(d2.at&&d2.at.length) d += "    📍 "+d2.at.map(function(a){return a.n;}).join("、")+"\n";
-    var ms = [];
-    if(d2.ml&&d2.ml.b==="i") ms.push("🍳早");
-    if(d2.ml&&d2.ml.l==="i") ms.push("🍱午");
-    if(d2.ml&&d2.ml.d==="i") ms.push("🍝晚");
-    if(ms.length) d += "    🍽️ "+ms.join(" ")+"\n";
-    d += "\n";
-  });
-  
-  d += "───────────────────────────────────────────\n";
-  d += "              报 价 明 细\n";
-  d += "───────────────────────────────────────────\n\n";
-  d += "  💰 总价："+gr.toLocaleString()+"₽ (约"+Math.round(gr/13).toLocaleString()+"元)\n";
-  d += "  👤 人均："+Math.round(gr/ppl).toLocaleString()+"₽ (约"+Math.round(gr/ppl/13).toLocaleString()+"元)\n\n";
-  d += "  费用包含：\n  ✓ 全程用车("+VN[ve]+")\n  ✓ "+HN[ho]+"住宿\n  ✓ 中文导游\n  ✓ 景点门票\n";
-  if(S.indexOf("moscow")>=0&&S.indexOf("spb")>=0) d += "  ✓ 高铁二等座\n";
-  d += "  ✓ 接送机\n\n  费用不含：\n  ✗ 国际机票\n  ✗ 签证\n  ✗ 保险\n  ✗ 个人消费\n\n";
-  d += "═══════════════════════════════════════════════\n";
-  d += "  俄罗斯导游阿杜 📞 微信/电话联系\n";
-  d += "═══════════════════════════════════════════════\n";
-  
-  var bx = $("ob");
-  bx.textContent = d;
-  bx.classList.add("o");
-  bx.scrollIntoView({behavior:"smooth",block:"start"});
+function closeOutput(){
+  document.getElementById('outputOverlay').classList.remove('show');
 }
 
-// ===== SAVE/LOAD =====
-function SD(){
-  var st = {
-    basic:{name:V("fn"),client:V("fc"),people:PP(),days:TD(),depart:V("fd2"),hotel:V("fh"),vehicle:V("fv"),peak:V("fk")},
-    cities:S, cds:{}, dd:DD
-  };
-  S.forEach(function(c){ st.cds[c] = GC(c); });
-  var b = new Blob([JSON.stringify(st,null,2)], {type:"application/json"});
-  var a = document.createElement("a");
-  a.href = URL.createObjectURL(b);
-  a.download = "阿杜俄旅_"+V("fn").replace(/[\s/+]/g,"_")+"_"+new Date().toISOString().slice(0,10)+".json";
-  a.click();
-  TT("✅ 已保存");
+// === SAVE/LOAD ===
+function savePlan(){
+  const data = JSON.stringify(state);
+  localStorage.setItem('adu_travel_plan', data);
+  alert('💾 方案已保存到本地浏览器');
 }
 
-function LD(){
-  var inp = document.createElement("input");
-  inp.type = "file"; inp.accept = ".json";
-  inp.onchange = function(e){
-    var f = e.target.files[0];
-    if(!f) return;
-    var r = new FileReader();
-    r.onload = function(ev){
-      try{
-        var st = JSON.parse(ev.target.result);
-        if(st.basic){
-          if($("fn")&&st.basic.name) $("fn").value = st.basic.name;
-          if($("fc")&&st.basic.client) $("fc").value = st.basic.client;
-          if($("fp")&&st.basic.people) $("fp").value = st.basic.people;
-          if($("fd")&&st.basic.days) $("fd").value = st.basic.days;
-          if($("fd2")&&st.basic.depart) $("fd2").value = st.basic.depart;
-          if($("fh")&&st.basic.hotel) $("fh").value = st.basic.hotel;
-          if($("fv")&&st.basic.vehicle) $("fv").value = st.basic.vehicle;
-          if($("fk")&&st.basic.peak) $("fk").value = st.basic.peak;
+function loadPlan(){
+  const data = localStorage.getItem('adu_travel_plan');
+  if(data) {
+    try{
+      const saved = JSON.parse(data);
+      // Merge carefully
+      if(saved.cities) state.cities = saved.cities;
+      if(saved.days) state.days = saved.days;
+      if(saved.dayOrder) state.dayOrder = saved.dayOrder;
+      if(saved.cityDays) state.cityDays = saved.cityDays;
+      if(saved.pax) state.pax = saved.pax;
+      if(saved.rooms) state.rooms = saved.rooms;
+    }catch(e){}
+  }
+}
+
+// === ADMIN LOGIN ===
+let isAdmin = false;
+function doLogin(){
+  const user = document.getElementById('loginUser').value;
+  const pass = document.getElementById('loginPass').value;
+  if(user==='3056898' && pass==='pan3056898'){
+    isAdmin = true;
+    document.getElementById('loginModal').classList.remove('show');
+    document.getElementById('adminBadge').style.display = 'inline';
+    document.getElementById('loginBtn').style.display = 'none';
+    document.getElementById('aiBtn').style.display = 'inline';
+    document.getElementById('aiChatBtn').style.opacity = '1';
+    document.getElementById('aiChatBtn').style.pointerEvents = 'auto';
+    document.getElementById('aiChatBtn').onclick = (e)=>{e.preventDefault();toggleAI();};
+  } else {
+    document.getElementById('loginError').style.display = 'block';
+  }
+}
+
+// Login modal
+document.getElementById('loginBtn').onclick = ()=>{
+  document.getElementById('loginModal').classList.add('show');
+  document.getElementById('loginError').style.display = 'none';
+};
+document.getElementById('closeLogin').onclick = ()=>document.getElementById('loginModal').classList.remove('show');
+document.getElementById('loginModal').onclick = (e)=>{if(e.target===e.currentTarget)document.getElementById('loginModal').classList.remove('show');};
+
+// === AI CHAT ===
+function toggleAI(){
+  if(!isAdmin) {
+    document.getElementById('loginModal').classList.add('show');
+    return;
+  }
+  const overlay = document.getElementById('aiOverlay');
+  overlay.classList.toggle('show');
+  if(overlay.classList.contains('show')) document.getElementById('aiInput').focus();
+}
+
+// Close AI on overlay click
+document.getElementById('aiOverlay').onclick = (e)=>{if(e.target===e.currentTarget)toggleAI();};
+
+async function sendAI(){
+  if(!isAdmin) { toggleAI(); return; }
+  const input = document.getElementById('aiInput');
+  const msg = input.value.trim();
+  if(!msg) return;
+  
+  const messages = document.getElementById('aiMessages');
+  messages.innerHTML += `<div class="ai-msg user">${msg}</div>`;
+  input.value = '';
+  
+  // Check if user wants to fill the form
+  const wantsFill = msg.includes('填写') || msg.includes('填入') || msg.includes('生成行程') || msg.includes('帮我') || msg.includes('制定');
+  
+  try {
+    const resp = await fetch('https://api.deepseek.com/chat/completions', {
+      method:'POST',
+      headers:{'Content-Type':'application/json','Authorization':'Bearer sk-93b7f24e8d4f4b55b7c7aff22b9c3ab8'},
+      body:JSON.stringify({
+        model:'deepseek-chat',
+        messages:[
+          {role:'system',content:'你是俄罗斯导游阿杜的AI助手，帮助客户定制俄罗斯旅游行程。回复简洁专业，涉及行程方案时给出具体建议。可用的俄罗斯城市：莫斯科、圣彼得堡、图拉、谢尔盖耶夫、苏兹达尔、喀山、伊尔库茨克（贝加尔湖）、索契、海参崴、大诺夫哥罗德。'},
+          {role:'user',content:msg + (wantsFill ? '\n\n（如果用户要求生成行程，请给出具体的城市分配和天数的JSON建议，格式如：{"cities":[{"key":"msk","days":4},...]}）':'')}
+        ],
+        temperature:0.7,
+        max_tokens:1024,
+        stream:false
+      })
+    });
+    const data = await resp.json();
+    const reply = data.choices?.[0]?.message?.content || '抱歉，我暂时无法回答，请稍后再试。';
+    
+    // Try to parse JSON and fill form
+    if(wantsFill){
+      try {
+        const jsonMatch = reply.match(/\{[\s\S]*"cities"[\s\S]*\}/);
+        if(jsonMatch){
+          const planData = JSON.parse(jsonMatch[0]);
+          if(planData.cities && Array.isArray(planData.cities)){
+            state.cities = [];
+            planData.cities.forEach(c=>{
+              if(ALL_CITIES[c.key] && !state.cities.includes(c.key)){
+                state.cities.push(c.key);
+                state.cityDays[c.key] = c.days || 3;
+              }
+            });
+            if(state.cities.length > 0){
+              rebuildDays();
+              renderCities(); renderDays(); renderPool(); calcQuote();
+              messages.innerHTML += `<div class="ai-msg bot">✅ 已根据您的需求自动填写行程方案！请查看上方定制器中的城市和天数安排。</div>`;
+              return;
+            }
+          }
         }
-        if(st.cities){ S = st.cities; RC(); UA(); }
-        if(st.cds){ Object.keys(st.cds).forEach(function(c){ var i=$("cd_"+c); if(i) i.value=st.cds[c]; }); }
-        if(st.dd){ DD = st.dd; RD(); CP(); }
-        TT("✅ 已载入");
-      } catch(err){ TT("❌ 文件错误"); }
-    };
-    r.readAsText(f);
-  };
-  inp.click();
-}
-
-function RS(){
-  if(!confirm("确定重置？")) return;
-  S=[]; DD=[];
-  $("fn").value="莫斯科+圣彼得堡经典之旅";
-  $("fc").value="family"; $("fp").value="5"; $("fd").value="9";
-  $("fd2").value="成都"; $("fh").value="4"; $("fv").value="minibus"; $("fk").value="0";
-  RC(); $("ap").style.display="none";
-  $("de").innerHTML='<div style="text-align:center;padding:28px;color:var(--t3);font-size:13px">🏙️ 请先选择城市</div>';
-  $("ps").innerHTML='<div style="text-align:center;padding:24px;color:var(--t3);font-size:13px">💵 配置后自动核算</div>';
-  $("ob").classList.remove("o");
-  TT("🔄 已重置");
-}
-
-// ===== ADMIN =====
-function SL(){ $("am").classList.add("o"); setTimeout(function(){ $("mp").focus(); },100); }
-function HL(){ $("am").classList.remove("o"); }
-
-function DL(){
-  var u = $("mu").value.trim(), p = $("mp").value.trim();
-  if(u==="3056898" && p==="pan3056898"){
-    sessionStorage.setItem("adu_admin","1");
-    HL(); AU(true);
-    $("cm").innerHTML = "";
-    WM();
-    TT("✅ 登录成功");
-  } else {
-    $("le").style.display = "block";
-    $("le").textContent = "❌ 账号或密码错误";
-  }
-}
-
-function AL(){
-  sessionStorage.removeItem("adu_admin");
-  AU(false);
-  $("cm").innerHTML = '<div class="msg msg-a" style="text-align:center;padding:20px"><div style="font-size:36px">🔒</div><div style="font-weight:600;margin-top:6px">已退出</div></div>';
-  TT("已退出");
-}
-
-function AU(li){
-  var ind = $("ai2"), st = $("cs"), akr = $("akr"), ads = $("ads"), lo = $("lo");
-  if(li){
-    ind.innerHTML = "🔓 已登录"; ind.style.color = "rgba(255,255,255,0.9)";
-    st.textContent = "🔓 已登录"; st.style.color = "rgba(255,255,255,0.9)";
-    if(akr) akr.style.display = "flex";
-    if(ads) ads.style.display = "block";
-    if(lo) lo.style.display = "";
-  } else {
-    ind.innerHTML = "🔒 未登录"; ind.style.color = "rgba(255,255,255,0.6)";
-    st.textContent = "🔒 未登录"; st.style.color = "rgba(255,255,255,0.6)";
-    if(akr) akr.style.display = "none";
-    if(ads) ads.style.display = "none";
-    if(lo) lo.style.display = "none";
-  }
-}
-
-// ===== CHAT =====
-function TGC(){ $("cp").classList.toggle("o"); if($("cp").classList.contains("o")) setTimeout(function(){ $("ci").focus(); },200); }
-
-function WM(){
-  $("cm").innerHTML = '<div class="msg msg-a">你好！我是阿杜AI助手 🤖<br><br>告诉我你的旅行需求，我会自动配置行程和报价。<br><br><b>例如：</b><br>• "5人家庭团，9天莫斯科+圣彼得堡"<br>• "10个人，莫斯科+图拉，7天"<br><br>直接输入需求吧 🎯</div>';
-}
-
-function SM(){
-  if(sessionStorage.getItem("adu_admin") !== "1"){ TT("请先登录"); return; }
-  var inp = $("ci"), t = inp.value.trim();
-  if(!t) return;
-  if(!AK){ TT("请先设置API Key"); return; }
-  inp.value = "";
-  var ms = $("cm");
-  var d = document.createElement("div");
-  d.className = "msg msg-u"; d.textContent = t;
-  ms.appendChild(d); d.scrollIntoView({behavior:"smooth"});
-  CH.push({role:"user",content:t});
-  $("sb2").disabled = true;
-  var dt = document.createElement("div");
-  dt.className = "cd"; dt.id = "cd2";
-  dt.innerHTML = "<span></span><span></span><span></span>";
-  ms.appendChild(dt); dt.scrollIntoView({behavior:"smooth"});
-  CAI(t);
-}
-
-function CAI(um){
-  var sys = "你是俄罗斯旅游定制AI助手。城市:moscow莫斯科 spb圣彼得堡 tula图拉 sergiev谢尔盖耶夫 suzdal苏兹达里。车型:bus大巴 minibus中巴 sedan轿车。客户:family家庭团 group常规团 vip精品团。住宿:3三星 4四星 5五星。当用户确认后，回复末尾加[FILL]和JSON。JSON含basic(cities, cityDays, attractions)。景点id:rs红场 sb圣瓦西里 kr克里姆林宫 ar军械库 he冬宫 ph夏宫 cp叶卡捷琳娜宫等。直接回复并加[FILL]JSON。";
-  var msgs = [{role:"system",content:sys}];
-  CH.forEach(function(m){ msgs.push(m); });
-  
-  fetch("https://api.deepseek.com/v1/chat/completions",{
-    method:"POST",
-    headers:{"Content-Type":"application/json","Authorization":"Bearer "+AK},
-    body: JSON.stringify({model:"deepseek-chat",messages:msgs})
-  })
-  .then(function(r){ return r.json(); })
-  .then(function(d){
-    var cd2 = $("cd2");
-    if(cd2) cd2.remove();
-    $("sb2").disabled = false;
-    if(d.error){
-      var ms = $("cm"), de = document.createElement("div");
-      de.className = "msg msg-a"; de.textContent = "❌ "+d.error.message;
-      ms.appendChild(de); de.scrollIntoView({behavior:"smooth"});
-      return;
+      } catch(e){}
     }
-    var reply = d.choices[0].message.content;
-    var ms = $("cm"), rdiv = document.createElement("div");
-    rdiv.className = "msg msg-a";
-    rdiv.innerHTML = reply.replace(/\n/g,"<br>");
-    ms.appendChild(rdiv); rdiv.scrollIntoView({behavior:"smooth"});
-    CH.push({role:"assistant",content:reply});
     
-    if(reply.indexOf("[FILL]") >= 0){
-      var parts = reply.split("[FILL]");
-      if(parts[1]){
-        try{
-          var cfg = JSON.parse(parts[1].trim());
-          if(cfg.basic){
-            if(cfg.basic.name&&$("fn")) $("fn").value = cfg.basic.name;
-            if(cfg.basic.people&&$("fp")) $("fp").value = cfg.basic.people;
-            if(cfg.basic.days&&$("fd")) $("fd").value = cfg.basic.days;
-            if(cfg.basic.hotel&&$("fh")) $("fh").value = String(cfg.basic.hotel);
-            if(cfg.basic.vehicle&&$("fv")){ try{ $("fv").value = cfg.basic.vehicle; }catch(e){} }
-            if(cfg.basic.peak!==undefined&&$("fk")) $("fk").value = cfg.basic.peak?"1":"0";
-            if(cfg.basic.client&&$("fc")){ try{ $("fc").value = cfg.basic.client; }catch(e){} }
-          }
-          if(cfg.cities&&cfg.cities.length){
-            S = [];
-            cfg.cities.forEach(function(c){ if(Object.keys(C).indexOf(c)>=0) S.push(c); });
-            RC(); UA();
-          }
-          if(cfg.cityDays){
-            Object.keys(cfg.cityDays).forEach(function(c){ var i=$("cd_"+c); if(i) i.value=cfg.cityDays[c]; });
-          }
-          BD(); RD(); CP();
-          if(cfg.attractions){
-            setTimeout(function(){
-              Object.keys(cfg.attractions).forEach(function(ck){
-                var ats = cfg.attractions[ck];
-                if(ats&&ats.length){
-                  DD.forEach(function(day){
-                    if(day.c === ck){
-                      ats.forEach(function(at){
-                        var ca = AT[ck]||[];
-                        for(var i=0;i<ca.length;i++){
-                          if(ca[i].id===at.id && !day.at.some(function(x){return x.i===at.id;})){
-                            day.at.push({i:ca[i].id,n:ca[i].n,c:ca[i].c});
-                          }
-                        }
-                      });
-                    }
-                  });
-                }
-              });
-              RD(); CP();
-            },150);
-          }
-          $("ap").style.display = "block";
-          TT("✅ AI已配置！");
-        } catch(e){ TT("❌ 解析失败"); }
-      }
-    }
-  })
-  .catch(function(e){
-    var cd2 = $("cd2");
-    if(cd2) cd2.remove();
-    $("sb2").disabled = false;
-    TT("❌ "+e.message);
-  });
+    messages.innerHTML += `<div class="ai-msg bot">${reply}</div>`;
+    messages.scrollTop = messages.scrollHeight;
+  } catch(e){
+    messages.innerHTML += `<div class="ai-msg bot">⚠️ 网络错误，请检查API配置后重试。</div>`;
+  }
 }
 
-function SK(){
-  var k = $("ki").value.trim();
-  if(!k||!k.startsWith("sk-")){ TT("请输入有效API Key"); return; }
-  AK = k;
-  localStorage.setItem("ak", AK);
-  $("ks").textContent = "✅"; $("ks").style.color = "#059669";
-  $("skb").disabled = true;
-  $("ki").value = AK.slice(0,6)+"... "+AK.slice(-4);
-  TT("✅ Key已保存");
-}
+// === EVENT BINDINGS ===
+document.getElementById('startBtn').onclick = (e)=>{
+  e.preventDefault();
+  document.getElementById('toolSection').scrollIntoView({behavior:'smooth'});
+};
+document.getElementById('heroStartBtn').onclick = ()=>{
+  document.getElementById('toolSection').scrollIntoView({behavior:'smooth'});
+};
+document.getElementById('addCityBtn').onclick = ()=>{
+  const used = new Set(state.cities);
+  const avail = Object.keys(ALL_CITIES).filter(k=>!used.has(k));
+  if(avail.length===0){alert('所有城市已添加');return;}
+  addCity(avail[0]);
+};
 
-// ===== INIT =====
-IC();
-if(sessionStorage.getItem("adu_admin") === "1"){ AU(true); WM(); }
-else {
-  $("cm").innerHTML = '<div class="msg msg-a" style="text-align:center;padding:20px"><div style="font-size:36px">🔒</div><div style="font-weight:600;margin-top:6px">请登录管理员账号</div></div>';
-}
-if(AK&&AK!==""){
-  $("ks").textContent = "✅"; $("ks").style.color = "#059669";
-  $("skb").disabled = true;
-  $("ki").value = AK.slice(0,6)+"... "+AK.slice(-4);
-}
+// === LOAD SAVED ===
+loadPlan();
+if(state.cities.length===0) state.cities = [...DEFAULT_CITIES];
+init();
 
+// Click on overlay to close output
+document.getElementById('outputOverlay').onclick = (e)=>{if(e.target===e.currentTarget)closeOutput();};
+
+console.log('🇷🇺 阿杜俄旅 · 定制报价系统 v0.3 loaded');
+console.log('Admin login: 3056898 / pan3056898');
 </script>
 </body>
 </html>

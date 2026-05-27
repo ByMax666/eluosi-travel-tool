@@ -863,10 +863,16 @@ $_('workspace').classList.add('hidden');
 }
 
 function showDashboard(){
+// Ensure we have data loaded from localStorage
+if (projectLibrary.length === 0 && localStorage.getItem(STORAGE_KEY)) {
+  loadAppData();
+}
 $_('loginScreen').classList.add('hidden');
 $_('dashboard').classList.remove('hidden');
 $_('workspace').classList.add('hidden');
-$_('dashUser').textContent='👤 '+currentUser.name+' ('+(currentUser.role==='admin'?'管理员':'员工')+')';
+if (currentUser) {
+  $_('dashUser').textContent='👤 '+currentUser.name+' ('+(currentUser.role==='admin'?'管理员':'员工')+')';
+}
 renderDashboard();
 }
 
