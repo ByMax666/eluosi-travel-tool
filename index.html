@@ -3,1305 +3,859 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>阿杜俄旅 · 产品定制与报价核算系统 v0.32</title>
-<style>
-:root{--primary:#A93226;--primary-light:#E4B1A0;--bg:#FAF9F5;--card:#fff;--text:#3f3f3f;--border:#dfdfdf;--success:#27ae60;--warning:#f39c12;}
-*{margin:0;padding:0;box-sizing:border-box}
-body{font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif;background:var(--bg);color:var(--text);line-height:1.6;padding:20px}
-.container{max-width:1260px;margin:0 auto}
-.header{text-align:center;padding:28px 20px;background:linear-gradient(135deg,#A93226,#CD5C5C);color:#fff;border-radius:20px;margin-bottom:20px;position:relative;overflow:hidden}
-.header h1{font-size:26px;margin-bottom:6px}
-.header p{font-size:13px;opacity:.9}
-.card{background:var(--card);border-radius:16px;padding:18px 22px;margin-bottom:16px;box-shadow:0 2px 8px rgba(0,0,0,.06)}
-.card h2{font-size:17px;color:var(--primary);margin-bottom:12px;padding-bottom:6px;border-bottom:2px solid var(--primary-light);display:flex;align-items:center;gap:8px}
-.section-title{font-size:15px;font-weight:600;margin:14px 0 10px;color:var(--text)}
-.form-row{display:flex;flex-wrap:wrap;gap:12px;margin-bottom:12px}
-.form-group{flex:1;min-width:160px}
-.form-group label{display:block;font-size:12px;font-weight:600;margin-bottom:3px;color:#666}
-.form-group input,.form-group select{width:100%;padding:8px 10px;border:1.5px solid var(--border);border-radius:8px;font-size:13px;background:#fff;transition:border-color .2s}
-.form-group input:focus,.form-group select:focus{outline:none;border-color:var(--primary)}
-.btn{display:inline-flex;align-items:center;gap:5px;padding:9px 18px;border:none;border-radius:8px;font-size:13px;font-weight:600;cursor:pointer;transition:all .2s}
-.btn-primary{background:var(--primary);color:#fff}
-.btn-primary:hover{background:#8B1A1A}
-.btn-success{background:var(--success);color:#fff}
-.btn-success:hover{background:#1e8449}
-.btn-outline{background:transparent;color:var(--primary);border:1.5px solid var(--primary)}
-.btn-outline:hover{background:var(--primary-light)}
-.btn-danger{background:#e74c3c;color:#fff}
-.btn-danger:hover{background:#c0392b}
-.btn-sm{padding:5px 10px;font-size:11px}
-.btn-group{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}
-
-.city-grid{display:flex;flex-wrap:wrap;gap:8px;margin:8px 0}
-.city-chip{display:flex;align-items:center;gap:6px;padding:6px 14px;border-radius:20px;font-size:13px;cursor:pointer;border:1.5px solid var(--border);transition:all .2s;background:#fff;user-select:none}
-.city-chip.selected{background:var(--primary);color:#fff;border-color:var(--primary)}
-.city-chip input{display:none}
-.city-day-input{display:flex;align-items:center;gap:4px}
-.city-day-input input{width:40px;text-align:center;padding:3px;border:1px solid var(--border);border-radius:4px;font-size:12px}
-
-.day-card{border:1px solid var(--border);border-radius:10px;margin-bottom:10px;overflow:hidden}
-.day-header{display:flex;align-items:center;justify-content:space-between;padding:10px 14px;background:#f8f4f0;cursor:pointer;user-select:none;gap:8px}
-.day-header .day-num{color:var(--primary);font-weight:700;min-width:60px}
-.day-header .day-city{font-size:12px;color:#888;min-width:50px}
-.day-header .day-theme{flex:1;font-size:13px}
-.day-header .day-toggle{font-size:12px;color:#999}
-.day-body{padding:14px;display:none}
-.day-body.open{display:block}
-.day-body .ctrl-row{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:10px;align-items:end}
-.day-body .ctrl-row .fg{flex:1;min-width:100px}
-.day-body .ctrl-row .fg label{font-size:11px;color:#888;display:block;margin-bottom:2px}
-.day-body .ctrl-row .fg input,.day-body .ctrl-row .fg select{width:100%;padding:5px 8px;border:1px solid var(--border);border-radius:6px;font-size:12px}
-
-.attr-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(175px,1fr));gap:4px;margin:6px 0}
-.attr-item{display:flex;align-items:center;gap:5px;font-size:12px;padding:3px 6px;border-radius:5px;cursor:pointer;transition:background .15s}
-.attr-item:hover{background:#fdf0ed}
-.attr-item input{accent-color:var(--primary)}
-.attr-price{font-size:10px;color:#aaa}
-.attr-badge{font-size:9px;padding:1px 5px;border-radius:4px;background:#f0ece8;color:#666;margin-left:2px}
-
-.selected-attrs{display:flex;flex-wrap:wrap;gap:4px;margin:6px 0}
-.selected-attrs .tag{display:inline-flex;align-items:center;gap:3px;padding:3px 10px;background:var(--primary-light);color:var(--primary);border-radius:12px;font-size:11px;font-weight:500}
-.selected-attrs .tag .del{cursor:pointer;font-size:13px;line-height:1;margin-left:2px;color:#888}
-.selected-attrs .tag .del:hover{color:#e74c3c}
-
-.meal-row{display:flex;gap:16px;flex-wrap:wrap;margin:6px 0;align-items:center}
-.meal-row label{font-size:12px;display:flex;align-items:center;gap:4px}
-.meal-row select{font-size:11px;padding:3px 6px;border:1px solid var(--border);border-radius:4px}
-
-.qt{width:100%;border-collapse:collapse;margin-top:10px;font-size:13px}
-.qt th,.qt td{padding:10px 14px;text-align:right;border-bottom:1px solid var(--border)}
-.qt th{background:#f8f4f0;text-align:center;font-weight:600}
-.qt td:first-child{text-align:left}
-.qt .tr-total{font-weight:700;background:#fdf0ed;font-size:14px;color:var(--primary)}.qt tr:last-child td{border-bottom:none}.qt tr:hover td{background:#fff8f5}
-.qt .tr-sub{color:#666;font-size:12px}
-
-.output-box{margin-top:16px;padding:24px 30px;background:#fff;border:1px solid #e0d8d0;border-radius:8px;display:none;font-size:13px;line-height:1.8;max-height:700px;overflow-y:auto;white-space:pre-wrap;font-family:Menlo,Consolas,monospace;box-shadow:0 2px 8px rgba(0,0,0,.04)}
-.output-box.open{display:block}
-
-.form-row{flex-direction:column}.form-group{min-width:100%}}
-
-.toast{position:fixed;bottom:30px;left:50%;transform:translateX(-50%);background:#333;color:#fff;padding:10px 24px;border-radius:10px;font-size:13px;z-index:999;opacity:0;transition:opacity .3s;pointer-events:none}
-.toast.show{opacity:1}
-.chat-panel .chat-msg{max-width:88%;padding:10px 16px;border-radius:14px;font-size:13px;line-height:1.6;animation:mi .3s ease}
-@keyframes mi{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
-.chat-panel .chat-u{background:#A93226;color:#fff;align-self:flex-end;border-bottom-right-radius:4px}
-.chat-panel .chat-a{background:#fff;color:#2C2C2C;align-self:flex-start;border-bottom-left-radius:4px;box-shadow:0 1px 4px rgba(0,0,0,.06)}
-.ct{display:flex;gap:4px;padding:10px 16px;align-items:center;align-self:flex-start;background:#fff;border-radius:14px;box-shadow:0 1px 4px rgba(0,0,0,.06)}
-.ct .d{width:7px;height:7px;border-radius:50%;background:#ccc;animation:dp 1.2s infinite}
-.ct .d:nth-child(2){animation-delay:.2s}.ct .d:nth-child(3){animation-delay:.4s}
-@keyframes dp{0%,60%,100%{transform:scale(1);opacity:.4}30%{transform:scale(1.3);opacity:1}}
-
-
-@media print{.no-print{display:none!important}body{padding:0;background:#fff}.card{box-shadow:none;border:1px solid #ddd}.header{background:#A93226!important;-webkit-print-color-adjust:exact}.output-box{max-height:none!important}}
-
-/* === v0.36 Refinements === */
-@import url('https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&display=swap');
-:root{--gold:#C8A84E;--gold-l:#F5EDD6;--t2:#6B7280;--t3:#9CA3AF;--sh:0 1px 3px rgba(0,0,0,0.06);--sh2:0 4px 12px rgba(0,0,0,0.06)}
-body{font-family:'Inter',-apple-system,BlinkMacSystemFont,'PingFang SC','Microsoft YaHei',sans-serif}
-.header h1{font-size:26px;letter-spacing:-0.3px}
-.header-badge{display:inline-block;background:rgba(255,255,255,0.12);padding:3px 12px;border-radius:20px;font-size:10px;font-weight:500;margin-top:8px}
-.card h2{font-size:16px}.card h2 .step-num{display:inline-flex;align-items:center;justify-content:center;width:24px;height:24px;background:var(--primary);color:#fff;border-radius:6px;font-size:12px;font-weight:700;flex-shrink:0;margin-right:4px}
-.day-header .day-num{display:inline-flex;align-items:center;justify-content:center;width:30px;height:30px;background:var(--primary);color:#fff;border-radius:7px;font-size:12px;font-weight:700;flex-shrink:0;min-width:auto}
-.city-chip{padding:7px 15px;border-radius:22px;font-weight:500}
-.city-chip:hover{border-color:var(--primary);background:rgba(169,50,38,0.08)}
-.city-chip.selected{box-shadow:0 2px 8px rgba(169,50,38,0.2)}
-.btn:active{transform:scale(0.97)}
-.qt{border-collapse:separate;border-spacing:0;border-radius:10px;overflow:hidden;border:1px solid var(--border)}
-.qt th{background:#FBFAF8;font-size:11px;text-transform:uppercase;letter-spacing:0.3px}
-.qt .tr-total td{border-top:2px solid var(--primary)}
-.form-group input:focus,.form-group select:focus{box-shadow:0 0 0 3px rgba(169,50,38,0.1)}
-.output-box{font-family:'Inter',Menlo,Consolas,monospace}
-#adminSettings{background:linear-gradient(135deg,#FFF9F5,#FFF5F0)!important;border-color:rgba(169,50,38,0.12)!important}
+<title>阿杜俄旅 · 定制报价系统 v2.0</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet">
+<style>*{margin:0;padding:0;box-sizing:border-box}
+:root{--p:#B8342A;--pd:#7B1818;--pl:#FDF0ED;--g:#C8A84E;--sfc:#fff;--t:#1F1F1F;--t2:#6B7280;--t3:#9CA3AF;--b:#E5E0DB;--b2:#F0ECE7;--suc:#059669;--r:12px;--rs:8px}
+body{font-family:'Inter',-apple-system,BlinkMacSystemFont,'PingFang SC','Microsoft YaHei',sans-serif;background:#F5F4F1;color:var(--t);line-height:1.6}
+.app{max-width:1120px;margin:0 auto;padding:16px}
+.tb{background:var(--pd);color:#fff;padding:8px 16px;border-bottom:3px solid var(--g);position:sticky;top:0;z-index:100;display:flex;justify-content:space-between;align-items:center}
+.tb-b{font-size:13px;font-weight:600}.tb-a{display:flex;gap:8px;align-items:center}
+.tb-btn{background:rgba(255,255,255,0.12);border:none;color:#fff;padding:5px 14px;border-radius:6px;cursor:pointer;font-size:12px;font-weight:500}
+.tb-st{font-size:11px;color:rgba(255,255,255,0.6)}
+.hd{text-align:center;padding:36px 24px;margin:16px 0 20px;background:linear-gradient(135deg,var(--pd),var(--p),#CD5C5C);color:#fff;border-radius:var(--r);position:relative;overflow:hidden}
+.hd::before{content:'';position:absolute;top:-60%;left:-50%;width:200%;height:200%;background:radial-gradient(circle at 30% 40%,rgba(255,255,255,0.06),transparent 50%)}
+.hd h1{font-size:24px;font-weight:800;position:relative}
+.hd p{font-size:13px;opacity:.8;margin-top:4px;position:relative}
+.hd-b{display:inline-block;background:rgba(255,255,255,0.12);padding:3px 12px;border-radius:20px;font-size:10px;margin-top:8px;position:relative}
+.cd{background:var(--sfc);border-radius:var(--r);padding:20px 22px;margin-bottom:14px;border:1px solid var(--b2)}
+.ch2{display:flex;align-items:center;gap:10px;padding-bottom:12px;margin-bottom:14px;border-bottom:2px solid #F5EDD6}
+.cs{display:flex;align-items:center;justify-content:center;width:26px;height:26px;background:var(--p);color:#fff;border-radius:7px;font-size:13px;font-weight:700;flex-shrink:0}
+.ct{font-size:15px;font-weight:700;color:var(--p)}
+.fr{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:12px;margin-bottom:10px}
+.fg{display:flex;flex-direction:column;gap:3px}
+.fl{font-size:11px;font-weight:600;color:var(--t2);text-transform:uppercase;letter-spacing:.3px}
+.fi{width:100%;padding:8px 10px;border:1.5px solid var(--b);border-radius:var(--rs);font-size:13px;font-family:inherit;background:var(--sfc);color:var(--t)}
+.fi:focus{outline:none;border-color:var(--p);box-shadow:0 0 0 3px var(--pl)}
+.btn{display:inline-flex;align-items:center;gap:5px;padding:8px 18px;border:none;border-radius:var(--rs);font-size:13px;font-weight:600;cursor:pointer;font-family:inherit;white-space:nowrap}
+.bp{background:var(--p);color:#fff}.bp:hover{background:var(--pd)}
+.bs{background:var(--suc);color:#fff}
+.bo{background:transparent;color:var(--p);border:1.5px solid var(--p)}
+.bd2{background:#DC2626;color:#fff}
+.bsm{padding:5px 12px;font-size:11px}
+.bg{display:flex;gap:8px;flex-wrap:wrap;margin:16px 0;justify-content:center}
+.cg{display:flex;flex-wrap:wrap;gap:8px;margin:4px 0}
+.cc{display:flex;align-items:center;gap:6px;padding:7px 14px;border-radius:22px;font-size:13px;cursor:pointer;border:1.5px solid var(--b);background:var(--sfc);user-select:none}
+.cc:hover{border-color:var(--p);background:var(--pl)}
+.cc.s{background:var(--p);color:#fff;border-color:var(--p)}
+.cc input{display:none}
+.ap{background:var(--pl);border-radius:var(--r);padding:14px 16px;margin-top:10px;border:1px solid rgba(184,52,42,0.15);display:none}
+.at2{font-size:13px;font-weight:600;margin-bottom:8px}
+.ag2{display:flex;flex-wrap:wrap;gap:10px}
+.ai{display:flex;align-items:center;gap:6px}
+.ai label{font-size:12px;font-weight:500;color:var(--t2)}
+.ai input{width:48px;text-align:center;padding:4px;border:1.5px solid var(--b);border-radius:6px;font-size:13px;font-weight:600}
+.ai input:focus{outline:none;border-color:var(--p);box-shadow:0 0 0 3px var(--pl)}
+.tip{font-size:11px;color:var(--t3);margin-top:6px}
+.dc{border:1px solid var(--b);border-radius:var(--r);margin-bottom:8px;overflow:hidden}
+.dh{display:flex;align-items:center;gap:10px;padding:10px 14px;background:#FBFAF8;cursor:pointer;user-select:none}
+.dh:hover{background:#F7F4F0}
+.nn{display:flex;align-items:center;justify-content:center;width:28px;height:28px;background:var(--p);color:#fff;border-radius:7px;font-size:12px;font-weight:700;flex-shrink:0}
+.dci{font-size:11px;color:var(--t2);font-weight:500;min-width:50px}
+.dth{flex:1;font-size:13px;font-weight:500;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.dtg{font-size:10px;color:var(--t3)}
+.db{padding:14px;display:none;border-top:1px solid var(--b2)}
+.db.o{display:block}
+.dr1{display:grid;grid-template-columns:repeat(auto-fill,minmax(130px,1fr));gap:8px;margin-bottom:10px}
+.dr1 .dci{display:flex;flex-direction:column;gap:2px}
+.dr1 .dci label{font-size:10px;color:var(--t2);font-weight:500}
+.sl{font-size:11px;font-weight:600;color:var(--t2);margin:10px 0 4px;text-transform:uppercase;letter-spacing:.3px}
+.ag{display:grid;grid-template-columns:repeat(auto-fill,minmax(170px,1fr));gap:3px}
+.ai2{display:flex;align-items:center;gap:5px;font-size:12px;padding:3px 7px;border-radius:5px;cursor:pointer}
+.ai2:hover{background:var(--pl)}
+.ai2 input{accent-color:var(--p);cursor:pointer}
+.ap2{font-size:9px;color:var(--t3);margin-left:auto}
+.st{display:flex;flex-wrap:wrap;gap:3px;margin:6px 0}
+.at3{display:inline-flex;align-items:center;gap:3px;padding:3px 8px;background:rgba(184,52,42,0.08);color:var(--p);border-radius:14px;font-size:11px;font-weight:500;border:1px solid rgba(184,52,42,0.12)}
+.at3 .del{cursor:pointer;font-size:13px;color:var(--t3);margin-left:2px}
+.mr{display:flex;gap:16px;flex-wrap:wrap;margin:6px 0;align-items:center}
+.mr label{font-size:12px;font-weight:500;color:var(--t2)}
+.mr select{font-size:11px;padding:3px 6px;border:1.5px solid var(--b);border-radius:5px;font-family:inherit}
+.pt{width:100%;border-collapse:separate;border-spacing:0;margin-top:10px;font-size:13px;border-radius:var(--r);overflow:hidden;border:1px solid var(--b2)}
+.pt th{background:#FBFAF8;padding:9px 12px;text-align:center;font-size:11px;color:var(--t2);border-bottom:1px solid var(--b);text-transform:uppercase;letter-spacing:.3px}
+.pt td{padding:9px 12px;text-align:right;border-bottom:1px solid var(--b2);font-size:13px}
+.pt td:first-child{text-align:left;font-weight:500}
+.pt tr:hover td{background:#FDFBFA}
+.pt .tt td{border-top:2px solid var(--p)}
+.pt .tt{font-weight:700;background:var(--pl);font-size:14px;color:var(--p)}
+.ob{margin-top:14px;padding:24px 28px;background:#fff;border:1px solid var(--b);border-radius:var(--r);display:none;font-size:13px;line-height:1.8;max-height:600px;overflow-y:auto;white-space:pre-wrap;font-family:Inter,Menlo,Consolas,monospace}
+.ob.o{display:block}
+.adm{background:linear-gradient(135deg,#FFF9F5,#FFF5F0)!important;border-color:rgba(184,52,42,0.12)!important}
+.toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%);background:#1F2937;color:#fff;padding:10px 24px;border-radius:var(--r);font-size:13px;z-index:9999;opacity:0;pointer-events:none;font-weight:500;transition:opacity .25s}
+.toast.s{opacity:1}
+.mo{display:none;position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,0.45);z-index:9998;align-items:center;justify-content:center;backdrop-filter:blur(4px)}
+.mo.o{display:flex}
+.mb{background:#fff;border-radius:20px;padding:36px;width:380px;box-shadow:0 25px 80px rgba(0,0,0,0.25);text-align:center}
+.cbtn{position:fixed;bottom:24px;right:24px;width:54px;height:54px;border-radius:50%;background:linear-gradient(135deg,var(--p),#CD5C5C);color:#fff;border:none;font-size:26px;cursor:pointer;box-shadow:0 6px 24px rgba(184,52,42,0.35);z-index:9996;display:flex;align-items:center;justify-content:center}
+.cbtn:hover{transform:scale(1.08)}
+.cp2{display:none;position:fixed;bottom:86px;right:24px;width:380px;max-height:520px;background:#F7F3EF;border-radius:16px;z-index:9996;flex-direction:column;overflow:hidden;border:1px solid #E0D8D0;box-shadow:0 16px 56px rgba(0,0,0,0.18)}
+.cp2.o{display:flex}
+.chat-h{background:var(--p);color:#fff;padding:12px 16px;display:flex;justify-content:space-between;align-items:center}
+.chat-t{display:flex;align-items:center;gap:6px;font-size:14px;font-weight:600}
+.chat-x{background:none;border:none;color:rgba(255,255,255,0.7);font-size:18px;cursor:pointer;padding:0}
+.cm{flex:1;overflow-y:auto;padding:12px;display:flex;flex-direction:column;gap:8px;min-height:180px;max-height:340px}
+.msg{max-width:88%;padding:9px 14px;border-radius:12px;font-size:13px;line-height:1.5}
+.msg-u{background:var(--p);color:#fff;align-self:flex-end;border-bottom-right-radius:3px}
+.msg-a{background:#fff;color:var(--t);align-self:flex-start;border-bottom-left-radius:3px;box-shadow:0 1px 3px rgba(0,0,0,0.04)}
+.cir{padding:10px 12px;border-top:1px solid #E0D8D0;background:#fff;display:flex;gap:6px}
+.cir input{flex:1;padding:8px 12px;border:1.5px solid #DDD;border-radius:8px;font-size:13px;outline:none;font-family:inherit}
+.cir input:focus{border-color:var(--p)}
+.cir button{background:var(--p);border:none;color:#fff;padding:8px 16px;border-radius:8px;font-size:13px;font-weight:600;cursor:pointer}
+.cd3{display:flex;gap:3px;padding:8px 14px;align-items:center;background:#fff;border-radius:12px}
+.cd3 span{width:6px;height:6px;border-radius:50%;background:#CCC;animation:dp 1.2s infinite}
+.cd3 span:nth-child(2){animation-delay:0.2s}
+.cd3 span:nth-child(3){animation-delay:0.4s}
+@keyframes dp{0%,60%,100%{transform:scale(1);opacity:0.4}30%{transform:scale(1.3);opacity:1}}
+@media print{.np{display:none!important}body{padding:0;background:#fff}.hd{background:var(--p)!important;-webkit-print-color-adjust:exact}.ob{max-height:none!important}}
 </style>
 </head>
 <body>
-<div class="container" id="app">
-<div class="topbar no-print" style="background:#7B1818;color:#fff;padding:8px 0;font-size:12px;border-bottom:3px solid #C8A84E"><div style="max-width:1260px;margin:0 auto;padding:0 20px;display:flex;justify-content:space-between;align-items:center">
-<span>🇷🇺 阿杜俄旅 · 俄罗斯专业地接</span>
-<div style="display:flex;align-items:center;gap:12px">
-  <span id="adminIndicator" style="font-size:12px;color:rgba(255,255,255,.7)">🔒 未登录</span>
-  <button onclick="showLoginPanel()" style="background:rgba(255,255,255,.15);border:none;color:#fff;padding:4px 16px;border-radius:4px;cursor:pointer;font-size:12px;font-weight:500">管理员登录</button>
-</div>
-</div></div>
+<div class="app">
 
-<div class="header no-print">
-<h1>🇷🇺 阿杜俄旅 · 产品定制与报价核算</h1>
-<p>俄罗斯旅游产品定制工具 · 实时成本核算 · 一键生成行程单+报价单</p>
-<div class="header-badge">🇷🇺 阿杜俄旅 · 专业俄罗斯地接</div>
+<div class="tb np">
+  <div class="tb-b">🇷🇺 阿杜俄旅 · 专业俄罗斯地接</div>
+  <div class="tb-a">
+    <span class="tb-st" id="ai2">🔒 未登录</span>
+    <button class="tb-btn" onclick="SL()">管理员登录</button>
+  </div>
 </div>
 
-<div id="adminModal" style="display:none;position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,.5);z-index:9998;align-items:center;justify-content:center" onclick="if(event.target===this)hideLoginPanel()">
-<div style="background:#fff;border-radius:16px;padding:36px;width:380px;box-shadow:0 20px 60px rgba(0,0,0,.2);text-align:center">
-<div style="font-size:48px;margin-bottom:12px">🔐</div>
-<h3 style="font-size:20px;margin-bottom:4px;color:#A93226;font-weight:700">管理员登录</h3>
-<p style="font-size:13px;color:#888;margin-bottom:24px">登录后可启用AI助手自动配置行程</p>
-<input id="modalUser" type="password" placeholder="账号" value="3056898" style="width:100%;padding:12px 16px;border:1.5px solid #ddd;border-radius:8px;font-size:14px;margin-bottom:12px;text-align:center">
-<input id="modalPass" type="password" placeholder="密码" style="width:100%;padding:12px 16px;border:1.5px solid #ddd;border-radius:8px;font-size:14px;margin-bottom:20px;text-align:center" onkeydown="if(event.key==='Enter')modalLogin()">
-<button onclick="modalLogin()" style="width:100%;padding:12px;background:#A93226;color:#fff;border:none;border-radius:8px;font-size:15px;font-weight:600;cursor:pointer">登录</button>
-<p id="modalError" style="color:#e74c3c;font-size:13px;margin-top:10px;display:none"></p>
-</div></div>
-<!-- ===== 第1步：基础信息 ===== -->
-<div class="card no-print">
-<h2><span class="step-num">1</span> 📋 基础信息</h2>
-<div class="form-row">
-<div class="form-group"><label>产品名称</label><input type="text" id="f_name" value="莫斯科+圣彼得堡"></div>
-<div class="form-group"><label>客户类型</label>
-<select id="f_client"><option value="family">家庭团</option><option value="group">常规团</option><option value="vip">VIP精品团</option></select></div>
-<div class="form-group"><label>出行人数</label><input type="number" id="f_people" value="5" min="1" max="50" onchange="onParamChange()"></div>
-<div class="form-group"><label>行程天数（含首尾）</label><input type="number" id="f_days" value="9" min="2" max="30" onchange="onParamChange()"></div>
-</div>
-<div class="form-row">
-<div class="form-group"><label>出发城市</label>
-<select id="f_depart"><option>北京</option><option>上海</option><option>广州</option><option>深圳</option><option>成都</option><option>香港</option></select></div>
-<div class="form-group"><label>住宿标准</label>
-<select id="f_hotel" onchange="onParamChange()">
-<option value="3">★★★ 三星</option><option value="4" selected>★★★★ 四星</option><option value="5">★★★★★ 五星</option>
-</select></div>
-<div class="form-group"><label>用车类型</label>
-<select id="f_vehicle" onchange="onParamChange()">
-<option value="minibus">中巴(18座 舒适≤15人)</option>
-<option value="bus">大巴(35-40座)</option>
-<option value="sedan">轿车/商务(1-4人)</option>
-</select></div>
-<div class="form-group"><label>是否旺季</label>
-<select id="f_peak" onchange="onParamChange()">
-<option value="0">平季</option><option value="1">旺季(7-8月,+15%)</option>
-</select></div>
-</div>
+<div class="hd np">
+  <h1>🇷🇺 产品定制与报价核算</h1>
+  <p>俄罗斯旅游产品定制 · 实时核算 · 一键生成行程单</p>
+  <div class="hd-b">v2.0 · 阿杜俄旅</div>
 </div>
 
-<!-- ===== 第2步：选择城市 ===== -->
-<div class="card no-print">
-<h2><span class="step-num">2</span> 🏙️ 选择游览城市</h2>
-<div class="city-grid" id="cityGrid"></div>
-<div id="cityDayAlloc" style="display:none;margin-top:10px;padding:12px;background:#f8f4f0;border-radius:10px;">
-<div style="font-size:13px;font-weight:600;margin-bottom:8px;">分配各城市天数 <span id="cityDayTotal" style="font-weight:400;color:#888;font-size:12px;">(共0天)</span></div>
-<div class="form-row" id="cityDayInputs"></div>
-<div id="cityDayTip" style="font-size:12px;margin-top:6px;"></div>
-</div>
-</div>
-
-<!-- ===== 第3步：每日行程 ===== -->
-<div class="card no-print">
-<h2><span class="step-num">3</span> 📅 每日行程编辑 <span id="dayCount" style="font-weight:400;font-size:13px;color:#888;"></span></h2>
-<div id="dayEditor"><p style="color:#999;text-align:center;padding:20px;">请先选择城市，系统自动生成行程框架</p></div>
+<!-- Admin Modal -->
+<div class="mo" id="am" onclick="if(event.target===this)HL()">
+  <div class="mb">
+    <div style="font-size:44px;margin-bottom:10px">🔐</div>
+    <h3 style="font-size:18px;color:var(--p);font-weight:700;margin-bottom:4px">管理员登录</h3>
+    <p style="font-size:12px;color:var(--t3);margin-bottom:20px">登录后启用AI助手</p>
+    <input class="fi" id="mu" type="text" placeholder="管理员账号" value="3056898" style="margin-bottom:10px;text-align:center">
+    <input class="fi" id="mp" type="password" placeholder="管理员密码" style="margin-bottom:16px;text-align:center" onkeydown="if(event.key==='Enter')DL()">
+    <button class="btn bp" onclick="DL()" style="width:100%;padding:11px;font-size:14px">登录</button>
+    <p id="le" style="color:#DC2626;font-size:12px;margin-top:8px;display:none"></p>
+  </div>
 </div>
 
-<!-- ===== 第4步：报价核算 ===== -->
-<div class="card no-print">
-<h2><span class="step-num">4</span> 💰 实时报价核算 <span id="priceTag" style="font-weight:400;font-size:13px;color:#888;"></span></h2>
-<div id="priceSummary"><p style="color:#999;text-align:center;padding:16px;">配置行程后自动核算</p></div>
+<!-- Step 1 -->
+<div class="cd">
+  <div class="ch2"><span class="cs">1</span><span class="ct">📋 基础信息</span></div>
+  <div class="fr">
+    <div class="fg"><label class="fl">产品名称</label><input class="fi" id="fn" value="莫斯科+圣彼得堡经典之旅"></div>
+    <div class="fg"><label class="fl">客户类型</label><select class="fi" id="fc"><option value="family">👨‍👩‍👧‍👦 家庭团</option><option value="group">👥 常规团</option><option value="vip">⭐ VIP精品团</option></select></div>
+    <div class="fg"><label class="fl">出行人数</label><input class="fi" type="number" id="fp" value="5" min="1" max="50" onchange="UA()"></div>
+    <div class="fg"><label class="fl">行程天数</label><input class="fi" type="number" id="fd" value="9" min="2" max="30" onchange="UA()"></div>
+  </div>
+  <div class="fr">
+    <div class="fg"><label class="fl">出发城市</label><select class="fi" id="fd2"><option>北京</option><option>上海</option><option>广州</option><option>深圳</option><option selected>成都</option><option>香港</option></select></div>
+    <div class="fg"><label class="fl">住宿标准</label><select class="fi" id="fh" onchange="CP()"><option value="3">★★★ 三星</option><option value="4" selected>★★★★ 四星</option><option value="5">★★★★★ 五星</option></select></div>
+    <div class="fg"><label class="fl">用车类型</label><select class="fi" id="fv" onchange="CP()"><option value="minibus">🚐 中巴(18座)</option><option value="bus">🚌 大巴(35-40座)</option><option value="sedan">🚗 轿车/商务</option></select></div>
+    <div class="fg"><label class="fl">旺季</label><select class="fi" id="fk" onchange="CP()"><option value="0">📆 平季</option><option value="1">🔥 旺季(+15%)</option></select></div>
+  </div>
 </div>
 
-<!-- ===== 操作按钮 ===== -->
-<div class="btn-group no-print" style="justify-content:center;margin:20px 0;">
-<button class="btn btn-success" onclick="genDoc()">📄 生成行程单+报价单</button>
-<button class="btn btn-primary" onclick="window.print()">🖨️ 打印/PDF</button>
-<button class="btn btn-outline" onclick="saveToFile()">💾 保存方案</button>
-<button class="btn btn-outline" onclick="loadFromFile()">📂 载入方案</button>
-<button class="btn btn-danger" onclick="resetAll()">🔄 重置</button>
-<!-- ===== 管理员设置区域（登录后可见） ===== -->
-<div id="adminSettings" class="card no-print" style="display:none;">
-<h2><span class="step-num">⚙</span> 管理员设置</h2>
-<div id="apiKeyRow" style="display:none;flex-direction:column;gap:8px;margin-top:8px;">
-<div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;">
-<span style="font-size:13px;font-weight:600;">DeepSeek API Key</span>
-<span id="akSt" style="font-size:16px;">❌</span>
-</div>
-<div style="display:flex;gap:6px;align-items:center;flex-wrap:wrap;">
-<input id="akInp" type="password" value="sk-93b7f24e8d4f4b55b7c7aff22b9c3ab8" style="flex:1;min-width:200px;padding:8px 12px;border:1.5px solid var(--border);border-radius:8px;font-size:13px;font-family:monospace">
-<button id="saveKeyBtn" class="btn btn-primary btn-sm" onclick="sa()" disabled>✅ 保存</button>
-<button id="logoutBtn" class="btn btn-danger btn-sm" onclick="adminLogout()" style="display:none">🚪 退出登录</button>
-</div>
-<div style="font-size:11px;color:#888;margin-top:4px;">⚠️ 仅管理员可见 · 保存后自动生效</div>
-</div>
+<!-- Step 2 -->
+<div class="cd">
+  <div class="ch2"><span class="cs">2</span><span class="ct">🏙️ 选择城市</span></div>
+  <div class="cg" id="cg"></div>
+  <div class="ap" id="ap">
+    <div class="at2">📊 分配天数 <span id="dt" style="font-weight:400;color:var(--t3);font-size:12px"></span></div>
+    <div class="ag2" id="ai"></div>
+    <div class="tip" id="tip"></div>
+  </div>
 </div>
 
-<!-- ===== AI 助手浮动按钮 ===== -->
-<button id="ctBtn" onclick="tc()" style="position:fixed;bottom:24px;right:24px;width:56px;height:56px;border-radius:50%;background:#A93226;color:#fff;border:none;font-size:28px;cursor:pointer;box-shadow:0 6px 24px rgba(169,50,38,.35);z-index:9997;transition:transform .2s;display:flex;align-items:center;justify-content:center;" onmouseover="this.style.transform='scale(1.1)'" onmouseout="this.style.transform='scale(1)'">🤖</button>
-
-<!-- ===== AI 助手对话框 ===== -->
-<div id="ctPnl" style="display:none;position:fixed;bottom:90px;right:24px;width:380px;max-height:520px;background:#F7F3EF;border-radius:16px;box-shadow:0 12px 48px rgba(0,0,0,.18);z-index:9997;flex-direction:column;overflow:hidden;border:1px solid #e8e0d8;">
-<div style="background:#A93226;color:#fff;padding:14px 18px;display:flex;justify-content:space-between;align-items:center;flex-shrink:0;">
-<div><span style="font-size:16px;">🤖</span> <span style="font-weight:600;font-size:14px;">阿杜AI助手</span></div>
-<div style="display:flex;gap:8px;align-items:center;">
-<span id="loginStatus" style="font-size:11px;color:rgba(255,255,255,.7);">🔒 未登录</span>
-<button onclick="tc()" style="background:none;border:none;color:#fff;font-size:20px;cursor:pointer;padding:0;line-height:1;">✕</button>
-</div>
-</div>
-<div id="ctMs" style="flex:1;overflow-y:auto;padding:14px;display:flex;flex-direction:column;gap:10px;min-height:200px;max-height:360px;"></div>
-<div style="padding:12px 14px;border-top:1px solid #e8e0d8;background:#fff;display:flex;gap:8px;flex-shrink:0;">
-<input id="ctInp" type="text" placeholder="输入旅行需求，例如：5人家庭团9天莫斯科+彼得堡…" style="flex:1;padding:10px 14px;border:1.5px solid #ddd;border-radius:10px;font-size:13px;outline:none;" onkeydown="if(event.key==='Enter')sc()">
-<button id="sBtn" onclick="sc()" style="background:#A93226;border:none;color:#fff;padding:10px 18px;border-radius:10px;font-size:13px;font-weight:600;cursor:pointer;white-space:nowrap;">发送</button>
-</div>
+<!-- Step 3 -->
+<div class="cd">
+  <div class="ch2"><span class="cs">3</span><span class="ct">📅 每日行程</span></div>
+  <div id="de"><div style="text-align:center;padding:28px;color:var(--t3);font-size:13px">🏙️ 请先选择城市</div></div>
 </div>
 
+<!-- Step 4 -->
+<div class="cd">
+  <div class="ch2"><span class="cs">4</span><span class="ct">💰 报价核算 <span id="pt" style="font-weight:400;font-size:12px;color:var(--t3)"></span></span></div>
+  <div id="ps"><div style="text-align:center;padding:24px;color:var(--t3);font-size:13px">💵 配置后自动核算</div></div>
 </div>
 
-<!-- ===== 文档输出 ===== -->
-<div class="output-box" id="outputBox"></div>
+<div class="bg np">
+  <button class="btn bs" onclick="GD()">📄 生成行程单+报价单</button>
+  <button class="btn bp" onclick="window.print()">🖨️ 打印/PDF</button>
+  <button class="btn bo" onclick="SD()">💾 保存</button>
+  <button class="btn bo" onclick="LD()">📂 载入</button>
+  <button class="btn bd2" onclick="RS()">🔄 重置</button>
 </div>
 
-<div id="toast" class="toast"></div>
+<div class="ob" id="ob"></div>
+
+<div class="cd adm np" id="ads" style="display:none">
+  <div class="ch2"><span class="cs">⚙</span><span class="ct">管理员设置</span></div>
+  <div id="akr" style="display:none">
+    <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px">
+      <span style="font-size:13px;font-weight:600">🔑 DeepSeek API Key</span>
+      <span id="ks" style="font-size:14px">❌</span>
+    </div>
+    <div style="display:flex;gap:6px;align-items:center;flex-wrap:wrap">
+      <input class="fi" id="ki" type="password" value="sk-93b7f24e8d4f4b55b7c7aff22b9c3ab8" style="flex:1;min-width:200px;font-family:monospace">
+      <button class="btn bp bsm" id="skb" onclick="SK()" disabled>✅ 保存</button>
+      <button class="btn bd2 bsm" id="lo" onclick="AL()" style="display:none">🚪 退出</button>
+    </div>
+  </div>
+</div>
+
+</div><!-- /app -->
+
+<button class="cbtn np" id="cbtn" onclick="TGC()">🤖</button>
+<div class="cp2 np" id="cp">
+  <div class="chat-h">
+    <div class="chat-t">🤖 阿杜AI助手</div>
+    <div style="display:flex;align-items:center;gap:6px">
+      <span id="cs" style="font-size:10px;color:rgba(255,255,255,0.6)">🔒 未登录</span>
+      <button class="chat-x" onclick="TGC()">✕</button>
+    </div>
+  </div>
+  <div class="cm" id="cm"></div>
+  <div class="cir">
+    <input id="ci" placeholder="输入需求，如：5人家庭团9天莫斯科+彼得堡" onkeydown="if(event.key==='Enter')SM()">
+    <button id="sb2" onclick="SM()">发送</button>
+  </div>
+</div>
+
+<div class="toast" id="ts"></div>
 
 <script>
-// ===== 全局定价参数 (基于实际成本核算) =====
-const PRICE = {
-  vehicle: { bus:3510, minibus:2500, sedan:1800 },
-  // Hotel: per ROOM per night (双床标间)
-  hotel: { 3:5000, 4:7000, 5:12000 },
-  guideHotel: { 3:5000, 4:7500, 5:12000 },
-  driverHotel: { 3:3500, 4:5500, 5:8000 },
-  // Guide: 全天30000, 半日(接送)15000
-  guideFull: 30000,
-  guideHalf: 15000,
-  // Meals per person: 中餐
-  meal: { lunch_cn:2300, dinner_cn:2300, lunch_ru:1400, dinner_ru:1200 },
-  // Driver meal per meal
-  driverMeal: 1500,
-  // Parking per day
-  parking: 2500,
-  // Transfer (airport/station pickup/drop)
-  transfer: 13000,
-  // Train
-  highspeed: 6000,
-};
+// ===== CONFIG =====
+var V = "2.0";
+var P = {vh:{bus:3510,minibus:2500,sedan:1800},ht:{3:5000,4:7000,5:12000},gh:{3:5000,4:7500,5:12000},dh:{3:3500,4:5500,5:8000},gf:30000,ghf:15000,ml:{l:2500,d:2500},dm:1500,hs:9500,pk:800,pm:1.15};
+var C = {moscow:"莫斯科",spb:"圣彼得堡",tula:"图拉",sergiev:"谢尔盖耶夫",suzdal:"苏兹达里"};
+var CN = {family:"家庭团",group:"常规团",vip:"VIP精品团"};
+var VN = {bus:"大巴(35-40座)",minibus:"中巴(18座)",sedan:"轿车/商务(1-4人)"};
+var HN = {3:"★★★三星",4:"★★★★四星",5:"★★★★★五星"};
+var AT = {moscow:[{id:"rs",n:"红场",c:0},{id:"sb",n:"圣瓦西里大教堂",c:1500},{id:"kr",n:"克里姆林宫",c:1500},{id:"ar",n:"军械库",c:2000},{id:"tr",n:"特列季亚科夫画廊",c:1400},{id:"bu",n:"Bunker-42地堡",c:4500},{id:"rd",n:"游船晚餐",c:8700},{id:"vd",n:"VDNH太空馆",c:600},{id:"nv",n:"新圣女公墓",c:700}],spb:[{id:"he",n:"冬宫博物馆",c:3500},{id:"ph",n:"夏宫(彼得霍夫)",c:3000},{id:"cp",n:"叶卡捷琳娜宫",c:3500},{id:"sab",n:"滴血大教堂",c:1500},{id:"pp",n:"彼得保罗要塞",c:1500},{id:"rm",n:"俄罗斯博物馆",c:1500}],tula:[{id:"tk",n:"图拉克里姆林宫",c:0},{id:"gb",n:"姜饼博物馆",c:1200},{id:"ys",n:"托尔斯泰庄园",c:1500}],sergiev:[{id:"tl",n:"圣三一修道院",c:1200}],suzdal:[{id:"sk",n:"苏兹达里克里姆林宫",c:1000},{id:"wa",n:"木建筑博物馆",c:900}]};
 
-// ===== 景点数据库 =====
-const ATTR = {
-  moscow: [
-    {id:'red_sq',name:'红场',cost:0,note:'世界文化遗产'},
-    {id:'st_basil',name:'圣瓦西里大教堂(入内)',cost:1500,note:'导游票另算'},
-    {id:'lenin_mau',name:'列宁墓',cost:0,note:'10-13点,仅三四六日'},
-    {id:'gum',name:'古姆百货',cost:0,note:'冰淇淋50₽'},
-    {id:'hist_museum',name:'国家历史博物馆(外观)',cost:0},
-    {id:'kremlin',name:'克里姆林宫',cost:1500,note:'导游票另算,周四闭馆'},
-    {id:'armoury',name:'军械库(兵器馆)',cost:2000,note:'导游票另算'},
-    {id:'tretyakov',name:'特列季亚科夫画廊(老馆)',cost:1400,note:'周一闭馆'},
-    {id:'tretyakov_new',name:'特列季亚科夫(新馆)',cost:1400,note:'周一闭馆'},
-    {id:'metro_tour',name:'网红地铁站巡游',cost:180,note:'含导游票'},
-    {id:'sparrow',name:'麻雀山观景台',cost:0,note:'莫斯科最高点'},
-    {id:'msu',name:'莫斯科大学(外观)',cost:0},
-    {id:'victory_temple',name:'武装力量大教堂+爱国者公园',cost:5000,note:'郊区车程1h'},
-    {id:'tank_museum',name:'库宾卡坦克博物馆',cost:550},
-    {id:'bunker42',name:'Bunker-42冷战地堡',cost:4500,note:'19点后人少'},
-    {id:'radisson',name:'Radisson游船晚餐',cost:8700,note:'含餐'},
-    {id:'vdnh',name:'VDNH+太空博物馆',cost:600},
-    {id:'fso_garage',name:'FSO特车博物馆',cost:1450},
-    {id:'novodevichy',name:'新圣女公墓',cost:700,note:'周一闭馆'},
-    {id:'tsaritsyno',name:'察里津诺庄园(外观)',cost:0},
-    {id:'christ_sav',name:'基督救世主大教堂(外观)',cost:0},
-    {id:'bolshoi',name:'大剧院参观',cost:4000,note:'需提前确认'},
-    {id:'china_6th',name:'中共六大会址',cost:0},
-    {id:'gorki_lenin',name:'列宁故居',cost:950,note:'10人成团'},
-    {id:'stalin_office',name:'斯大林办公室',cost:600},
-    {id:'lenin_pol_museum',name:'列宁政治历史博物馆',cost:500},
-  ],
-  spb: [
-    {id:'hermitage',name:'冬宫博物馆',cost:3500,note:'俄语讲解另算'},
-    {id:'peterhof',name:'夏宫(彼得霍夫)',cost:3000},
-    {id:'catherine_palace',name:'叶卡捷琳娜宫(皇村)',cost:3500},
-    {id:'savior_blood',name:'滴血大教堂',cost:1500},
-    {id:'kazan_cathedral',name:'喀山大教堂',cost:0,note:'免费'},
-    {id:'st_isaac',name:'圣以撒大教堂',cost:1200},
-    {id:'peter_paul',name:'彼得保罗要塞',cost:1500},
-    {id:'lakhta',name:'拉赫塔中心(外观)',cost:0},
-    {id:'mariinsky',name:'马林斯基剧院(外观)',cost:0,note:'演出票500-15000₽'},
-    {id:'nevsky',name:'涅瓦大街',cost:0},
-    {id:'russian_museum',name:'俄罗斯博物馆',cost:1500},
-    {id:'spb_metro',name:'彼得堡地铁巡游',cost:150},
-  ],
-  tula: [
-    {id:'tula_kremlin',name:'图拉克里姆林宫',cost:0},
-    {id:'gingerbread',name:'姜饼博物馆+制作体验',cost:1200},
-    {id:'samovar',name:'茶炊博物馆',cost:800},
-    {id:'weapon_museum',name:'武器博物馆',cost:1000},
-    {id:'yasnaya',name:'托尔斯泰庄园(雅斯纳亚)',cost:1500},
-  ],
-  sergiev: [
-    {id:'trinity_lavra',name:'圣三一修道院',cost:1200},
-    {id:'sergiev_museum',name:'谢尔盖耶夫历史博物馆',cost:800},
-  ],
-  suzdal: [
-    {id:'suzdal_kremlin',name:'苏兹达里克里姆林宫',cost:1000},
-    {id:'vladimir_cathedral',name:'弗拉基米尔圣母升天大教堂',cost:800},
-    {id:'wooden_arch',name:'木建筑露天博物馆',cost:900},
-  ],
-};
+// ===== STATE =====
+var S = [];         // selected cities
+var DD = [];        // day data
+var CH = [];        // chat history
+var AK = localStorage.getItem("ak") || "sk-93b7f24e8d4f4b55b7c7aff22b9c3ab8";
 
-const CITY_NAMES = { moscow:'莫斯科', spb:'圣彼得堡', tula:'图拉', sergiev:'谢尔盖耶夫', suzdal:'苏兹达里+弗拉基米尔' };
-const CLIENT_NAMES = { family:'家庭团', group:'常规团', vip:'VIP精品团' };
-const VEHICLE_NAMES = { bus:'大巴(35-40座)', minibus:'中巴(18座)', sedan:'轿车/商务车' };
-const HOTEL_NAMES = { 3:'★★★三星', 4:'★★★★四星', 5:'★★★★★五星' };
-const WEEKDAYS = ['日','一','二','三','四','五','六'];
+// ===== HELPERS =====
+function $(i){return document.getElementById(i);}
+function V(i){return $(i).value;}
+function N(i){return parseInt($(i).value) || 0;}
+function PP(){return N("fp") || 5;}
+function TD(){return N("fd") || 9;}
+function HS(){return N("fh") || 4;}
+function IP(){return V("fk") === "1";}
+function PM(){return IP() ? 1.15 : 1;}
+function GC(c){return parseInt(($("cd_"+c)||{value:0}).value)||0;}
+function TT(m){var t=$("ts");t.textContent=m;t.classList.add("s");setTimeout(function(){t.classList.remove("s");},2500);}
+function ES(s){return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/'/g,"&#39;").replace(/"/g,"&quot;");}
 
-// ===== 核心状态 =====
-let dayData = [];        // Array of day objects
-let selectedCities = []; // Currently selected cities
-
-// ===== 读取表单值 =====
-function $g(id){return document.getElementById(id)}
-function people(){return parseInt($g('f_people').value)||5}
-function days(){return parseInt($g('f_days').value)||9}
-function hotelStar(){return parseInt($g('f_hotel').value)||4}
-function vehicle(){return $g('f_vehicle').value}
-function isPeak(){return $g('f_peak').value==='1'}
-function peakMul(){return isPeak()?1.15:1}
-function hotelCost(){return PRICE.hotel[hotelStar()]}
-function guideHotel(){return PRICE.guideHotel[hotelStar()]}
-function driverHotel(){return PRICE.driverHotel[hotelStar()]}
-function vehCost(){return PRICE.vehicle[vehicle()]}
-
-// ===== 城市选择 =====
-function initCities(){
-  const g=$g('cityGrid');
-  g.innerHTML=Object.entries(CITY_NAMES).map(([k,v])=>
-    `<div class="city-chip${selectedCities.includes(k)?' selected':''}" data-city="${k}" onclick="toggleCity('${k}')">
-      <input type="checkbox" ${selectedCities.includes(k)?'checked':''}>
-      <span>${v}</span>
-    </div>`
-  ).join('');
-  updateCityAlloc();
+// ===== CITIES =====
+function IC(){
+  var g = $("cg"), h = "";
+  for(var k in C){
+    h += '<div class="cc" data-k="'+k+'" onclick="TC(\''+k+'\')"><input type="checkbox">'+C[k]+'</div>';
+  }
+  g.innerHTML = h;
 }
 
-function toggleCity(city){
-  const idx=selectedCities.indexOf(city);
-  if(idx>=0) selectedCities.splice(idx,1);
-  else selectedCities.push(city);
-  initCities();
-  rebuildAll();
+function TC(k){
+  var i = S.indexOf(k);
+  if(i >= 0) S.splice(i,1);
+  else S.push(k);
+  RC();
+  UA();
 }
 
-function updateCityAlloc(){
-  const alloc=$g('cityDayAlloc');
-  const inputs=$g('cityDayInputs');
-  const total=days();
-  if(selectedCities.length<2){alloc.style.display='none';return}
-  alloc.style.display='block';
-  $g('cityDayTotal').textContent=`(共${total}天)`;
-  let html='';
-  selectedCities.forEach((c,i)=>{
-    const existing=$g('cd_'+c);
-    const val=existing?parseInt(existing.value)||0:Math.floor(total/selectedCities.length);
-    html+=`<div class="form-group" style="min-width:120px;">
-      <label>${CITY_NAMES[c]}</label>
-      <div class="city-day-input">
-        <input type="number" id="cd_${c}" value="${val}" min="1" max="20" onchange="onCityDayChange()">
-        <span style="font-size:11px;color:#888;">天</span>
-      </div>
-    </div>`;
+function RC(){
+  document.querySelectorAll(".cc").forEach(function(e){
+    var k = e.dataset.k;
+    if(S.includes(k)){ e.classList.add("s"); e.querySelector("input").checked = true; }
+    else{ e.classList.remove("s"); e.querySelector("input").checked = false; }
   });
-  inputs.innerHTML=html;
-  validateCityDays();
 }
 
-function onCityDayChange(){validateCityDays();rebuildAll()}
-
-function validateCityDays(){
-  let sum=0;
-  selectedCities.forEach(c=>{sum+=parseInt(($g('cd_'+c)||{value:0}).value)||0});
-  const tip=$g('cityDayTip');
-  const total=days();
-  if(sum===total){tip.style.color='#27ae60';tip.textContent='✅ 天数分配正确';return true}
-  else{tip.style.color='#e74c3c';tip.textContent='❌ 当前合计'+sum+'天，应为'+total+'天';return false}
+function UA(){
+  var p = $("ap");
+  if(S.length < 2){ p.style.display = "none"; return; }
+  p.style.display = "block";
+  var t = TD();
+  var g = $("ai");
+  g.innerHTML = "";
+  S.forEach(function(c){
+    var e = $("cd_"+c);
+    var d = e ? parseInt(e.value)||0 : Math.floor(t/S.length);
+    var d2 = document.createElement("div");
+    d2.className = "ai";
+    d2.innerHTML = '<label>'+C[c]+'</label><input id="cd_'+c+'" type="number" value="'+d+'" min="1" max="'+t+'" onchange="VA()">';
+    g.appendChild(d2);
+  });
+  VA();
 }
 
-function getCityDays(city){return parseInt(($g('cd_'+city)||{value:0}).value)||0}
-
-// ===== 核心：当参数变化时重建 =====
-function onParamChange(){
-  updateCityAlloc();
-  // Don't auto-rebuild on every number input to avoid losing edits; only on confirm
+function VA(){
+  var s = 0;
+  S.forEach(function(c){ s += parseInt(($("cd_"+c)||{value:0}).value)||0; });
+  $("dt").textContent = "(共"+s+"天)";
+  if(s !== TD()){
+    $("tip").textContent = "⚠️ 天数不匹配，需"+TD()+"天";
+    $("tip").style.color = "#D97706";
+  } else {
+    $("tip").textContent = "✅ 合理";
+    $("tip").style.color = "#059669";
+  }
 }
 
-function rebuildAll(){
-  buildDays();
-  renderDays();
-  calcPrice();
-}
-
-// ===== 构建行程框架 =====
-function buildDays(){
-  const total=days();
-  if(selectedCities.length===0){dayData=[];renderDays();calcPrice();return}
+// ===== DAYS =====
+function BD(){
+  var t = TD();
+  if(!S.length){ DD=[]; RD(); CP(); return; }
+  var sq = [];
   
-  // Simplified logic: just create sequential days
-  // First determine the sequence of cities per day
-  let seq=[];
-  let remaining=total;
-  
-  if(selectedCities.includes('moscow')&&selectedCities.includes('spb')){
-    // Complex route: Moscow -> others -> SPB -> Moscow
-    let md=getCityDays('moscow');
-    let sd=getCityDays('spb');
-    let others=selectedCities.filter(c=>c!=='moscow'&&c!=='spb');
-    
-    seq.push({city:'moscow',type:'arrival',label:'抵达莫斯科'});
-    for(let i=1;i<md-1&&seq.length<total-1;i++)seq.push({city:'moscow',type:'sightseeing',label:'莫斯科游览'});
-    
-    others.forEach(c=>{
-      let cd=getCityDays(c);
-      if(seq.length<total-1){
-        seq.push({city:c,type:'sightseeing',label:CITY_NAMES[c]+'游览'});
-        for(let i=1;i<cd&&seq.length<total-1;i++)seq.push({city:c,type:'sightseeing',label:CITY_NAMES[c]+'游览'});
-      }
+  if(S.indexOf("moscow")>=0 && S.indexOf("spb")>=0){
+    var md = GC("moscow"), sd = GC("spb");
+    var ot = S.filter(function(c){return c!="moscow"&&c!="spb";});
+    sq.push({c:"moscow",tp:"arr",lb:"抵达莫斯科"});
+    for(var i=1; i<md-1 && sq.length<t-1; i++) sq.push({c:"moscow",tp:"st",lb:"莫斯科游览"});
+    ot.forEach(function(c){
+      var cd = GC(c);
+      if(sq.length < t-1){ sq.push({c:c,tp:"st",lb:C[c]+"游览"}); }
+      for(var i=1; i<cd && sq.length<t-1; i++) sq.push({c:c,tp:"st",lb:C[c]+"游览"});
     });
-    
-    if(seq.length<total-1){
-      seq.push({city:'spb',type:'transfer_in',label:'🚄 高铁赴圣彼得堡'});
-      for(let i=1;i<sd-1&&seq.length<total-1;i++)seq.push({city:'spb',type:'sightseeing',label:'圣彼得堡游览'});
+    if(sq.length < t-1){
+      sq.push({c:"spb",tp:"tr",lb:"高铁去圣彼得堡"});
+      for(var i=1; i<sd-1 && sq.length<t-1; i++) sq.push({c:"spb",tp:"st",lb:"圣彼得堡游览"});
     }
-    seq.push({city:'spb',type:'departure',label:'送机/送站返程'});
+    sq.push({c:"spb",tp:"dep",lb:"送机返程"});
   }
-  else if(selectedCities.includes('moscow')&&selectedCities.includes('tula')){
-    let md=getCityDays('moscow');
-    let td=getCityDays('tula');
-    let others=selectedCities.filter(c=>c!=='moscow'&&c!=='tula');
-    
-    seq.push({city:'moscow',type:'arrival',label:'抵达莫斯科'});
-    for(let i=1;i<md-1&&seq.length<total-2;i++)seq.push({city:'moscow',type:'sightseeing',label:'莫斯科游览'});
-    
-    others.forEach(c=>{
-      if(seq.length<total-2){seq.push({city:c,type:'sightseeing',label:CITY_NAMES[c]+'游览'});}
-    });
-    
-    seq.push({city:'tula',type:'sightseeing',label:'图拉游览'});
-    seq.push({city:'moscow',type:'departure',label:'送机返程'});
+  else if(S.indexOf("moscow")>=0 && S.indexOf("tula")>=0){
+    var md = GC("moscow"), t2d = GC("tula");
+    var ot = S.filter(function(c){return c!="moscow"&&c!="tula";});
+    sq.push({c:"moscow",tp:"arr",lb:"抵达莫斯科"});
+    for(var i=1; i<md-1 && sq.length<t-2; i++) sq.push({c:"moscow",tp:"st",lb:"莫斯科游览"});
+    ot.forEach(function(c){ if(sq.length<t-2) sq.push({c:c,tp:"st",lb:C[c]+"游览"}); });
+    sq.push({c:"tula",tp:"st",lb:"图拉游览"});
+    sq.push({c:"moscow",tp:"dep",lb:"送机返程"});
   }
-  else {
-    // Simple: all days in first city
-    const mc=selectedCities[0];
-    seq.push({city:mc,type:'arrival',label:'抵达'+CITY_NAMES[mc]});
-    for(let i=1;i<total-1;i++)seq.push({city:mc,type:'sightseeing',label:CITY_NAMES[mc]+'游览'});
-    seq.push({city:mc,type:'departure',label:'送机返程'});
+  else{
+    var mc = S[0];
+    sq.push({c:mc,tp:"arr",lb:"抵达"+C[mc]});
+    for(var i=1; i<t-1; i++) sq.push({c:mc,tp:"st",lb:C[mc]+"游览"});
+    sq.push({c:mc,tp:"dep",lb:"送机返程"});
   }
   
-  // Trim/pad to match total
-  while(seq.length>total)seq.pop();
-  while(seq.length<total)seq.push({city:selectedCities[0]||'moscow',type:'sightseeing',label:'自由活动'});
+  while(sq.length > t) sq.pop();
+  while(sq.length < t) sq.push({c:S[0]||"moscow",tp:"st",lb:"自由活动"});
   
-  // Build dayData objects, preserving existing data where possible
-  const oldData=dayData;
-  dayData=seq.map((item,idx)=>{
-    const old=oldData[idx]||{};
-    const d=new Date(2026,6,11+idx);
+  var od = DD;
+  DD = sq.map(function(it,i){
+    var o = od[i];
     return {
-      day:idx+1,
-      date:(d.getMonth()+1)+'/'+d.getDate(),
-      weekday:WEEKDAYS[d.getDay()],
-      city:item.city,
-      type:item.type,
-      label:old.label||item.label,
-      attractions:old.attractions||[],
-      meals:old.meals||{breakfast:true,lunch:true,dinner:false,mealType:'cn'},
-      vehicleHours:old.vehicleHours||(item.type==='arrival'||item.type==='departure'?4:item.type==='sightseeing'?10:6),
-      parkingFee:old.parkingFee||2500,
-      guideCost:old.guideCost||(item.type==='arrival'||item.type==='departure'?PRICE.guideHalf:PRICE.guideFull),
-      customCost:old.customCost||0,
-      customNote:old.customNote||'',
-      _extraHotels:old._extraHotels||0,
+      dy: i+1, c: it.c, tp: it.tp, lb: it.lb,
+      th: (o&&o.th) ? o.th : "",
+      at: (o&&o.at) ? o.at.slice() : [],
+      ml: (o&&o.ml) ? o.ml : {b:"i",l:"i",d:"i"},
+      vh: (o&&o.vh) ? o.vh : 8,
+      pf: (o&&o.pf) ? o.pf : 0,
     };
   });
 }
 
-// ===== 渲染每日编辑器 =====
-function renderDays(){
-  const ed=$g('dayEditor');
-  $g('dayCount').textContent=`(${dayData.length}天)`;
-  if(dayData.length===0){
-    ed.innerHTML='<p style="color:#999;text-align:center;padding:20px;">请选择游览城市</p>';
+function RD(){
+  var e = $("de");
+  e.innerHTML = "";
+  if(!S.length || !DD.length){
+    e.innerHTML = '<div style="text-align:center;padding:28px;color:var(--t3);font-size:13px">🏙️ 请先选择城市</div>';
     return;
   }
-  let h='';
-  dayData.forEach((day,idx)=>{
-    const attrs=ATTR[day.city]||[];
-    h+=`<div class="day-card">
-      <div class="day-header" onclick="toggleDay(${idx})">
-        <span class="day-num">D${day.day} ${day.weekday}</span>
-        <span class="day-city">${CITY_NAMES[day.city]||day.city}</span>
-        <span class="day-theme">${day.label}</span>
-        <span class="day-toggle">${$g('db_'+idx)&&$g('db_'+idx).classList.contains('open')?'🔼':'🔽'}</span>
-      </div>
-      <div class="day-body open" id="db_${idx}">`;
+  
+  DD.forEach(function(d,i){
+    var card = document.createElement("div");
+    card.className = "dc";
     
-    // Row 1: theme, city, vehicle hours, parking
-    h+=`<div class="ctrl-row">
-      <div class="fg" style="flex:2;">
-        <label>本日主题</label>
-        <input value="${escHtml(day.label)}" onchange="dayData[${idx}].label=this.value;calcPrice()">
-      </div>
-      <div class="fg">
-        <label>城市</label>
-        <select onchange="dayData[${idx}].city=this.value;renderDays();calcPrice()">
-          ${selectedCities.map(c=>`<option value="${c}"${c===day.city?' selected':''}>${CITY_NAMES[c]}</option>`).join('')}
-        </select>
-      </div>
-      <div class="fg">
-        <label>用车(小时)</label>
-        <input type="number" value="${day.vehicleHours}" min="0" max="16" onchange="dayData[${idx}].vehicleHours=parseInt(this.value)||0;calcPrice()">
-      </div>
-      <div class="fg">
-        <label>停车费(₽)</label>
-        <input type="number" value="${day.parkingFee}" min="0" onchange="dayData[${idx}].parkingFee=parseInt(this.value)||0;calcPrice()">
-      </div>
-    </div>`;
+    // Header
+    var hdr = document.createElement("div");
+    hdr.className = "dh";
+    hdr.onclick = function(){ var b=$("db_"+i); if(b)b.classList.toggle("o"); RD(); };
     
-    // Row 2: Guide cost
-    h+=`<div class="ctrl-row">
-      <div class="fg">
-        <label>导游费(₽)</label>
-        <input type="number" value="${day.guideCost}" min="0" onchange="dayData[${idx}].guideCost=parseInt(this.value)||0;calcPrice()">
-      </div>
-      <div class="fg">
-        <label>额外房间数(导游/司机)</label>
-        <input type="number" value="${day._extraHotels}" min="0" max="5" onchange="dayData[${idx}]._extraHotels=parseInt(this.value)||0;calcPrice()">
-      </div>
-      <div class="fg" style="flex:2;">
-        <label>自定义附加费(₽)</label>
-        <input type="number" value="${day.customCost}" min="0" onchange="dayData[${idx}].customCost=parseInt(this.value)||0;calcPrice()">
-      </div>
-    </div>`;
+    var nn = document.createElement("span");
+    nn.className = "nn"; nn.textContent = "D"+(i+1);
+    hdr.appendChild(nn);
     
-    // Attractions grid
-    if(attrs.length){
-      h+=`<div style="font-size:12px;font-weight:600;margin:8px 0 4px;">🎯 景点选择</div>
-      <div class="attr-grid">`;
-      attrs.forEach(a=>{
-        const checked=day.attractions.some(x=>x.id===a.id)?'checked':'';
-        h+=`<label class="attr-item">
-          <input type="checkbox" ${checked} onchange="toggleAttr(${idx},'${a.id}','${escHtml(a.name)}',${a.cost})">
-          <span>${a.name}</span>
-          ${a.cost>0?`<span class="attr-price">${a.cost}₽</span>`:''}
-          ${a.note?`<span class="attr-badge">${a.note}</span>`:''}
-        </label>`;
+    var ci = document.createElement("span");
+    ci.className = "dci"; ci.textContent = C[d.c];
+    hdr.appendChild(ci);
+    
+    var th = document.createElement("span");
+    th.className = "dth"; th.textContent = d.th || d.lb;
+    hdr.appendChild(th);
+    
+    var tg = document.createElement("span");
+    tg.className = "dtg";
+    var bEl = $("db_"+i);
+    tg.textContent = (bEl && bEl.classList.contains("o")) ? "▼" : "▶";
+    hdr.appendChild(tg);
+    
+    card.appendChild(hdr);
+    
+    // Body
+    var body = document.createElement("div");
+    body.className = "db";
+    body.id = "db_"+i;
+    if(bEl && bEl.classList.contains("o")) body.classList.add("o");
+    
+    // Controls row
+    var ctrl = document.createElement("div");
+    ctrl.className = "dr1";
+    ctrl.innerHTML = 
+      '<div class="dci"><label>主题</label><input class="fi" id="th_'+i+'" value="'+ES(d.th||'')+'" placeholder="红场+克里姆林宫"></div>'+
+      '<div class="dci"><label>城市</label><select class="fi" id="ct_'+i+'" onchange="DD['+i+'].c=this.value;RD();CP()">'+
+        S.map(function(c){return '<option value="'+c+'"'+(c===d.c?' selected':'')+'>'+C[c]+'</option>';}).join('')+
+      '</select></div>'+
+      '<div class="dci"><label>用车小时</label><input class="fi" type="number" id="vh_'+i+'" value="'+d.vh+'" min="0" onchange="DD['+i+'].vh=parseInt(this.value)||0;CP()"></div>'+
+      '<div class="dci"><label>停车费</label><input class="fi" type="number" id="pf_'+i+'" value="'+d.pf+'" min="0" onchange="DD['+i+'].pf=parseInt(this.value)||0;CP()"></div>';
+    body.appendChild(ctrl);
+    
+    // Attractions
+    var sa = document.createElement("div");
+    sa.className = "sl";
+    sa.textContent = "🎯 已选景点";
+    body.appendChild(sa);
+    
+    var st = document.createElement("div");
+    st.className = "st";
+    if(d.at && d.at.length){
+      d.at.forEach(function(a){
+        var t2 = document.createElement("span");
+        t2.className = "at";
+        t2.innerHTML = ES(a.n) + ' <span class="del" onclick="RA('+i+",'"+a.i+"')"+'">[x]</span>';
+        st.appendChild(t2);
       });
-      h+=`</div>`;
+    } else {
+      st.innerHTML = '<span style="font-size:11px;color:var(--t3)">暂无</span>';
     }
+    body.appendChild(st);
     
-    // Selected attractions tags
-    h+=`<div class="selected-attrs" id="sa_${idx}">`;
-    day.attractions.forEach(a=>{
-      h+=`<span class="tag">${a.name} ${a.cost>0?a.cost+'₽':''}<span class="del" onclick="removeAttr(${idx},'${a.id}')">✕</span></span>`;
-    });
-    h+=`</div>`;
+    // Available attractions
+    var aa = document.createElement("div");
+    aa.className = "sl";
+    aa.textContent = "📌 可选景点";
+    body.appendChild(aa);
+    
+    var ag = document.createElement("div");
+    ag.className = "ag";
+    var attrs = AT[d.c] || [];
+    if(attrs.length){
+      attrs.forEach(function(a){
+        var chk = d.at && d.at.some(function(x){return x.i===a.id;});
+        var item = document.createElement("div");
+        item.className = "ai2";
+        item.innerHTML = '<input type="checkbox"'+(chk?' checked':'')+' onchange="TA('+i+",'"+a.id+"','"+ES(a.n)+"',"+a.c+')"> <span>'+ES(a.n)+'</span>'+(a.c?' <span class="ap">'+a.c.toLocaleString()+'₽</span>':'');
+        ag.appendChild(item);
+      });
+    } else {
+      ag.innerHTML = '<span style="font-size:11px;color:var(--t3)">暂无数据</span>';
+    }
+    body.appendChild(ag);
     
     // Meals
-    const mt=day.meals.mealType||'cn';
-    h+=`<div class="meal-row">
-      <label style="font-weight:600;">🍽️ 用餐</label>
-      <label><input type="checkbox" ${day.meals.breakfast?'checked':''} onchange="dayData[${idx}].meals.breakfast=this.checked;calcPrice()"> 早餐(含)</label>
-      <label><input type="checkbox" ${day.meals.lunch?'checked':''} onchange="dayData[${idx}].meals.lunch=this.checked;calcPrice()"> 午餐</label>
-      <label><input type="checkbox" ${day.meals.dinner?'checked':''} onchange="dayData[${idx}].meals.dinner=this.checked;calcPrice()"> 晚餐</label>
-      <label>餐标:
-        <select onchange="dayData[${idx}].meals.mealType=this.value;calcPrice()">
-          <option value="cn"${mt==='cn'?' selected':''}>中餐(午2300/晚2300)</option>
-          <option value="ru"${mt==='ru'?' selected':''}>俄餐(午1400/晚1200)</option>
-          <option value="mixed"${mt==='mixed'?' selected':''}>混合(午俄1400/晚中2300)</option>
-        </select>
-      </label>
-    </div>`;
+    var ml = document.createElement("div");
+    var mlData = d.ml || {b:"i",l:"i",d:"i"};
+    ml.className = "mr";
+    ml.innerHTML = 
+      '<label>🍳 早 <select onchange="DD['+i+'].ml.b=this.value"><option value="i"'+(mlData.b==="i"?' selected':'')+'>含</option><option value="n"'+(mlData.b==="n"?' selected':'')+'>不含</option></select></label>'+
+      '<label>🍱 午 <select onchange="DD['+i+'].ml.l=this.value;CP()"><option value="i"'+(mlData.l==="i"?' selected':'')+'>含</option><option value="n"'+(mlData.l==="n"?' selected':'')+'>不含</option></select></label>'+
+      '<label>🍝 晚 <select onchange="DD['+i+'].ml.d=this.value;CP()"><option value="i"'+(mlData.d==="i"?' selected':'')+'>含</option><option value="n"'+(mlData.d==="n"?' selected':'')+'>不含</option></select></label>';
+    body.appendChild(ml);
     
-    // Custom note
-    h+=`<div style="margin-top:6px;">
-      <input placeholder="备注说明（如：需提前预约、交通方式等）" value="${escHtml(day.customNote)}" 
-        style="width:100%;padding:5px 8px;border:1px solid var(--border);border-radius:6px;font-size:12px;"
-        onchange="dayData[${idx}].customNote=this.value">
-    </div>`;
-    
-    h+=`</div></div>`;
+    card.appendChild(body);
+    e.appendChild(card);
   });
-  ed.innerHTML=h;
 }
 
-function escHtml(s){return String(s).replace(/'/g,"\\'").replace(/"/g,'&quot;').replace(/</g,'&lt;').replace(/>/g,'&gt;')}
-
-function toggleDay(idx){
-  const b=$g('db_'+idx);
-  if(b)b.classList.toggle('open');
+function TA(di,aid,an,ac){
+  var d = DD[di];
+  var i = d.at.findIndex(function(x){return x.i===aid;});
+  if(i>=0) d.at.splice(i,1);
+  else d.at.push({i:aid,n:an,c:ac});
+  RD(); CP();
 }
 
-function toggleAttr(di,aid,aname,acost){
-  const day=dayData[di];
-  const ei=day.attractions.findIndex(a=>a.id===aid);
-  if(ei>=0)day.attractions.splice(ei,1);
-  else day.attractions.push({id:aid,name:aname,cost:acost});
-  refreshAttrs(di);
-  calcPrice();
-}
-function removeAttr(di,aid){
-  dayData[di].attractions=dayData[di].attractions.filter(a=>a.id!==aid);
-  refreshAttrs(di);
-  // Uncheck checkbox
-  calcPrice();
-}
-function refreshAttrs(di){
-  const c=$g('sa_'+di);
-  if(!c)return;
-  c.innerHTML=dayData[di].attractions.map(a=>
-    `<span class="tag">${a.name} ${a.cost>0?a.cost+'₽':''}<span class="del" onclick="removeAttr(${di},'${a.id}')">✕</span></span>`
-  ).join('');
+function RA(di,aid){
+  DD[di].at = DD[di].at.filter(function(x){return x.i!==aid;});
+  RD(); CP();
 }
 
-// ===== 计算报价 =====
-function calcPrice(){
-  const ppl=people(),peak=peakMul(),vCost=vehCost(),hCost=hotelCost(),ghCost=guideHotel(),dhCost=driverHotel();
-  const p=$g('priceSummary');
+// ===== PRICE =====
+function CP(){
+  var ppl = PP(), t = TD(), pm2 = PM(), ho = HS();
+  var ve = V("fv");
+  var vc = (P.vh[ve]||2500)*pm2;
+  var hc = (P.ht[ho]||7000)*pm2;
+  var ghc = (P.gh[ho]||7500)*pm2;
+  var dhc = (P.dh[ho]||5500)*pm2;
   
-  if(dayData.length===0){p.innerHTML='<p style="color:#999;text-align:center;padding:16px;">请先配置行程</p>';return}
+  var sds=0, ars=0, dps=0, tm=0, tdm=0, ttk=0, tpk=0, ttr=0;
+  var rm = Math.ceil(ppl/2);
   
-  // Calculate rooms needed: for family double rooms
-  let rooms=Math.ceil(ppl/2);
-  if(rooms<1)rooms=1;
-  
-  // Build per-day costs
-  let dayCosts=[];
-  let totals={vehicle:0,parking:0,guide:0,hotel:0,guideHotel:0,meals:0,tickets:0,driverMeal:0,custom:0};
-  
-  dayData.forEach((day,idx)=>{
-    const mt=day.meals.mealType||'cn';
-    const lunchPrice=mt==='cn'?PRICE.meal.lunch_cn:PRICE.meal.lunch_ru;
-    const dinnerPrice=mt==='cn'?PRICE.meal.dinner_cn:(mt==='ru'?PRICE.meal.dinner_ru:PRICE.meal.dinner_cn);
-    // mixed: lunch ru, dinner cn
-    
-    let v=day.vehicleHours*vCost*peak;
-    let pk=day.parkingFee;
-    let g=day.guideCost;
-    let ho=(day.type!=='departure')?hCost*rooms:0;
-    let gh=(day.type!=='departure')?ghCost+dhCost:0; // guide + driver hotel
-    // If user set extra rooms
-    if(day._extraHotels>0)gh+=hCost*day._extraHotels;
-    
-    let ml=(day.meals.lunch?lunchPrice*ppl:0)+(day.meals.dinner?dinnerPrice*ppl:0);
-    let dm=(day.meals.lunch?PRICE.driverMeal:0)+(day.meals.dinner?PRICE.driverMeal:0);
-    let tk=day.attractions.reduce((s,a)=>s+a.cost*ppl,0);
-    let cu=day.customCost;
-    
-    let total=v+pk+g+ho+gh+ml+dm+tk+cu;
-    dayCosts.push({day:day.day,label:day.label,city:CITY_NAMES[day.city]||day.city,
-      vehicle:v,parking:pk,guide:g,hotel:ho,guideHotel:gh,meals:ml,driverMeal:dm,tickets:tk,custom:cu,total});
-    
-    totals.vehicle+=v; totals.parking+=pk; totals.guide+=g; totals.hotel+=ho; totals.guideHotel+=gh;
-    totals.meals+=ml; totals.driverMeal+=dm; totals.tickets+=tk; totals.custom+=cu;
+  DD.forEach(function(d){
+    if(d.tp==="st") sds++;
+    else if(d.tp==="arr") ars++;
+    else if(d.tp==="dep") dps++;
+    else sds++;
+    tpk += d.pf||0;
+    if(d.ml){
+      if(d.ml.l==="i") tm++;
+      if(d.ml.d==="i") tm++;
+    }
+    tdm += (d.ml&&d.ml.l==="i"?1:0) + (d.ml&&d.ml.d==="i"?1:0);
+    (d.at||[]).forEach(function(a){ ttk += a.c||0; });
+    if(d.tp==="tr") ttr++;
   });
   
-  // High speed train
-  let trainCost=0;
-  const hasMoscow=selectedCities.includes('moscow');
-  const hasSpb=selectedCities.includes('spb');
-  if(hasMoscow&&hasSpb){
-    const trips=dayData.some(d=>d.type==='transfer_out')?2:1;
-    trainCost=PRICE.highspeed*ppl*trips;
-  }
+  var hn = t-1;
+  var vt = vc*t;
+  var gt = sds*P.gf + (ars+dps)*P.ghf;
+  var ht = hc*rm*hn;
+  var ght = ghc*hn;
+  var dht = dhc*hn;
+  var mt = tm*P.ml.l*ppl;
+  var dmt = tdm*P.dm;
+  var trc = 0;
+  if(S.indexOf("moscow")>=0 && S.indexOf("spb")>=0 && ttr>0) trc = P.hs * ppl * ttr;
+  var tfc = P.ghf*2;
+  var gr = vt+tpk+gt+ht+ght+dht+mt+dmt+ttk+trc+tfc;
   
-  // Transfers
-  let transferCost=0;
-  dayData.forEach(d=>{if(['arrival','departure','transfer_in','transfer_out'].includes(d.type))transferCost+=PRICE.transfer});
+  $("pt").textContent = "(人均≈"+Math.round(gr/ppl).toLocaleString()+"₽)";
   
-  const grandTotal=totals.vehicle+totals.parking+totals.guide+totals.hotel+totals.guideHotel+totals.meals+totals.driverMeal+totals.tickets+totals.custom+trainCost+transferCost;
-  const perPerson=Math.round(grandTotal/ppl);
-  const perPersonCny=Math.round(perPerson/13);
-  const totalCny=Math.round(grandTotal/13);
-  
-  // Render summary
-  let h=`<div style="font-size:12px;color:#888;margin-bottom:8px;">
-    ${ppl}人 · ${rooms}间房 · ${HOTEL_NAMES[hotelStar()]} · ${VEHICLE_NAMES[vehicle()]}${isPeak()?' · 🌞旺季+15%':''}
-    · 含导游/司机住宿
-  </div>
-  <table class="qt">
-    <thead><tr><th>费用项目</th><th>金额(₽)</th><th>人均(₽)</th><th>人民币</th></tr></thead>
-    <tbody>
-      <tr><td>🚐 用车(含停车+司机餐)</td><td>${(totals.vehicle+totals.parking+totals.driverMeal).toLocaleString()}</td><td>${Math.round((totals.vehicle+totals.parking+totals.driverMeal)/ppl).toLocaleString()}</td><td>≈${Math.round((totals.vehicle+totals.parking+totals.driverMeal)/13).toLocaleString()}元</td></tr>
-      <tr><td>👤 中文导游</td><td>${totals.guide.toLocaleString()}</td><td>${Math.round(totals.guide/ppl).toLocaleString()}</td><td>≈${Math.round(totals.guide/13).toLocaleString()}元</td></tr>
-      <tr><td>🏨 住宿(含导游/司机)</td><td>${(totals.hotel+totals.guideHotel).toLocaleString()}</td><td>${Math.round((totals.hotel+totals.guideHotel)/ppl).toLocaleString()}</td><td>≈${Math.round((totals.hotel+totals.guideHotel)/13).toLocaleString()}元</td></tr>
-      <tr><td>🍽️ 餐费</td><td>${totals.meals.toLocaleString()}</td><td>${Math.round(totals.meals/ppl).toLocaleString()}</td><td>≈${Math.round(totals.meals/13).toLocaleString()}元</td></tr>
-      <tr><td>🎫 景点门票</td><td>${totals.tickets.toLocaleString()}</td><td>${Math.round(totals.tickets/ppl).toLocaleString()}</td><td>≈${Math.round(totals.tickets/13).toLocaleString()}元</td></tr>`;
-  
-  if(trainCost>0)h+=`<tr><td>🚄 高铁莫斯科↔彼得堡</td><td>${trainCost.toLocaleString()}</td><td>${Math.round(trainCost/ppl).toLocaleString()}</td><td>≈${Math.round(trainCost/13).toLocaleString()}元</td></tr>`;
-  if(transferCost>0)h+=`<tr><td>🚐 接送机/站×${dayData.filter(d=>['arrival','departure','transfer_in','transfer_out'].includes(d.type)).length}次</td><td>${transferCost.toLocaleString()}</td><td>${Math.round(transferCost/ppl).toLocaleString()}</td><td>≈${Math.round(transferCost/13).toLocaleString()}元</td></tr>`;
-  if(totals.custom>0)h+=`<tr><td>📌 其他附加</td><td>${totals.custom.toLocaleString()}</td><td>${Math.round(totals.custom/ppl).toLocaleString()}</td><td>≈${Math.round(totals.custom/13).toLocaleString()}元</td></tr>`;
-  
-  h+=`<tr class="tr-total"><td>★ 总计</td><td>${grandTotal.toLocaleString()}</td><td>${perPerson.toLocaleString()}</td><td>≈${totalCny.toLocaleString()}元</td></tr>
-    <tr class="tr-total"><td>★ 人均</td><td colspan="3">${perPerson.toLocaleString()}₽ ≈ ${perPersonCny.toLocaleString()}元 (1元≈13₽)</td></tr>
-    </tbody></table>`;
-  
-  // Day breakdown
-  h+=`<div class="section-title">📅 每日费用明细</div>
-  <table class="qt"><thead><tr><th>日</th><th>主题</th><th>用车</th><th>导游</th><th>住宿</th><th>餐</th><th>门票</th><th>小计</th></tr></thead><tbody>`;
-  dayCosts.forEach(d=>{
-    h+=`<tr><td>D${d.day}</td><td style="text-align:left;max-width:120px;overflow:hidden;text-overflow:ellipsis;">${d.city} ${d.label}</td>
-      <td>${d.vehicle.toLocaleString()}</td><td>${d.guide.toLocaleString()}</td><td>${(d.hotel+d.guideHotel).toLocaleString()}</td>
-      <td>${d.meals.toLocaleString()}</td><td>${d.tickets.toLocaleString()}</td>
-      <td><strong>${d.total.toLocaleString()}</strong></td></tr>`;
-  });
-  h+=`</tbody></table>`;
-  
-  $g('priceTag').textContent=`≈ ${perPersonCny.toLocaleString()}元/人`;
-  p.innerHTML=h;
-}
-
-// ===== 生成文档 =====
-function genDoc(){
-  const ppl=people(),rooms=Math.ceil(ppl/2),hs=hotelStar(),veh=vehicle(),peak=isPeak();
-  const totalDays=dayData.length;
-  
-  if(totalDays===0){toast('请先配置行程');return}
-  
-  // Recalculate
-  let dayCosts=[];
-  let totals={vehicle:0,parking:0,guide:0,hotel:0,guideHotel:0,meals:0,tickets:0,driverMeal:0,custom:0};
-  
-  dayData.forEach((day,idx)=>{
-    const mt=day.meals.mealType||'cn';
-    const lunchPrice=mt==='cn'?PRICE.meal.lunch_cn:PRICE.meal.lunch_ru;
-    const dinnerPrice=mt==='cn'?PRICE.meal.dinner_cn:(mt==='ru'?PRICE.meal.dinner_ru:PRICE.meal.dinner_cn);
-    const vCost=PRICE.vehicle[veh]||2500;
-    const hCost=PRICE.hotel[hs]||7000;
-    const ghCost=PRICE.guideHotel[hs]||7500;
-    const dhCost=PRICE.driverHotel[hs]||5500;
-    const pm=peak?1.15:1;
-    
-    let v=day.vehicleHours*vCost*pm;
-    let pk=day.parkingFee;
-    let g=day.guideCost;
-    let ho=(day.type!=='departure')?hCost*rooms:0;
-    let gh=(day.type!=='departure')?ghCost+dhCost:0;
-    if(day._extraHotels>0)gh+=hCost*day._extraHotels;
-    let ml=(day.meals.lunch?lunchPrice*ppl:0)+(day.meals.dinner?dinnerPrice*ppl:0);
-    let dm=(day.meals.lunch?PRICE.driverMeal:0)+(day.meals.dinner?PRICE.driverMeal:0);
-    let tk=day.attractions.reduce((s,a)=>s+a.cost*ppl,0);
-    let cu=day.customCost;
-    let total=v+pk+g+ho+gh+ml+dm+tk+cu;
-    
-    dayCosts.push({day:day.day,idx,label:day.label,city:CITY_NAMES[day.city]||day.city,date:day.date,weekday:day.weekday,
-      attractions:day.attractions,meals:day.meals,mealType:mt,
-      vehicleHours:day.vehicleHours,type:day.type,customNote:day.customNote,
-      vehicle:v,parking:pk,guide:g,hotel:ho,guideHotel:gh,meals:ml,driverMeal:dm,tickets:tk,custom:cu,total});
-    
-    totals.vehicle+=v;totals.parking+=pk;totals.guide+=g;totals.hotel+=ho;totals.guideHotel+=gh;
-    totals.meals+=ml;totals.driverMeal+=dm;totals.tickets+=tk;totals.custom+=cu;
-  });
-  
-  let trainCost=0,transferCost=0;
-  const hasMoscow=selectedCities.includes('moscow');
-  const hasSpb=selectedCities.includes('spb');
-  if(hasMoscow&&hasSpb){
-    const trips=dayData.some(d=>d.type==='transfer_out')?2:1;
-    trainCost=PRICE.highspeed*ppl*trips;
-  }
-  dayData.forEach(d=>{if(['arrival','departure','transfer_in','transfer_out'].includes(d.type))transferCost+=PRICE.transfer});
-  
-  const grandTotal=totals.vehicle+totals.parking+totals.guide+totals.hotel+totals.guideHotel+totals.meals+totals.driverMeal+totals.tickets+totals.custom+trainCost+transferCost;
-  const perP=Math.round(grandTotal/ppl);
-  const perPCny=Math.round(perP/13);
-  const totalCny=Math.round(grandTotal/13);
-  
-  const pName=$g('f_name').value;
-  const client=$g('f_client').value;
-  const depart=$g('f_depart').value;
-  
-  let doc='';
-  
-  // Header
-  doc+=`═══════════════════════════════════════════════════════════════\n`;
-  doc+=`          🇷🇺 阿杜俄旅 · 定制行程方案及报价单\n`;
-  doc+=`═══════════════════════════════════════════════════════════════\n\n`;
-  doc+=`  产品名称：${pName}\n`;
-  doc+=`  客户类型：${CLIENT_NAMES[client]}\n`;
-  doc+=`  出发城市：${depart}\n`;
-  doc+=`  出行人数：${ppl}人 · ${rooms}间房\n`;
-  doc+=`  住宿标准：${HOTEL_NAMES[hs]}\n`;
-  doc+=`  用车标准：${VEHICLE_NAMES[veh]}\n`;
-  doc+=`  ${peak?'🌞 旺季附加：已含15%上浮':'  旺季附加：无'}\n`;
-  doc+=`  报价日期：${new Date().toLocaleDateString('zh-CN')}\n`;
-  doc+=`  汇率参考：1元 ≈ 13₽\n\n`;
-  
-  doc+=`───────────────────────────────────────────────────────────────\n`;
-  doc+=`  📋 详细行程\n`;
-  doc+=`───────────────────────────────────────────────────────────────\n\n`;
-  
-  dayCosts.forEach(d=>{
-    doc+=`  【第${d.day}天】${d.date} 周${d.weekday}  ${d.city}\n`;
-    doc+=`  ───────────────────────────────────────────\n`;
-    doc+=`  主题：${d.label}\n`;
-    
-    if(d.type==='arrival'){
-      doc+=`  ✈️ 抵达${d.city}，中文导游举牌接机\n`;
-      doc+=`  🏨 入住${HOTEL_NAMES[hs]}酒店，调整休息\n`;
-    }
-    if(d.type==='departure'){
-      doc+=`  ✈️ 送机返程，结束愉快的俄罗斯之旅！\n`;
-    }
-    if(d.type==='transfer_in'&&d.city==='圣彼得堡'){
-      doc+=`  🚄 乘坐高铁「游隼号」赴圣彼得堡（约4小时）\n`;
-    }
-    if(d.type==='transfer_out'&&d.city==='莫斯科'){
-      doc+=`  🚄 乘坐高铁「游隼号」返回莫斯科（约4小时）\n`;
-    }
-    
-    if(d.attractions.length>0){
-      doc+=`  🎯 游览景点：\n`;
-      d.attractions.forEach(a=>{doc+=`    · ${a.name}${a.cost>0?` (${a.cost}₽/人)`:''}\n`});
-    }
-    
-    doc+=`  🍽️ 用餐：${d.meals.breakfast?'早餐✓ ':''}${d.meals.lunch?'午餐✓('+(d.mealType==='cn'?'中餐':'俄餐')+') ':''}${d.meals.dinner?'晚餐✓('+(d.mealType==='cn'?'中餐':'俄餐')+') ':''}\n`;
-    doc+=`  🚐 用车：${d.vehicleHours}小时\n`;
-    if(d.customNote)doc+=`  📌 备注：${d.customNote}\n`;
-    doc+=`\n`;
-  });
-  
-  // Price table
-  doc+=`───────────────────────────────────────────────────────────────\n`;
-  doc+=`  💰 报价明细\n`;
-  doc+=`───────────────────────────────────────────────────────────────\n\n`;
-  
-  // Simple formatted table
-  const items=[
-    ['🚐 用车(含停车+司机餐)',(totals.vehicle+totals.parking+totals.driverMeal).toLocaleString(),Math.round((totals.vehicle+totals.parking+totals.driverMeal)/ppl).toLocaleString(),'≈'+Math.round((totals.vehicle+totals.parking+totals.driverMeal)/13).toLocaleString()+'元'],
-    ['👤 中文导游服务',totals.guide.toLocaleString(),Math.round(totals.guide/ppl).toLocaleString(),'≈'+Math.round(totals.guide/13).toLocaleString()+'元'],
-    ['🏨 住宿(含导游/司机)',(totals.hotel+totals.guideHotel).toLocaleString(),Math.round((totals.hotel+totals.guideHotel)/ppl).toLocaleString(),'≈'+Math.round((totals.hotel+totals.guideHotel)/13).toLocaleString()+'元'],
-    ['🍽️ 餐费',totals.meals.toLocaleString(),Math.round(totals.meals/ppl).toLocaleString(),'≈'+Math.round(totals.meals/13).toLocaleString()+'元'],
-    ['🎫 景点门票',totals.tickets.toLocaleString(),Math.round(totals.tickets/ppl).toLocaleString(),'≈'+Math.round(totals.tickets/13).toLocaleString()+'元'],
+  var items = [
+    ["🚌 用车("+VN[ve]+")", vt, Math.round(vt/ppl), Math.round(vt/13)],
+    ["🅿️ 停车费", tpk, Math.round(tpk/ppl), Math.round(tpk/13)],
+    ["👨‍💼 导游费", gt, Math.round(gt/ppl), Math.round(gt/13)],
+    ["🏨 酒店("+HN[ho]+"x"+rm+"间x"+hn+"晚)", ht, Math.round(ht/ppl), Math.round(ht/13)],
+    ["🏠 导游住宿", ght, Math.round(ght/ppl), Math.round(ght/13)],
+    ["🏠 司机住宿", dht, Math.round(dht/ppl), Math.round(dht/13)],
+    ["🍽️ 餐费", mt, Math.round(mt/ppl), Math.round(mt/13)],
+    ["🍱 司陪餐补", dmt, Math.round(dmt/ppl), Math.round(dmt/13)],
+    ["🎫 景点门票", ttk, Math.round(ttk/ppl), Math.round(ttk/13)],
+    ["🚗 接送机", tfc, Math.round(tfc/ppl), Math.round(tfc/13)],
   ];
-  if(trainCost>0)items.push(['🚄 高铁莫斯科↔彼得堡',trainCost.toLocaleString(),Math.round(trainCost/ppl).toLocaleString(),'≈'+Math.round(trainCost/13).toLocaleString()+'元']);
-  if(transferCost>0)items.push(['🚐 接送机/站',transferCost.toLocaleString(),Math.round(transferCost/ppl).toLocaleString(),'≈'+Math.round(transferCost/13).toLocaleString()+'元']);
-  if(totals.custom>0)items.push(['📌 其他附加',totals.custom.toLocaleString(),Math.round(totals.custom/ppl).toLocaleString(),'≈'+Math.round(totals.custom/13).toLocaleString()+'元']);
+  if(trc>0) items.push(["🚄 高铁", trc, Math.round(trc/ppl), Math.round(trc/13)]);
   
-  items.forEach(([n,v1,v2,v3])=>{doc+=`  ${n.padEnd(22)} ${v1.padStart(12)}  ${v2.padStart(10)}  ${v3}\n`});
-  doc+=`  ───────────────────────────────────────────────────────────\n`;
-  doc+=`  ★ 总计                ${grandTotal.toLocaleString().padStart(12)}  ${perP.toLocaleString().padStart(10)}  ≈${totalCny.toLocaleString()}元\n`;
-  doc+=`  ★ 人均                ${perP.toLocaleString().padStart(12)}₽                    ≈${perPCny.toLocaleString()}元\n\n`;
-  
-  // Includes/Excludes
-  doc+=`───────────────────────────────────────────────────────────────\n`;
-  doc+=`  ✅ 费用包含\n`;
-  doc+=`───────────────────────────────────────────────────────────────\n`;
-  doc+=`  · 全程中文导游服务\n`;
-  doc+=`  · ${VEHICLE_NAMES[veh]}用车(含司机、油费、停车费${peak?'、旺季15%附加':''})\n`;
-  doc+=`  · ${HOTEL_NAMES[hs]}酒店住宿${dayData.filter(d=>d.type!=='departure').length}晚（含早餐）\n`;
-  doc+=`  · 行程所列景点首道门票\n`;
-  doc+=`  · 行程所列餐食\n`;
-  if(trainCost>0)doc+=`  · 莫斯科↔圣彼得堡高铁「游隼号」${dayData.some(d=>d.type==='transfer_out')?'往返':'单程'}二等座\n`;
-  doc+=`  · 机场/车站接送\n\n`;
-  
-  doc+=`───────────────────────────────────────────────────────────────\n`;
-  doc+=`  ❌ 费用不含\n`;
-  doc+=`───────────────────────────────────────────────────────────────\n`;
-  doc+=`  · 中国↔俄罗斯国际机票（可代查价格）\n`;
-  doc+=`  · 俄罗斯签证费用（电子签约2,000-3,000元，可代办）\n`;
-  doc+=`  · 旅游意外保险（建议购买，约50-100元/人）\n`;
-  doc+=`  · 马林斯基剧院等演出票（如需代订请提前告知）\n`;
-  doc+=`  · 个人消费、纪念品、酒水饮料\n`;
-  doc+=`  · 司机导游小费（建议每人每日500₽，约38元）\n`;
-  doc+=`  · 不可抗力因素产生的额外费用\n\n`;
-  
-  doc+=`───────────────────────────────────────────────────────────────\n`;
-  doc+=`  📌 温馨提示\n`;
-  doc+=`───────────────────────────────────────────────────────────────\n`;
-  doc+=`  1. 以上报价基于实时汇率，实际价格以预订时为准\n`;
-  doc+=`  2. 各博物馆有固定休息日，最终行程根据实际开放日微调\n`;
-  doc+=`  3. 旺季(7-8月)酒店价格上浮20-30%，建议尽早确认预订\n`;
-  doc+=`  4. 如对用车天数、餐食标准、住宿等级有调整，报价可灵活调整\n`;
-  doc+=`  5. 如需俄罗斯国旅正式报价单（俄方地接社），可另行出具\n`;
-  doc+=`  6. 电子签证（E-visa）最快4天出签，停留16天以内适用\n\n`;
-  
-  doc+=`═══════════════════════════════════════════════════════════════\n`;
-  doc+=`  🏢 阿杜俄旅 · 俄罗斯导游阿杜\n`;
-  doc+=`  从业二十年资深中文导游 · 专业俄罗斯地接服务\n`;
-  doc+=`  📞 微信/电话咨询 · 欢迎随时沟通\n`;
-  doc+=`═══════════════════════════════════════════════════════════════\n`;
-  
-  const box=$g('outputBox');
-  box.textContent=doc;
-  box.classList.add('open');
-  box.scrollIntoView({behavior:'smooth'});
-  toast('✅ 行程单+报价单已生成');
-  
-  // Also offer download
-  const blob=new Blob([doc],{type:'text/plain;charset=utf-8'});
-  const a=document.createElement('a');
-  a.href=URL.createObjectURL(blob);
-  a.download=`${pName}_行程报价_${new Date().toISOString().slice(0,10)}.txt`;
-  a.click();
+  var h = '<table class="pt"><tr><th>项目</th><th>总价(₽)</th><th>人均(₽)</th><th>≈人民币</th></tr>';
+  items.forEach(function(it){
+    h += '<tr><td>'+it[0]+'</td><td>'+it[1].toLocaleString()+'</td><td>'+it[2].toLocaleString()+'</td><td>≈'+it[3].toLocaleString()+'元</td></tr>';
+  });
+  h += '<tr class="tt"><td>💰 合计</td><td>'+gr.toLocaleString()+'₽</td><td>'+Math.round(gr/ppl).toLocaleString()+'₽</td><td>≈'+Math.round(gr/13).toLocaleString()+'元</td></tr></table>';
+  $("ps").innerHTML = h;
 }
 
-// ===== 保存/载入 =====
-function saveToFile(){
-  const state={selectedCities,dayData,f_name:$g('f_name').value,f_client:$g('f_client').value,
-    f_people:$g('f_people').value,f_days:$g('f_days').value,f_depart:$g('f_depart').value,
-    f_hotel:$g('f_hotel').value,f_vehicle:$g('f_vehicle').value,f_peak:$g('f_peak').value};
-  const blob=new Blob([JSON.stringify(state,null,2)],{type:'application/json'});
-  const a=document.createElement('a');
-  a.href=URL.createObjectURL(blob);
-  a.download=`俄旅方案_${new Date().toISOString().slice(0,10)}.json`;
-  a.click();
-  toast('✅ 方案已保存');
+// ===== DOCUMENT =====
+function GD(){
+  var ppl = PP(), t = TD();
+  var pn = V("fn"), cl = V("fc"), dp = V("fd2"), ho = HS(), ve = V("fv");
+  var gr = 0;
+  // Calculate total
+  var pm2 = PM(), vc = (P.vh[ve]||2500)*pm2, hc = (P.ht[ho]||7000)*pm2;
+  var ghc = (P.gh[ho]||7500)*pm2, dhc = (P.dh[ho]||5500)*pm2;
+  var rm = Math.ceil(ppl/2), hn = t-1;
+  var sds=0,ars=0,dps=0,tm=0,tdm=0,ttk=0,tpk=0,ttr=0;
+  DD.forEach(function(d){
+    if(d.tp==="st") sds++; else if(d.tp==="arr") ars++; else if(d.tp==="dep") dps++; else sds++;
+    tpk += d.pf||0;
+    if(d.ml){ if(d.ml.l==="i") tm++; if(d.ml.d==="i") tm++; }
+    tdm += (d.ml&&d.ml.l==="i"?1:0)+(d.ml&&d.ml.d==="i"?1:0);
+    (d.at||[]).forEach(function(a){ ttk += a.c||0; });
+    if(d.tp==="tr") ttr++;
+  });
+  gr = vc*t + tpk + (sds*P.gf+(ars+dps)*P.ghf) + hc*rm*hn + ghc*hn + dhc*hn + tm*P.ml.l*ppl + tdm*P.dm + ttk + P.ghf*2;
+  if(S.indexOf("moscow")>=0&&S.indexOf("spb")>=0&&ttr>0) gr += P.hs*ppl*ttr;
+  
+  var d = "═══════════════════════════════════════════════\n";
+  d += "     🇷🇺 阿杜俄旅 · 行程单+报价单\n";
+  d += "═══════════════════════════════════════════════\n\n";
+  d += "📋 产品："+pn+"\n";
+  d += "👥 客户："+CN[cl]+" · "+ppl+"人\n";
+  d += "📅 天数："+t+"天"+(t-1)+"晚\n";
+  d += "✈️ 出发："+dp+"\n";
+  d += "🏨 住宿："+HN[ho]+"\n";
+  d += "🚌 用车："+VN[ve]+"\n";
+  d += "📆 季节："+(IP()?"🔥旺季(7-8月)":"📆平季")+"\n";
+  d += "🗺️ 城市："+S.map(function(c){return C[c];}).join(" + ")+"\n\n";
+  d += "───────────────────────────────────────────\n";
+  d += "              行 程 安 排\n";
+  d += "───────────────────────────────────────────\n\n";
+  
+  DD.forEach(function(d2){
+    d += "  【第"+d2.dy+"天】"+C[d2.c]+"  "+(d2.th||d2.lb)+"\n";
+    if(d2.at&&d2.at.length) d += "    📍 "+d2.at.map(function(a){return a.n;}).join("、")+"\n";
+    var ms = [];
+    if(d2.ml&&d2.ml.b==="i") ms.push("🍳早");
+    if(d2.ml&&d2.ml.l==="i") ms.push("🍱午");
+    if(d2.ml&&d2.ml.d==="i") ms.push("🍝晚");
+    if(ms.length) d += "    🍽️ "+ms.join(" ")+"\n";
+    d += "\n";
+  });
+  
+  d += "───────────────────────────────────────────\n";
+  d += "              报 价 明 细\n";
+  d += "───────────────────────────────────────────\n\n";
+  d += "  💰 总价："+gr.toLocaleString()+"₽ (约"+Math.round(gr/13).toLocaleString()+"元)\n";
+  d += "  👤 人均："+Math.round(gr/ppl).toLocaleString()+"₽ (约"+Math.round(gr/ppl/13).toLocaleString()+"元)\n\n";
+  d += "  费用包含：\n  ✓ 全程用车("+VN[ve]+")\n  ✓ "+HN[ho]+"住宿\n  ✓ 中文导游\n  ✓ 景点门票\n";
+  if(S.indexOf("moscow")>=0&&S.indexOf("spb")>=0) d += "  ✓ 高铁二等座\n";
+  d += "  ✓ 接送机\n\n  费用不含：\n  ✗ 国际机票\n  ✗ 签证\n  ✗ 保险\n  ✗ 个人消费\n\n";
+  d += "═══════════════════════════════════════════════\n";
+  d += "  俄罗斯导游阿杜 📞 微信/电话联系\n";
+  d += "═══════════════════════════════════════════════\n";
+  
+  var bx = $("ob");
+  bx.textContent = d;
+  bx.classList.add("o");
+  bx.scrollIntoView({behavior:"smooth",block:"start"});
 }
 
-function loadFromFile(){
-  const input=document.createElement('input');
-  input.type='file';
-  input.accept='.json';
-  input.onchange=async(e)=>{
-    const file=e.target.files[0];
-    if(!file)return;
-    const text=await file.text();
-    try{
-      const state=JSON.parse(text);
-      if(state.selectedCities)selectedCities=state.selectedCities;
-      if(state.dayData)dayData=state.dayData;
-      if(state.f_name)$g('f_name').value=state.f_name;
-      if(state.f_client)$g('f_client').value=state.f_client;
-      if(state.f_people)$g('f_people').value=state.f_people;
-      if(state.f_days)$g('f_days').value=state.f_days;
-      if(state.f_depart)$g('f_depart').value=state.f_depart;
-      if(state.f_hotel)$g('f_hotel').value=state.f_hotel;
-      if(state.f_vehicle)$g('f_vehicle').value=state.f_vehicle;
-      if(state.f_peak)$g('f_peak').value=state.f_peak;
-      initCities();
-      renderDays();
-      calcPrice();
-      toast('✅ 方案已载入');
-    }catch(e){toast('❌ 文件格式错误');}
+// ===== SAVE/LOAD =====
+function SD(){
+  var st = {
+    basic:{name:V("fn"),client:V("fc"),people:PP(),days:TD(),depart:V("fd2"),hotel:V("fh"),vehicle:V("fv"),peak:V("fk")},
+    cities:S, cds:{}, dd:DD
   };
-  input.click();
+  S.forEach(function(c){ st.cds[c] = GC(c); });
+  var b = new Blob([JSON.stringify(st,null,2)], {type:"application/json"});
+  var a = document.createElement("a");
+  a.href = URL.createObjectURL(b);
+  a.download = "阿杜俄旅_"+V("fn").replace(/[\s/+]/g,"_")+"_"+new Date().toISOString().slice(0,10)+".json";
+  a.click();
+  TT("✅ 已保存");
 }
 
-function resetAll(){
-  if(!confirm('确定重置所有数据吗？'))return;
-  dayData=[];selectedCities=['moscow','spb'];
-  $g('f_name').value='莫斯科+圣彼得堡';
-  $g('f_client').value='family';
-  $g('f_people').value='5';
-  $g('f_days').value='9';
-  $g('f_hotel').value='4';
-  $g('f_vehicle').value='minibus';
-  $g('f_peak').value='0';
-  $g('outputBox').classList.remove('open');
-  initCities();
-  rebuildAll();
-  toast('🔄 已重置');
+function LD(){
+  var inp = document.createElement("input");
+  inp.type = "file"; inp.accept = ".json";
+  inp.onchange = function(e){
+    var f = e.target.files[0];
+    if(!f) return;
+    var r = new FileReader();
+    r.onload = function(ev){
+      try{
+        var st = JSON.parse(ev.target.result);
+        if(st.basic){
+          if($("fn")&&st.basic.name) $("fn").value = st.basic.name;
+          if($("fc")&&st.basic.client) $("fc").value = st.basic.client;
+          if($("fp")&&st.basic.people) $("fp").value = st.basic.people;
+          if($("fd")&&st.basic.days) $("fd").value = st.basic.days;
+          if($("fd2")&&st.basic.depart) $("fd2").value = st.basic.depart;
+          if($("fh")&&st.basic.hotel) $("fh").value = st.basic.hotel;
+          if($("fv")&&st.basic.vehicle) $("fv").value = st.basic.vehicle;
+          if($("fk")&&st.basic.peak) $("fk").value = st.basic.peak;
+        }
+        if(st.cities){ S = st.cities; RC(); UA(); }
+        if(st.cds){ Object.keys(st.cds).forEach(function(c){ var i=$("cd_"+c); if(i) i.value=st.cds[c]; }); }
+        if(st.dd){ DD = st.dd; RD(); CP(); }
+        TT("✅ 已载入");
+      } catch(err){ TT("❌ 文件错误"); }
+    };
+    r.readAsText(f);
+  };
+  inp.click();
 }
 
-function toast(msg){
-  const t=$g('toast');
-  t.textContent=msg;
-  t.classList.add('show');
-  setTimeout(()=>t.classList.remove('show'),2500);
+function RS(){
+  if(!confirm("确定重置？")) return;
+  S=[]; DD=[];
+  $("fn").value="莫斯科+圣彼得堡经典之旅";
+  $("fc").value="family"; $("fp").value="5"; $("fd").value="9";
+  $("fd2").value="成都"; $("fh").value="4"; $("fv").value="minibus"; $("fk").value="0";
+  RC(); $("ap").style.display="none";
+  $("de").innerHTML='<div style="text-align:center;padding:28px;color:var(--t3);font-size:13px">🏙️ 请先选择城市</div>';
+  $("ps").innerHTML='<div style="text-align:center;padding:24px;color:var(--t3);font-size:13px">💵 配置后自动核算</div>';
+  $("ob").classList.remove("o");
+  TT("🔄 已重置");
 }
 
-// ===== 初始化 =====
-document.addEventListener('DOMContentLoaded',()=>{
-  selectedCities=['moscow','spb'];
-  initCities();
-  rebuildAll();
-});
+// ===== ADMIN =====
+function SL(){ $("am").classList.add("o"); setTimeout(function(){ $("mp").focus(); },100); }
+function HL(){ $("am").classList.remove("o"); }
 
-(function(){
-var ch = [];
-var ak = localStorage.getItem('adu_ak') || 'sk-93b7f24e8d4f4b55b7c7aff22b9c3ab8';
-
-window.showLoginPanel = function() {
-  var m = document.getElementById('adminModal');
-  m.style.display = 'flex';
-  setTimeout(function(){ document.getElementById('modalPass').focus(); }, 100);
-};
-window.hideLoginPanel = function() {
-  document.getElementById('adminModal').style.display = 'none';
-};
-window.modalLogin = function() {
-  var u = document.getElementById('modalUser').value.trim();
-  var p = document.getElementById('modalPass').value.trim();
-  var e = document.getElementById('modalError');
-  if (u === '3056898' && p === 'pan3056898') {
-    sessionStorage.setItem('adu_admin', '1');
-    hideLoginPanel();
-    var ind = document.getElementById('adminIndicator');
-    if (ind) { ind.innerHTML = '\ud83d\udd13 \u5df2\u767b\u5f55'; ind.style.color = 'rgba(255,255,255,.9)'; }
-    var ls = document.getElementById('loginStatus');
-    if (ls) { ls.textContent = '\u2705 \u5df2\u767b\u5f55'; ls.style.color = '#27ae60'; }
-    var lo = document.getElementById('logoutBtn');
-    if (lo) lo.style.display = '';
-    var akr = document.getElementById('apiKeyRow');
-    if (akr) akr.style.display = 'flex';
-    var ads = document.getElementById('adminSettings');
-    if (ads) ads.style.display = 'block';
-    var ms = document.getElementById('ctMs');
-    if (ms) { ms.innerHTML = ''; welcomeMsg(); }
-    toast('\u2705 \u767b\u5f55\u6210\u529f');
+function DL(){
+  var u = $("mu").value.trim(), p = $("mp").value.trim();
+  if(u==="3056898" && p==="pan3056898"){
+    sessionStorage.setItem("adu_admin","1");
+    HL(); AU(true);
+    $("cm").innerHTML = "";
+    WM();
+    TT("✅ 登录成功");
   } else {
-    e.style.display = 'block';
-    e.textContent = '\u274c \u8d26\u53f7\u6216\u5bc6\u7801\u9519\u8bef';
-  }
-};
-window.adminLogout = function() {
-  sessionStorage.removeItem('adu_admin');
-  var ind = document.getElementById('adminIndicator');
-  if (ind) { ind.innerHTML = '\ud83d\udd12 \u672a\u767b\u5f55'; ind.style.color = 'rgba(255,255,255,.7)'; }
-  var ls = document.getElementById('loginStatus');
-  if (ls) { ls.textContent = '\u672a\u767b\u5f55'; ls.style.color = '#888'; }
-  var lo = document.getElementById('logoutBtn');
-  if (lo) lo.style.display = 'none';
-  var akr = document.getElementById('apiKeyRow');
-  if (akr) akr.style.display = 'none';
-  var sb = document.getElementById('sBtn');
-  if (sb) sb.disabled = true;
-  var ms = document.getElementById('ctMs');
-  if (ms) ms.innerHTML = '<div class="chat-msg chat-a" style="text-align:center;padding:30px"><div style="font-size:40px">\ud83d\udd10</div><div style="margin-top:10px;font-weight:600">\u8bf7\u767b\u5f55\u7ba1\u7406\u5458\u8d26\u53f7</div><div style="font-size:12px;color:#888;margin-top:6px">\u767b\u5f55\u540e\u53ef\u542f\u7528AI\u52a9\u624b</div></div>';
-  toast('\u5df2\u9000\u51fa');
-};
-window.tc = function() {
-  var p = document.getElementById('ctPnl');
-  if (p.style.display === 'flex') { p.style.display = 'none'; }
-  else { p.style.display = 'flex'; setTimeout(function(){ document.getElementById('ctInp').focus(); }, 200); }
-};
-window.sa = function() {
-  var v = document.getElementById('akInp').value.trim();
-  if (!v || !v.startsWith('sk-')) { toast('\u8bf7\u8f93\u5165\u6709\u6548\u7684API Key'); return; }
-  ak = v;
-  localStorage.setItem('adu_ak', ak);
-  var st = document.getElementById('akSt');
-  if (st) { st.textContent = '\u2705'; st.style.color = '#27ae60'; }
-  var sb = document.getElementById('saveKeyBtn');
-  if (sb) sb.disabled = true;
-  var inp = document.getElementById('akInp');
-  if (inp) inp.value = ak.slice(0,6) + '...' + ak.slice(-4);
-  toast('\u2705 Key\u5df2\u4fdd\u5b58');
-};
-function welcomeMsg() {
-  var ms = document.getElementById('ctMs');
-  if (ms) ms.innerHTML = '<div class="chat-msg chat-a">\u4f60\u597d\uff01\u6211\u662f\u963f\u675cAI\u52a9\u624b \ud83e\udd16<br><br>\u544a\u8bc9\u6211\u4f60\u7684\u65c5\u884c\u9700\u6c42\uff0c\u6211\u4f1a\u81ea\u52a8\u914d\u7f6e\u884c\u7a0b\u548c\u62a5\u4ef7\u3002<br><br><b>\u4f8b\u5982\uff1a</b><br>\u2022 "5\u4eba\u5bb6\u5ead\u56e2\uff0c9\u5929\u83ab\u65af\u79d1+\u5723\u5f7c\u5f97\u5821"<br>\u2022 "10\u4e2a\u4eba\uff0c\u83ab\u65af\u79d1+\u56fe\u62c9\uff0c7\u5929"<br>\u2022 "\u60f3\u770b\u6781\u5149\uff0c4\u4eba\u6469\u5c14\u66fc\u65af\u514b+\u83ab\u65af\u79d1"<br><br>\u76f4\u63a5\u8f93\u5165\u9700\u6c42\u5f00\u59cb\u5427 \udbc0\udcbc</div>';
-}
-window.sc = function() {
-  if (sessionStorage.getItem('adu_admin') !== '1') { toast('\u8bf7\u5148\u767b\u5f55'); return; }
-  var inp = document.getElementById('ctInp');
-  var t = inp.value.trim();
-  if (!t) return;
-  if (!ak) { toast('\u8bf7\u5148\u8bbe\u7f6eAPI Key'); return; }
-  inp.value = '';
-  var ms = document.getElementById('ctMs');
-  var d = document.createElement('div');
-  d.className = 'chat-msg chat-u';
-  d.textContent = t;
-  ms.appendChild(d);
-  d.scrollIntoView({behavior:'smooth'});
-  ch.push({role:'user',content:t});
-  document.getElementById('sBtn').disabled = true;
-  var td = document.createElement('div');
-  td.className = 'ct'; td.id = 'td';
-  td.innerHTML = '<span class="d"></span><span class="d"></span><span class="d"></span>';
-  ms.appendChild(td);
-  td.scrollIntoView({behavior:'smooth'});
-  callAI(t);
-};
-function callAI(userMsg) {
-  fetch('https://api.deepseek.com/v1/chat/completions', {
-    method:'POST',
-    headers:{'Content-Type':'application/json','Authorization':'Bearer '+ak},
-    body: JSON.stringify({
-      model:'deepseek-chat',
-      messages:(function(){
-        // Build full conversation history: system message + all previous exchanges
-        var msgs = [{role:'system',content:'你是一个俄罗斯旅游定制AI助手。你需要通过对话了解用户需求，然后自动配置行程。
-
-可用城市（city key用英文）：
-- moscow: 莫斯科
-- spb: 圣彼得堡
-- tula: 图拉
-- sergiev: 谢尔盖耶夫
-- suzdal: 苏兹达里+弗拉基米尔
-
-车型：bus(大巴), minibus(中巴), sedan(轿车/商务)
-客户类型：family(家庭团), group(常规团), vip(VIP精品团)
-住宿：3(三星), 4(四星), 5(五星)
-
-当用户确认需求后，在回复末尾添加[FILL]并跟一个JSON对象，格式如下：
-{
-  "basic": {
-    "name": "产品名称（如：莫斯科+圣彼得堡经典之旅）",
-    "people": 人数,
-    "days": 天数,
-    "depart": "出发城市（如：北京/上海/广州/深圳/成都/香港）",
-    "hotel": "3或4或5",
-    "vehicle": "bus或minibus或sedan",
-    "peak": true或false,
-    "client": "family或group或vip"
-  },
-  "cities": ["moscow","spb","tula"],
-  "cityDays": {"moscow":天数, "spb":天数, "tula":天数},
-  "attractions": {
-    "moscow": [{"id":"red_sq"}, {"id":"kremlin"}],
-    "spb": [{"id":"hermitage"}, {"id":"peterhof"}]
+    $("le").style.display = "block";
+    $("le").textContent = "❌ 账号或密码错误";
   }
 }
-注意：cityDays的天数之和应等于basic.days总数。
-景点id从以下列表选择：
-莫斯科：red_sq(红场), st_basil(圣瓦西里), lenin_mau(列宁墓), gum(古姆百货), kremlin(克里姆林宫), armoury(军械库), tretyakov(特列季亚科夫画廊), sparrow(麻雀山), msu(莫大), christ_sav(基督救世主大教堂), vdnh(VDNH), novodevichy(新圣女公墓), tsaritsyno(察里津诺庄园), metro_tour(地铁巡游), victory_temple(武装力量大教堂), tank_museum(坦克博物馆), bunker42(冷战地堡), radisson(游船晚餐), bolshoi(大剧院)
-圣彼得堡：hermitage(冬宫), peterhof(夏宫), catherine_palace(叶宫), savior_blood(滴血大教堂), kazan_cathedral(喀山大教堂), st_isaac(圣以撒大教堂), peter_paul(彼得保罗要塞), nevsky(涅瓦大街), russian_museum(俄罗斯博物馆), lakhta(拉赫塔中心), mariinsky(马林斯基剧院)
-图拉：tula_kremlin(图拉克里姆林宫), gingerbread(姜饼博物馆), samovar(茶炊博物馆), weapon_museum(武器博物馆), yasnaya(托尔斯泰庄园)
-谢尔盖耶夫：trinity_lavra(圣三一修道院)
-苏兹达里：suzdal_kremlin(苏兹达里克里姆林宫), wooden_arch(木建筑博物馆), vladimir_cathedral(弗拉基米尔大教堂)
 
-注意：不要解释JSON结构，直接回复用户并添加[FILL]JSON。'}];
-        // Append full conversation history
-        ch.forEach(function(m){ msgs.push(m); });
-        msgs.push({role:'user',content:userMsg});
-        return msgs;
-      })()
-    })
+function AL(){
+  sessionStorage.removeItem("adu_admin");
+  AU(false);
+  $("cm").innerHTML = '<div class="msg msg-a" style="text-align:center;padding:20px"><div style="font-size:36px">🔒</div><div style="font-weight:600;margin-top:6px">已退出</div></div>';
+  TT("已退出");
+}
+
+function AU(li){
+  var ind = $("ai2"), st = $("cs"), akr = $("akr"), ads = $("ads"), lo = $("lo");
+  if(li){
+    ind.innerHTML = "🔓 已登录"; ind.style.color = "rgba(255,255,255,0.9)";
+    st.textContent = "🔓 已登录"; st.style.color = "rgba(255,255,255,0.9)";
+    if(akr) akr.style.display = "flex";
+    if(ads) ads.style.display = "block";
+    if(lo) lo.style.display = "";
+  } else {
+    ind.innerHTML = "🔒 未登录"; ind.style.color = "rgba(255,255,255,0.6)";
+    st.textContent = "🔒 未登录"; st.style.color = "rgba(255,255,255,0.6)";
+    if(akr) akr.style.display = "none";
+    if(ads) ads.style.display = "none";
+    if(lo) lo.style.display = "none";
+  }
+}
+
+// ===== CHAT =====
+function TGC(){ $("cp").classList.toggle("o"); if($("cp").classList.contains("o")) setTimeout(function(){ $("ci").focus(); },200); }
+
+function WM(){
+  $("cm").innerHTML = '<div class="msg msg-a">你好！我是阿杜AI助手 🤖<br><br>告诉我你的旅行需求，我会自动配置行程和报价。<br><br><b>例如：</b><br>• "5人家庭团，9天莫斯科+圣彼得堡"<br>• "10个人，莫斯科+图拉，7天"<br><br>直接输入需求吧 🎯</div>';
+}
+
+function SM(){
+  if(sessionStorage.getItem("adu_admin") !== "1"){ TT("请先登录"); return; }
+  var inp = $("ci"), t = inp.value.trim();
+  if(!t) return;
+  if(!AK){ TT("请先设置API Key"); return; }
+  inp.value = "";
+  var ms = $("cm");
+  var d = document.createElement("div");
+  d.className = "msg msg-u"; d.textContent = t;
+  ms.appendChild(d); d.scrollIntoView({behavior:"smooth"});
+  CH.push({role:"user",content:t});
+  $("sb2").disabled = true;
+  var dt = document.createElement("div");
+  dt.className = "cd"; dt.id = "cd2";
+  dt.innerHTML = "<span></span><span></span><span></span>";
+  ms.appendChild(dt); dt.scrollIntoView({behavior:"smooth"});
+  CAI(t);
+}
+
+function CAI(um){
+  var sys = "你是俄罗斯旅游定制AI助手。城市:moscow莫斯科 spb圣彼得堡 tula图拉 sergiev谢尔盖耶夫 suzdal苏兹达里。车型:bus大巴 minibus中巴 sedan轿车。客户:family家庭团 group常规团 vip精品团。住宿:3三星 4四星 5五星。当用户确认后，回复末尾加[FILL]和JSON。JSON含basic(cities, cityDays, attractions)。景点id:rs红场 sb圣瓦西里 kr克里姆林宫 ar军械库 he冬宫 ph夏宫 cp叶卡捷琳娜宫等。直接回复并加[FILL]JSON。";
+  var msgs = [{role:"system",content:sys}];
+  CH.forEach(function(m){ msgs.push(m); });
+  
+  fetch("https://api.deepseek.com/v1/chat/completions",{
+    method:"POST",
+    headers:{"Content-Type":"application/json","Authorization":"Bearer "+AK},
+    body: JSON.stringify({model:"deepseek-chat",messages:msgs})
   })
-  .then(function(r){return r.json()})
+  .then(function(r){ return r.json(); })
   .then(function(d){
-    var td = document.getElementById('td');
-    if (td) td.remove();
-    document.getElementById('sBtn').disabled = false;
-    if (d.error) {
-      var ms = document.getElementById('ctMs');
-      var de = document.createElement('div');
-      de.className = 'chat-msg chat-a';
-      de.textContent = '\u274c ' + d.error.message;
-      ms.appendChild(de);
-      de.scrollIntoView({behavior:'smooth'});
+    var cd2 = $("cd2");
+    if(cd2) cd2.remove();
+    $("sb2").disabled = false;
+    if(d.error){
+      var ms = $("cm"), de = document.createElement("div");
+      de.className = "msg msg-a"; de.textContent = "❌ "+d.error.message;
+      ms.appendChild(de); de.scrollIntoView({behavior:"smooth"});
       return;
     }
     var reply = d.choices[0].message.content;
-    var ms = document.getElementById('ctMs');
-    var rdiv = document.createElement('div');
-    rdiv.className = 'chat-msg chat-a';
-    rdiv.innerHTML = reply.replace(/\n/g,'<br>');
-    ms.appendChild(rdiv);
-    rdiv.scrollIntoView({behavior:'smooth'});
-    ch.push({role:'assistant',content:reply});
+    var ms = $("cm"), rdiv = document.createElement("div");
+    rdiv.className = "msg msg-a";
+    rdiv.innerHTML = reply.replace(/\n/g,"<br>");
+    ms.appendChild(rdiv); rdiv.scrollIntoView({behavior:"smooth"});
+    CH.push({role:"assistant",content:reply});
     
-    // Check for fill command
-    if (reply.indexOf('[FILL]') >= 0) {
-      var parts = reply.split('[FILL]');
-      if (parts[1]) {
-        try {
-          var config = JSON.parse(parts[1].trim());
-          if (config.basic) {
-            var nm = document.getElementById('f_name');
-            if (nm && config.basic.name) nm.value = config.basic.name;
-            var dp = document.getElementById('f_depart');
-            if (dp && config.basic.depart) { try{ dp.value = config.basic.depart; }catch(e){} }
-            var ppl = document.getElementById('f_people');
-            if (ppl && config.basic.people) ppl.value = config.basic.people;
-            var dys = document.getElementById('f_days');
-            if (dys && config.basic.days) dys.value = config.basic.days;
-            var htl = document.getElementById('f_hotel');
-            if (htl && config.basic.hotel) htl.value = String(config.basic.hotel);
-            var veh = document.getElementById('f_vehicle');
-            if (veh && config.basic.vehicle) { try{ veh.value = config.basic.vehicle; }catch(e){} }
-            var pk = document.getElementById('f_peak');
-            if (pk && config.basic.peak !== undefined) pk.value = config.basic.peak ? '1' : '0';
-            var cl = document.getElementById('f_client');
-            if (cl && config.basic.client) { try{ cl.value = config.basic.client; }catch(e){} }
+    if(reply.indexOf("[FILL]") >= 0){
+      var parts = reply.split("[FILL]");
+      if(parts[1]){
+        try{
+          var cfg = JSON.parse(parts[1].trim());
+          if(cfg.basic){
+            if(cfg.basic.name&&$("fn")) $("fn").value = cfg.basic.name;
+            if(cfg.basic.people&&$("fp")) $("fp").value = cfg.basic.people;
+            if(cfg.basic.days&&$("fd")) $("fd").value = cfg.basic.days;
+            if(cfg.basic.hotel&&$("fh")) $("fh").value = String(cfg.basic.hotel);
+            if(cfg.basic.vehicle&&$("fv")){ try{ $("fv").value = cfg.basic.vehicle; }catch(e){} }
+            if(cfg.basic.peak!==undefined&&$("fk")) $("fk").value = cfg.basic.peak?"1":"0";
+            if(cfg.basic.client&&$("fc")){ try{ $("fc").value = cfg.basic.client; }catch(e){} }
           }
-          // Handle cities - clear existing first, then add
-          if (config.cities && config.cities.length) {
-            // Reset city selection
-            selectedCities = [];
-            config.cities.forEach(function(city) {
-              if (Object.keys(CITY_NAMES).includes(city)) {
-                selectedCities.push(city);
-              }
-            });
-            // Update city chip UI
-            document.querySelectorAll('.city-chip').forEach(function(chip) {
-              var city = chip.dataset.city;
-              if (selectedCities.includes(city)) {
-                chip.classList.add('selected');
-                chip.querySelector('input').checked = true;
-              } else {
-                chip.classList.remove('selected');
-                chip.querySelector('input').checked = false;
-              }
-            });
-            // Update city day allocation
-            window.updateCityAlloc();
+          if(cfg.cities&&cfg.cities.length){
+            S = [];
+            cfg.cities.forEach(function(c){ if(Object.keys(C).indexOf(c)>=0) S.push(c); });
+            RC(); UA();
           }
-          // Handle city day distribution
-          if (config.cityDays) {
-            Object.keys(config.cityDays).forEach(function(city) {
-              var inp = document.getElementById('cd_' + city);
-              if (inp) inp.value = config.cityDays[city];
-            });
+          if(cfg.cityDays){
+            Object.keys(cfg.cityDays).forEach(function(c){ var i=$("cd_"+c); if(i) i.value=cfg.cityDays[c]; });
           }
-          // Trigger rebuild to create day structure
-          if (window.onParamChange) window.onParamChange();
-          window.rebuildAll();
-          // Handle attractions - add to each day after dayData is built
-          if (config.attractions) {
-            Object.keys(config.attractions).forEach(function(city) {
-              var attrs = config.attractions[city];
-              if (attrs && attrs.length) {
-                dayData.forEach(function(day) {
-                  if (day.city === city) {
-                    attrs.forEach(function(attr) {
-                      var ainfo = null;
-                      var cityAttrs = ATTR[city] || [];
-                      for (var i = 0; i < cityAttrs.length; i++) {
-                        if (cityAttrs[i].id === attr.id) {
-                          ainfo = cityAttrs[i];
-                          break;
+          BD(); RD(); CP();
+          if(cfg.attractions){
+            setTimeout(function(){
+              Object.keys(cfg.attractions).forEach(function(ck){
+                var ats = cfg.attractions[ck];
+                if(ats&&ats.length){
+                  DD.forEach(function(day){
+                    if(day.c === ck){
+                      ats.forEach(function(at){
+                        var ca = AT[ck]||[];
+                        for(var i=0;i<ca.length;i++){
+                          if(ca[i].id===at.id && !day.at.some(function(x){return x.i===at.id;})){
+                            day.at.push({i:ca[i].id,n:ca[i].n,c:ca[i].c});
+                          }
                         }
-                      }
-                      if (ainfo && !day.attractions.some(function(x) { return x.id === ainfo.id; })) {
-                        day.attractions.push({id: ainfo.id, name: ainfo.name, cost: ainfo.cost});
-                      }
-                    });
-                  }
-                });
-              }
-            });
-            renderDays();
-            calcPrice();
+                      });
+                    }
+                  });
+                }
+              });
+              RD(); CP();
+            },150);
           }
-          // Update city day allocation display
-          var alloc = document.getElementById('cityDayAlloc');
-          if (alloc) { alloc.style.display = 'block'; updateCityAlloc(); }
-          // Scroll to day editor
-          var de = document.getElementById('dayEditor');
-          if (de) de.scrollIntoView({behavior:'smooth', block:'start'});
-          toast('\u2705 AI\u5df2\u81ea\u52a8\u914d\u7f6e\u884c\u7a0b\uff01\n\u8bf7\u68c0\u67e5\u5e76\u8c03\u6574\u6bcf\u5929\u660e\u7ec6');
-        } catch(e) {
-          toast('\u274c \u89e3\u6790\u5931\u8d25');
-        }
+          $("ap").style.display = "block";
+          TT("✅ AI已配置！");
+        } catch(e){ TT("❌ 解析失败"); }
       }
     }
   })
   .catch(function(e){
-    var td = document.getElementById('td');
-    if (td) td.remove();
-    document.getElementById('sBtn').disabled = false;
-    toast('\u274c ' + e.message);
+    var cd2 = $("cd2");
+    if(cd2) cd2.remove();
+    $("sb2").disabled = false;
+    TT("❌ "+e.message);
   });
 }
-// Init
-if (sessionStorage.getItem('adu_admin') === '1') {
-  var ind = document.getElementById('adminIndicator');
-  if (ind) { ind.innerHTML = '\ud83d\udd13 \u5df2\u767b\u5f55'; ind.style.color = 'rgba(255,255,255,.9)'; }
-  var ls = document.getElementById('loginStatus');
-  if (ls) { ls.textContent = '\u2705 \u5df2\u767b\u5f55'; ls.style.color = '#27ae60'; }
-  var lo = document.getElementById('logoutBtn');
-  if (lo) lo.style.display = '';
-  var akr = document.getElementById('apiKeyRow');
-  if (akr) akr.style.display = 'flex';
+
+function SK(){
+  var k = $("ki").value.trim();
+  if(!k||!k.startsWith("sk-")){ TT("请输入有效API Key"); return; }
+  AK = k;
+  localStorage.setItem("ak", AK);
+  $("ks").textContent = "✅"; $("ks").style.color = "#059669";
+  $("skb").disabled = true;
+  $("ki").value = AK.slice(0,6)+"... "+AK.slice(-4);
+  TT("✅ Key已保存");
 }
-if (ak && ak !== '') {
-  var st = document.getElementById('akSt');
-  if (st) { st.textContent = '\u2705'; st.style.color = '#27ae60'; }
-  if (sessionStorage.getItem('adu_admin') === '1') {
-    var sb = document.getElementById('sBtn');
-    if (sb) sb.disabled = false;
-  }
+
+// ===== INIT =====
+IC();
+if(sessionStorage.getItem("adu_admin") === "1"){ AU(true); WM(); }
+else {
+  $("cm").innerHTML = '<div class="msg msg-a" style="text-align:center;padding:20px"><div style="font-size:36px">🔒</div><div style="font-weight:600;margin-top:6px">请登录管理员账号</div></div>';
 }
-if (sessionStorage.getItem('adu_admin') === '1') {
-  welcomeMsg();
-} else {
-  var ms = document.getElementById('ctMs');
-  if (ms) ms.innerHTML = '<div class="chat-msg chat-a" style="text-align:center;padding:30px"><div style="font-size:40px">\ud83d\udd10</div><div style="margin-top:10px;font-weight:600">\u8bf7\u767b\u5f55\u7ba1\u7406\u5458\u8d26\u53f7</div><div style="font-size:12px;color:#888;margin-top:6px">\u767b\u5f55\u540e\u53ef\u542f\u7528AI\u52a9\u624b</div></div>';
+if(AK&&AK!==""){
+  $("ks").textContent = "✅"; $("ks").style.color = "#059669";
+  $("skb").disabled = true;
+  $("ki").value = AK.slice(0,6)+"... "+AK.slice(-4);
 }
-})();
 
 </script>
 </body>
