@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>阿杜俄旅 · 定制报价系统 0.32</title>
+<title>阿杜俄旅 · 产品定制与报价核算系统 v0.32</title>
 <style>
 :root{--primary:#A93226;--primary-light:#E4B1A0;--bg:#FAF9F5;--card:#fff;--text:#3f3f3f;--border:#dfdfdf;--success:#27ae60;--warning:#f39c12;}
 *{margin:0;padding:0;box-sizing:border-box}
@@ -75,21 +75,22 @@ body{font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Hiragino Sans G
 .qt .tr-total{font-weight:700;background:#fdf0ed;font-size:14px;color:var(--primary)}.qt tr:last-child td{border-bottom:none}.qt tr:hover td{background:#fff8f5}
 .qt .tr-sub{color:#666;font-size:12px}
 
-.output-box{margin-top:16px;padding:24px 28px;background:#fff;border:1px solid #e0d8d0;border-radius:8px;display:none;font-size:13px;line-height:1.8;max-height:700px;overflow-y:auto;white-space:pre-wrap;font-family:Menlo,Consolas,monospace;box-shadow:0 2px 8px rgba(0,0,0,.04)}
+.output-box{margin-top:16px;padding:24px 30px;background:#fff;border:1px solid #e0d8d0;border-radius:8px;display:none;font-size:13px;line-height:1.8;max-height:700px;overflow-y:auto;white-space:pre-wrap;font-family:Menlo,Consolas,monospace;box-shadow:0 2px 8px rgba(0,0,0,.04)}
 .output-box.open{display:block}
 
 .form-row{flex-direction:column}.form-group{min-width:100%}}
 
 .toast{position:fixed;bottom:30px;left:50%;transform:translateX(-50%);background:#333;color:#fff;padding:10px 24px;border-radius:10px;font-size:13px;z-index:999;opacity:0;transition:opacity .3s;pointer-events:none}
 .toast.show{opacity:1}
-.chat-msg{max-width:88%;padding:10px 16px;border-radius:14px;font-size:13px;line-height:1.6;animation:mi .3s ease}
+.chat-panel .chat-msg{max-width:88%;padding:10px 16px;border-radius:14px;font-size:13px;line-height:1.6;animation:mi .3s ease}
 @keyframes mi{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
-.chat-u{background:#A93226;color:#fff;align-self:flex-end;border-bottom-right-radius:4px}
-.chat-a{background:#fff;color:#2C2C2C;align-self:flex-start;border-bottom-left-radius:4px;box-shadow:0 1px 4px rgba(0,0,0,.06)}
+.chat-panel .chat-u{background:#A93226;color:#fff;align-self:flex-end;border-bottom-right-radius:4px}
+.chat-panel .chat-a{background:#fff;color:#2C2C2C;align-self:flex-start;border-bottom-left-radius:4px;box-shadow:0 1px 4px rgba(0,0,0,.06)}
 .ct{display:flex;gap:4px;padding:10px 16px;align-items:center;align-self:flex-start;background:#fff;border-radius:14px;box-shadow:0 1px 4px rgba(0,0,0,.06)}
 .ct .d{width:7px;height:7px;border-radius:50%;background:#ccc;animation:dp 1.2s infinite}
 .ct .d:nth-child(2){animation-delay:.2s}.ct .d:nth-child(3){animation-delay:.4s}
 @keyframes dp{0%,60%,100%{transform:scale(1);opacity:.4}30%{transform:scale(1.3);opacity:1}}
+
 
 @media print{.no-print{display:none!important}body{padding:0;background:#fff}.card{box-shadow:none;border:1px solid #ddd}.header{background:#A93226!important;-webkit-print-color-adjust:exact}.output-box{max-height:none!important}}
 </style>
@@ -179,6 +180,42 @@ body{font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Hiragino Sans G
 <button class="btn btn-outline" onclick="saveToFile()">💾 保存方案</button>
 <button class="btn btn-outline" onclick="loadFromFile()">📂 载入方案</button>
 <button class="btn btn-danger" onclick="resetAll()">🔄 重置</button>
+<!-- ===== 管理员设置区域（登录后可见） ===== -->
+<div id="adminSettings" class="card no-print" style="display:none;background:#f8f4f0;border:1px solid #e0d8d0;">
+<h2>⚙️ 管理员设置</h2>
+<div id="apiKeyRow" style="display:none;flex-direction:column;gap:8px;margin-top:8px;">
+<div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;">
+<span style="font-size:13px;font-weight:600;">DeepSeek API Key</span>
+<span id="akSt" style="font-size:16px;">❌</span>
+</div>
+<div style="display:flex;gap:6px;align-items:center;flex-wrap:wrap;">
+<input id="akInp" type="password" value="sk-93b7f24e8d4f4b55b7c7aff22b9c3ab8" style="flex:1;min-width:200px;padding:8px 12px;border:1.5px solid var(--border);border-radius:8px;font-size:13px;font-family:monospace">
+<button id="saveKeyBtn" class="btn btn-primary btn-sm" onclick="sa()" disabled>✅ 保存</button>
+<button id="logoutBtn" class="btn btn-danger btn-sm" onclick="adminLogout()" style="display:none">🚪 退出登录</button>
+</div>
+<div style="font-size:11px;color:#888;margin-top:4px;">⚠️ 仅管理员可见 · 保存后自动生效</div>
+</div>
+</div>
+
+<!-- ===== AI 助手浮动按钮 ===== -->
+<button id="ctBtn" onclick="tc()" style="position:fixed;bottom:24px;right:24px;width:56px;height:56px;border-radius:50%;background:#A93226;color:#fff;border:none;font-size:28px;cursor:pointer;box-shadow:0 6px 24px rgba(169,50,38,.35);z-index:9997;transition:transform .2s;display:flex;align-items:center;justify-content:center;" onmouseover="this.style.transform='scale(1.1)'" onmouseout="this.style.transform='scale(1)'">🤖</button>
+
+<!-- ===== AI 助手对话框 ===== -->
+<div id="ctPnl" style="display:none;position:fixed;bottom:90px;right:24px;width:380px;max-height:520px;background:#F7F3EF;border-radius:16px;box-shadow:0 12px 48px rgba(0,0,0,.18);z-index:9997;flex-direction:column;overflow:hidden;border:1px solid #e8e0d8;">
+<div style="background:#A93226;color:#fff;padding:14px 18px;display:flex;justify-content:space-between;align-items:center;flex-shrink:0;">
+<div><span style="font-size:16px;">🤖</span> <span style="font-weight:600;font-size:14px;">阿杜AI助手</span></div>
+<div style="display:flex;gap:8px;align-items:center;">
+<span id="loginStatus" style="font-size:11px;color:rgba(255,255,255,.7);">🔒 未登录</span>
+<button onclick="tc()" style="background:none;border:none;color:#fff;font-size:20px;cursor:pointer;padding:0;line-height:1;">✕</button>
+</div>
+</div>
+<div id="ctMs" style="flex:1;overflow-y:auto;padding:14px;display:flex;flex-direction:column;gap:10px;min-height:200px;max-height:360px;"></div>
+<div style="padding:12px 14px;border-top:1px solid #e8e0d8;background:#fff;display:flex;gap:8px;flex-shrink:0;">
+<input id="ctInp" type="text" placeholder="输入旅行需求，例如：5人家庭团9天莫斯科+彼得堡…" style="flex:1;padding:10px 14px;border:1.5px solid #ddd;border-radius:10px;font-size:13px;outline:none;" onkeydown="if(event.key==='Enter')sc()">
+<button id="sBtn" onclick="sc()" style="background:#A93226;border:none;color:#fff;padding:10px 18px;border-radius:10px;font-size:13px;font-weight:600;cursor:pointer;white-space:nowrap;">发送</button>
+</div>
+</div>
+
 </div>
 
 <!-- ===== 文档输出 ===== -->
@@ -939,55 +976,203 @@ document.addEventListener('DOMContentLoaded',()=>{
   rebuildAll();
 });
 
-// ADMIN + AI CHAT
+(function(){
 var ch = [];
 var ak = localStorage.getItem('adu_ak') || 'sk-93b7f24e8d4f4b55b7c7aff22b9c3ab8';
-function showLoginPanel(){$g('adminModal').style.display='flex';setTimeout(function(){$g('modalPass').focus()},100)}
-function hideLoginPanel(){$g('adminModal').style.display='none'}
-function modalLogin(){var u=$g('modalUser').value.trim();var p=$g('modalPass').value.trim();var e=$g('modalError');
-  if(u==='3056898'&&p==='pan3056898'){sessionStorage.setItem('adu_admin','1');hideLoginPanel();
-    $g('adminIndicator').innerHTML='\ud83d\udd13 \u5df2\u767b\u5f55';$g('adminIndicator').style.color='rgba(255,255,255,.9)';
-    $g('loginStatus').textContent='\u2705 \u5df2\u767b\u5f55';$g('loginStatus').style.color='#27ae60';$g('logoutBtn').style.display='';
-    $g('apiKeyRow').style.display='flex';$g('ctMs').innerHTML='';wm();toast('\u2705 \u767b\u5f55\u6210\u529f')}
-  else{e.style.display='block';e.textContent='\u274c \u8d26\u53f7\u6216\u5bc6\u7801\u9519\u8bef'}}
-function adminLogout(){sessionStorage.removeItem('adu_admin');
-  $g('adminIndicator').innerHTML='\ud83d\udd12 \u672a\u767b\u5f55';$g('adminIndicator').style.color='rgba(255,255,255,.7)';
-  $g('loginStatus').textContent='\u672a\u767b\u5f55';$g('loginStatus').style.color='#888';$g('logoutBtn').style.display='none';
-  $g('apiKeyRow').style.display='none';$g('sBtn').disabled=true;
-  $g('ctMs').innerHTML='<div class="chat-msg chat-a" style="text-align:center;padding:30px"><div style="font-size:40px">\ud83d\udd10</div><div style="margin-top:10px;font-weight:600">\u8bf7\u767b\u5f55\u7ba1\u7406\u5458\u8d26\u53f7</div><div style="font-size:12px;color:#888;margin-top:6px">\u767b\u5f55\u540e\u53ef\u542f\u7528AI\u52a9\u624b</div></div>';toast('\u5df2\u9000\u51fa')}
-function tc(){var p=$g('ctPnl');p.style.display=(p.style.display==='flex'?'none':'flex');if(p.style.display==='flex')setTimeout(function(){$g('ctInp').focus()},200)}
-function sa(){var v=$g('akInp').value.trim();if(!v||!v.startsWith('sk-')){toast('\u8bf7\u8f93\u5165\u6709\u6548\u7684API Key');return}
-  ak=v;localStorage.setItem('adu_ak',ak);$g('akSt').textContent='\u2705';$g('akSt').style.color='#27ae60';$g('sBtn').disabled=false;
-  $g('akInp').value=ak.slice(0,6)+'...'+ak.slice(-4);toast('\u2705 Key\u5df2\u4fdd\u5b58')}
-function wm(){$g('ctMs').innerHTML='<div class="chat-msg chat-a">\u4f60\u597d\uff01\u6211\u662f\u963f\u675cAI\u52a9\u624b \ud83e\udd16<br><br>\u544a\u8bc9\u6211\u4f60\u7684\u65c5\u884c\u9700\u6c42\uff0c\u6211\u4f1a\u81ea\u52a8\u914d\u7f6e\u884c\u7a0b\u548c\u62a5\u4ef7\u3002<br><br><b>\u4f8b\u5982\uff1a</b><br>\u2022 "5\u4eba\u5bb6\u5ead\u56e2\uff0c9\u5929\u83ab\u65af\u79d1+\u5723\u5f7c\u5f97\u5821"<br>\u2022 "10\u4e2a\u4eba\uff0c\u83ab\u65af\u79d1+\u56fe\u62c9\uff0c7\u5929"<br>\u2022 "\u60f3\u770b\u6781\u5149\uff0c4\u4eba\u6469\u5c14\u66fc\u65af\u514b+\u83ab\u65af\u79d1"<br><br>\u76f4\u63a5\u8f93\u5165\u9700\u6c42\u5f00\u59cb\u5427 \udbc0\udcbc</div>'}
-function am(t,r){var m=$g('ctMs');var d=document.createElement('div');d.className='chat-msg '+(r==='u'?'chat-u':'chat-a');d.innerHTML=t;m.appendChild(d);d.scrollIntoView({behavior:'smooth'})}
-function tp(){$g('ctMs').insertAdjacentHTML('beforeend','<div class="ct" id="td"><span class="d"></span><span class="d"></span><span class="d"></span></div>');$g('td').scrollIntoView({behavior:'smooth'})}
-function rp(){var e=$g('td');if(e)e.remove()}
-function sc(){if(sessionStorage.getItem('adu_admin')!=='1'){toast('\u8bf7\u5148\u767b\u5f55');return}
-  var i=$g('ctInp');var t=i.value.trim();if(!t)return;if(!ak){toast('\u8bf7\u5148\u8bbe\u7f6eAPI Key');return}
-  i.value='';am(t,'u');ch.push({role:'user',content:t});$g('sBtn').disabled=true;tp();ca()}
-function bs(){$g('sBtn').disabled=false}
-function ca(){fetch('https://api.deepseek.com/v1/chat/completions',{method:'POST',headers:{'Content-Type':'application/json','Authorization':'Bearer '+ak},
-  body:JSON.stringify({model:'deepseek-chat',messages:[{role:'system',content:'\u4f60\u662f\u963f\u675c\u4fc4\u65c5\u7684AI\u914d\u7f6e\u52a9\u624b\uff0c\u901a\u8fc7\u5bf9\u8bdd\u4e86\u89e3\u5ba2\u6237\u9700\u6c42\u540e\u81ea\u52a8\u914d\u7f6e\u884c\u7a0b\u62a5\u4ef7\u7cfb\u7edf\u3002\u7528\u4e2d\u6587\u4ea4\u6d41\u3002\u5f53\u7528\u6237\u786e\u8ba4\u540e\u5728\u56de\u590d\u672b\u5c3e\u52a0\u4e0a\u3010\u586b\u8868\u3011\u6807\u8bb0\u548cJSON\u3002'},{role:'user',content:t}]})})
+
+window.showLoginPanel = function() {
+  var m = document.getElementById('adminModal');
+  m.style.display = 'flex';
+  setTimeout(function(){ document.getElementById('modalPass').focus(); }, 100);
+};
+window.hideLoginPanel = function() {
+  document.getElementById('adminModal').style.display = 'none';
+};
+window.modalLogin = function() {
+  var u = document.getElementById('modalUser').value.trim();
+  var p = document.getElementById('modalPass').value.trim();
+  var e = document.getElementById('modalError');
+  if (u === '3056898' && p === 'pan3056898') {
+    sessionStorage.setItem('adu_admin', '1');
+    hideLoginPanel();
+    var ind = document.getElementById('adminIndicator');
+    if (ind) { ind.innerHTML = '\ud83d\udd13 \u5df2\u767b\u5f55'; ind.style.color = 'rgba(255,255,255,.9)'; }
+    var ls = document.getElementById('loginStatus');
+    if (ls) { ls.textContent = '\u2705 \u5df2\u767b\u5f55'; ls.style.color = '#27ae60'; }
+    var lo = document.getElementById('logoutBtn');
+    if (lo) lo.style.display = '';
+    var akr = document.getElementById('apiKeyRow');
+    if (akr) akr.style.display = 'flex';
+    var ads = document.getElementById('adminSettings');
+    if (ads) ads.style.display = 'block';
+    var ms = document.getElementById('ctMs');
+    if (ms) { ms.innerHTML = ''; welcomeMsg(); }
+    toast('\u2705 \u767b\u5f55\u6210\u529f');
+  } else {
+    e.style.display = 'block';
+    e.textContent = '\u274c \u8d26\u53f7\u6216\u5bc6\u7801\u9519\u8bef';
+  }
+};
+window.adminLogout = function() {
+  sessionStorage.removeItem('adu_admin');
+  var ind = document.getElementById('adminIndicator');
+  if (ind) { ind.innerHTML = '\ud83d\udd12 \u672a\u767b\u5f55'; ind.style.color = 'rgba(255,255,255,.7)'; }
+  var ls = document.getElementById('loginStatus');
+  if (ls) { ls.textContent = '\u672a\u767b\u5f55'; ls.style.color = '#888'; }
+  var lo = document.getElementById('logoutBtn');
+  if (lo) lo.style.display = 'none';
+  var akr = document.getElementById('apiKeyRow');
+  if (akr) akr.style.display = 'none';
+  var sb = document.getElementById('sBtn');
+  if (sb) sb.disabled = true;
+  var ms = document.getElementById('ctMs');
+  if (ms) ms.innerHTML = '<div class="chat-msg chat-a" style="text-align:center;padding:30px"><div style="font-size:40px">\ud83d\udd10</div><div style="margin-top:10px;font-weight:600">\u8bf7\u767b\u5f55\u7ba1\u7406\u5458\u8d26\u53f7</div><div style="font-size:12px;color:#888;margin-top:6px">\u767b\u5f55\u540e\u53ef\u542f\u7528AI\u52a9\u624b</div></div>';
+  toast('\u5df2\u9000\u51fa');
+};
+window.tc = function() {
+  var p = document.getElementById('ctPnl');
+  if (p.style.display === 'flex') { p.style.display = 'none'; }
+  else { p.style.display = 'flex'; setTimeout(function(){ document.getElementById('ctInp').focus(); }, 200); }
+};
+window.sa = function() {
+  var v = document.getElementById('akInp').value.trim();
+  if (!v || !v.startsWith('sk-')) { toast('\u8bf7\u8f93\u5165\u6709\u6548\u7684API Key'); return; }
+  ak = v;
+  localStorage.setItem('adu_ak', ak);
+  var st = document.getElementById('akSt');
+  if (st) { st.textContent = '\u2705'; st.style.color = '#27ae60'; }
+  var sb = document.getElementById('saveKeyBtn');
+  if (sb) sb.disabled = true;
+  var inp = document.getElementById('akInp');
+  if (inp) inp.value = ak.slice(0,6) + '...' + ak.slice(-4);
+  toast('\u2705 Key\u5df2\u4fdd\u5b58');
+};
+function welcomeMsg() {
+  var ms = document.getElementById('ctMs');
+  if (ms) ms.innerHTML = '<div class="chat-msg chat-a">\u4f60\u597d\uff01\u6211\u662f\u963f\u675cAI\u52a9\u624b \ud83e\udd16<br><br>\u544a\u8bc9\u6211\u4f60\u7684\u65c5\u884c\u9700\u6c42\uff0c\u6211\u4f1a\u81ea\u52a8\u914d\u7f6e\u884c\u7a0b\u548c\u62a5\u4ef7\u3002<br><br><b>\u4f8b\u5982\uff1a</b><br>\u2022 "5\u4eba\u5bb6\u5ead\u56e2\uff0c9\u5929\u83ab\u65af\u79d1+\u5723\u5f7c\u5f97\u5821"<br>\u2022 "10\u4e2a\u4eba\uff0c\u83ab\u65af\u79d1+\u56fe\u62c9\uff0c7\u5929"<br>\u2022 "\u60f3\u770b\u6781\u5149\uff0c4\u4eba\u6469\u5c14\u66fc\u65af\u514b+\u83ab\u65af\u79d1"<br><br>\u76f4\u63a5\u8f93\u5165\u9700\u6c42\u5f00\u59cb\u5427 \udbc0\udcbc</div>';
+}
+window.sc = function() {
+  if (sessionStorage.getItem('adu_admin') !== '1') { toast('\u8bf7\u5148\u767b\u5f55'); return; }
+  var inp = document.getElementById('ctInp');
+  var t = inp.value.trim();
+  if (!t) return;
+  if (!ak) { toast('\u8bf7\u5148\u8bbe\u7f6eAPI Key'); return; }
+  inp.value = '';
+  var ms = document.getElementById('ctMs');
+  var d = document.createElement('div');
+  d.className = 'chat-msg chat-u';
+  d.textContent = t;
+  ms.appendChild(d);
+  d.scrollIntoView({behavior:'smooth'});
+  ch.push({role:'user',content:t});
+  document.getElementById('sBtn').disabled = true;
+  var td = document.createElement('div');
+  td.className = 'ct'; td.id = 'td';
+  td.innerHTML = '<span class="d"></span><span class="d"></span><span class="d"></span>';
+  ms.appendChild(td);
+  td.scrollIntoView({behavior:'smooth'});
+  callAI(t);
+};
+function callAI(userMsg) {
+  fetch('https://api.deepseek.com/v1/chat/completions', {
+    method:'POST',
+    headers:{'Content-Type':'application/json','Authorization':'Bearer '+ak},
+    body: JSON.stringify({
+      model:'deepseek-chat',
+      messages:[
+        {role:'system',content:'You are an AI assistant for a Russian travel agency tool. Help users configure their tour itinerary and pricing. Respond in Chinese. When the user confirms their requirements, add [FILL] at the end of your reply followed by a JSON object with the configuration data.'},
+        {role:'user',content:userMsg}
+      ]
+    })
+  })
   .then(function(r){return r.json()})
-  .then(function(d){rp();bs();if(d.error){am('\u274c '+d.error.message,'a');return}
-    var t=d.choices[0].message.content;
-    if(t.indexOf('\u3010\u586b\u8868\u3011')>=0){var p=t.split('\u3010\u586b\u8868\u3011');if(p[0].trim())am(p[0],'a');ch.push({role:'assistant',content:t});pf(p[1])}
-    else{am(t,'a');ch.push({role:'assistant',content:t})}})
-  .catch(function(e){rp();bs();toast('\u274c '+e.message)})}
-function pf(j){try{j=j.trim();var o=JSON.parse(j);
-  if(o.basic){if(o.basic.people)$g('f_people').value=o.basic.people;if(o.basic.days)$g('f_days').value=o.basic.days;
-    if(o.basic.hotel)$g('f_hotel').value=o.basic.hotel;if(o.basic.vehicle)$g('f_vehicle').value=o.basic.vehicle;
-    if(o.basic.peak!==undefined)$g('f_peak').value=o.basic.peak?'1':'0';if(o.basic.client)$g('f_client').value=o.basic.client}
-  if(o.cities&&o.cities.length){selected=o.cities;renderPool();renderOrder()}
-  if(o.cityDays&&o.cities){renderOrder();o.cities.forEach(function(k){var e=$g('cd_'+k);if(e&&o.cityDays[k])e.value=o.cityDays[k]});updateCityTip()}
-  if(o.days&&o.days.length){dayData=o.days.map(function(d,i){var dt=new Date(2026,6,11+i);return{day:i+1,date:(dt.getMonth()+1)+'/'+dt.getDate(),weekday:W[dt.getDay()],city:d.city,type:d.type||'sightseeing',label:d.label||'',attrs:(d.attrs||[]).map(function(id){var ca=ATTR[d.city]||[];var f=ca.find(function(a){return a.id===id});return f||{id:id,name:id,c:0}}),meals:d.meals||{bf:true,lu:true,dn:false,mt:'cn'},vh:d.vh||10,pk:2500,gc:(d.type==='arrival'||d.type==='departure')?P.gHalf:P.gFull,cc:0,cn:'',ex:0}})}
-  renderDays();calcPrice();toast('\u2705 AI\u5df2\u914d\u7f6e\u884c\u7a0b\uff01');$g('dayEditor').scrollIntoView({behavior:'smooth'})
-}catch(e){toast('\u274c \u89e3\u6790\u5931\u8d25: '+e.message)}}
-if(sessionStorage.getItem('adu_admin')==='1'){$g('adminIndicator').innerHTML='\ud83d\udd13 \u5df2\u767b\u5f55';$g('adminIndicator').style.color='rgba(255,255,255,.9)';
-  $g('loginStatus').textContent='\u2705 \u5df2\u767b\u5f55';$g('loginStatus').style.color='#27ae60';$g('logoutBtn').style.display='';$g('apiKeyRow').style.display='flex'}
-if(ak&&ak!==''){$g('akSt').textContent='\u2705';$g('akSt').style.color='#27ae60';if(sessionStorage.getItem('adu_admin')==='1')$g('sBtn').disabled=false;$g('akInp').value=ak.slice(0,6)+'...'+ak.slice(-4)}
-if(sessionStorage.getItem('adu_admin')==='1'){wm()}else{$g('ctMs').innerHTML='<div class="chat-msg chat-a" style="text-align:center;padding:30px"><div style="font-size:40px">\ud83d\udd10</div><div style="margin-top:10px;font-weight:600">\u8bf7\u767b\u5f55\u7ba1\u7406\u5458\u8d26\u53f7</div><div style="font-size:12px;color:#888;margin-top:6px">\u767b\u5f55\u540e\u53ef\u542f\u7528AI\u52a9\u624b</div></div>'}
+  .then(function(d){
+    var td = document.getElementById('td');
+    if (td) td.remove();
+    document.getElementById('sBtn').disabled = false;
+    if (d.error) {
+      var ms = document.getElementById('ctMs');
+      var de = document.createElement('div');
+      de.className = 'chat-msg chat-a';
+      de.textContent = '\u274c ' + d.error.message;
+      ms.appendChild(de);
+      de.scrollIntoView({behavior:'smooth'});
+      return;
+    }
+    var reply = d.choices[0].message.content;
+    var ms = document.getElementById('ctMs');
+    var rdiv = document.createElement('div');
+    rdiv.className = 'chat-msg chat-a';
+    rdiv.innerHTML = reply.replace(/\n/g,'<br>');
+    ms.appendChild(rdiv);
+    rdiv.scrollIntoView({behavior:'smooth'});
+    ch.push({role:'assistant',content:reply});
+    
+    // Check for fill command
+    if (reply.indexOf('[FILL]') >= 0) {
+      var parts = reply.split('[FILL]');
+      if (parts[1]) {
+        try {
+          var config = JSON.parse(parts[1].trim());
+          if (config.basic) {
+            var ppl = document.getElementById('f_people');
+            if (ppl && config.basic.people) ppl.value = config.basic.people;
+            var dys = document.getElementById('f_days');
+            if (dys && config.basic.days) dys.value = config.basic.days;
+            var htl = document.getElementById('f_hotel');
+            if (htl && config.basic.hotel) htl.value = config.basic.hotel;
+            var veh = document.getElementById('f_vehicle');
+            if (veh && config.basic.vehicle) veh.value = config.basic.vehicle;
+            var pk = document.getElementById('f_peak');
+            if (pk && config.basic.peak !== undefined) pk.value = config.basic.peak ? '1' : '0';
+            var cl = document.getElementById('f_client');
+            if (cl && config.basic.client) cl.value = config.basic.client;
+          }
+          if (config.cities && config.cities.length) {
+            window.selected = config.cities;
+            if (window.renderPool) window.renderPool();
+            if (window.renderOrder) window.renderOrder();
+          }
+          toast('\u2705 AI\u5df2\u914d\u7f6e\u884c\u7a0b\uff01');
+        } catch(e) {
+          toast('\u274c \u89e3\u6790\u5931\u8d25');
+        }
+      }
+    }
+  })
+  .catch(function(e){
+    var td = document.getElementById('td');
+    if (td) td.remove();
+    document.getElementById('sBtn').disabled = false;
+    toast('\u274c ' + e.message);
+  });
+}
+// Init
+if (sessionStorage.getItem('adu_admin') === '1') {
+  var ind = document.getElementById('adminIndicator');
+  if (ind) { ind.innerHTML = '\ud83d\udd13 \u5df2\u767b\u5f55'; ind.style.color = 'rgba(255,255,255,.9)'; }
+  var ls = document.getElementById('loginStatus');
+  if (ls) { ls.textContent = '\u2705 \u5df2\u767b\u5f55'; ls.style.color = '#27ae60'; }
+  var lo = document.getElementById('logoutBtn');
+  if (lo) lo.style.display = '';
+  var akr = document.getElementById('apiKeyRow');
+  if (akr) akr.style.display = 'flex';
+}
+if (ak && ak !== '') {
+  var st = document.getElementById('akSt');
+  if (st) { st.textContent = '\u2705'; st.style.color = '#27ae60'; }
+  if (sessionStorage.getItem('adu_admin') === '1') {
+    var sb = document.getElementById('sBtn');
+    if (sb) sb.disabled = false;
+  }
+}
+if (sessionStorage.getItem('adu_admin') === '1') {
+  welcomeMsg();
+} else {
+  var ms = document.getElementById('ctMs');
+  if (ms) ms.innerHTML = '<div class="chat-msg chat-a" style="text-align:center;padding:30px"><div style="font-size:40px">\ud83d\udd10</div><div style="margin-top:10px;font-weight:600">\u8bf7\u767b\u5f55\u7ba1\u7406\u5458\u8d26\u53f7</div><div style="font-size:12px;color:#888;margin-top:6px">\u767b\u5f55\u540e\u53ef\u542f\u7528AI\u52a9\u624b</div></div>';
+}
+})();
 
 </script>
 </body>
