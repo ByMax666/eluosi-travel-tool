@@ -93,6 +93,25 @@ body{font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Hiragino Sans G
 
 
 @media print{.no-print{display:none!important}body{padding:0;background:#fff}.card{box-shadow:none;border:1px solid #ddd}.header{background:#A93226!important;-webkit-print-color-adjust:exact}.output-box{max-height:none!important}}
+
+/* === v0.36 Refinements === */
+@import url('https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&display=swap');
+:root{--gold:#C8A84E;--gold-l:#F5EDD6;--t2:#6B7280;--t3:#9CA3AF;--sh:0 1px 3px rgba(0,0,0,0.06);--sh2:0 4px 12px rgba(0,0,0,0.06)}
+body{font-family:'Inter',-apple-system,BlinkMacSystemFont,'PingFang SC','Microsoft YaHei',sans-serif}
+.header h1{font-size:26px;letter-spacing:-0.3px}
+.header-badge{display:inline-block;background:rgba(255,255,255,0.12);padding:3px 12px;border-radius:20px;font-size:10px;font-weight:500;margin-top:8px}
+.card h2{font-size:16px}.card h2 .step-num{display:inline-flex;align-items:center;justify-content:center;width:24px;height:24px;background:var(--primary);color:#fff;border-radius:6px;font-size:12px;font-weight:700;flex-shrink:0;margin-right:4px}
+.day-header .day-num{display:inline-flex;align-items:center;justify-content:center;width:30px;height:30px;background:var(--primary);color:#fff;border-radius:7px;font-size:12px;font-weight:700;flex-shrink:0;min-width:auto}
+.city-chip{padding:7px 15px;border-radius:22px;font-weight:500}
+.city-chip:hover{border-color:var(--primary);background:rgba(169,50,38,0.08)}
+.city-chip.selected{box-shadow:0 2px 8px rgba(169,50,38,0.2)}
+.btn:active{transform:scale(0.97)}
+.qt{border-collapse:separate;border-spacing:0;border-radius:10px;overflow:hidden;border:1px solid var(--border)}
+.qt th{background:#FBFAF8;font-size:11px;text-transform:uppercase;letter-spacing:0.3px}
+.qt .tr-total td{border-top:2px solid var(--primary)}
+.form-group input:focus,.form-group select:focus{box-shadow:0 0 0 3px rgba(169,50,38,0.1)}
+.output-box{font-family:'Inter',Menlo,Consolas,monospace}
+#adminSettings{background:linear-gradient(135deg,#FFF9F5,#FFF5F0)!important;border-color:rgba(169,50,38,0.12)!important}
 </style>
 </head>
 <body>
@@ -108,6 +127,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Hiragino Sans G
 <div class="header no-print">
 <h1>🇷🇺 阿杜俄旅 · 产品定制与报价核算</h1>
 <p>俄罗斯旅游产品定制工具 · 实时成本核算 · 一键生成行程单+报价单</p>
+<div class="header-badge">🇷🇺 阿杜俄旅 · 专业俄罗斯地接</div>
 </div>
 
 <div id="adminModal" style="display:none;position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,.5);z-index:9998;align-items:center;justify-content:center" onclick="if(event.target===this)hideLoginPanel()">
@@ -122,7 +142,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Hiragino Sans G
 </div></div>
 <!-- ===== 第1步：基础信息 ===== -->
 <div class="card no-print">
-<h2>📋 ① 基础信息</h2>
+<h2><span class="step-num">1</span> 📋 基础信息</h2>
 <div class="form-row">
 <div class="form-group"><label>产品名称</label><input type="text" id="f_name" value="莫斯科+圣彼得堡"></div>
 <div class="form-group"><label>客户类型</label>
@@ -152,7 +172,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Hiragino Sans G
 
 <!-- ===== 第2步：选择城市 ===== -->
 <div class="card no-print">
-<h2>🏙️ ② 选择游览城市</h2>
+<h2><span class="step-num">2</span> 🏙️ 选择游览城市</h2>
 <div class="city-grid" id="cityGrid"></div>
 <div id="cityDayAlloc" style="display:none;margin-top:10px;padding:12px;background:#f8f4f0;border-radius:10px;">
 <div style="font-size:13px;font-weight:600;margin-bottom:8px;">分配各城市天数 <span id="cityDayTotal" style="font-weight:400;color:#888;font-size:12px;">(共0天)</span></div>
@@ -163,13 +183,13 @@ body{font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Hiragino Sans G
 
 <!-- ===== 第3步：每日行程 ===== -->
 <div class="card no-print">
-<h2>📅 ③ 每日行程编辑 <span id="dayCount" style="font-weight:400;font-size:13px;color:#888;"></span></h2>
+<h2><span class="step-num">3</span> 📅 每日行程编辑 <span id="dayCount" style="font-weight:400;font-size:13px;color:#888;"></span></h2>
 <div id="dayEditor"><p style="color:#999;text-align:center;padding:20px;">请先选择城市，系统自动生成行程框架</p></div>
 </div>
 
 <!-- ===== 第4步：报价核算 ===== -->
 <div class="card no-print">
-<h2>💰 ④ 实时报价核算 <span id="priceTag" style="font-weight:400;font-size:13px;color:#888;"></span></h2>
+<h2><span class="step-num">4</span> 💰 实时报价核算 <span id="priceTag" style="font-weight:400;font-size:13px;color:#888;"></span></h2>
 <div id="priceSummary"><p style="color:#999;text-align:center;padding:16px;">配置行程后自动核算</p></div>
 </div>
 
@@ -181,8 +201,8 @@ body{font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Hiragino Sans G
 <button class="btn btn-outline" onclick="loadFromFile()">📂 载入方案</button>
 <button class="btn btn-danger" onclick="resetAll()">🔄 重置</button>
 <!-- ===== 管理员设置区域（登录后可见） ===== -->
-<div id="adminSettings" class="card no-print" style="display:none;background:#f8f4f0;border:1px solid #e0d8d0;">
-<h2>⚙️ 管理员设置</h2>
+<div id="adminSettings" class="card no-print" style="display:none;">
+<h2><span class="step-num">⚙</span> 管理员设置</h2>
 <div id="apiKeyRow" style="display:none;flex-direction:column;gap:8px;margin-top:8px;">
 <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;">
 <span style="font-size:13px;font-weight:600;">DeepSeek API Key</span>
