@@ -7,7 +7,7 @@ import sqlite3
 import json
 import os
 
-DB_PATH = os.path.join(os.path.dirname(__file__), "adu_travel.db")
+DB_PATH = os.path.join(os.environ.get("RAILWAY_VOLUME_MOUNT_PATH", os.path.dirname(__file__)), "adu_travel.db")
 
 
 def get_db():
