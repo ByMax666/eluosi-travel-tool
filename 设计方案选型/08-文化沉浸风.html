@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>阿杜俄旅 · 文化深度游</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;600;700&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{--bg:#1A1816;--card:#242220;--card2:#2D2A27;--gold:#C4A862;--gold2:#8A7640;--cream:#E8DEC8;--text:#E2DCD0;--text2:#9A9488;--text3:#6A6458;--border:#34302C;--accent:#8B4513}
+body{font-family:'Inter','PingFang SC',sans-serif;background:var(--bg);color:var(--text);line-height:1.7}
+/* Header */
+header{position:relative;height:100vh;min-height:600px;display:flex;flex-direction:column;justify-content:center;align-items:center;background:linear-gradient(180deg,#1A1816 0%,#2D2A27 100%);overflow:hidden;text-align:center;padding:24px}
+header .pattern{position:absolute;inset:0;background-image:radial-gradient(circle at 25% 25%,rgba(196,168,98,0.03) 0%,transparent 50%),radial-gradient(circle at 75% 75%,rgba(139,69,19,0.03) 0%,transparent 50%)}
+header .cyr{font-size:120px;font-weight:200;color:rgba(196,168,98,0.04);position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);letter-spacing:20px;pointer-events:none;user-select:none}
+header h1{font-family:'Noto Serif SC',serif;font-size:44px;font-weight:700;color:var(--cream);position:relative;z-index:1;margin-bottom:12px}
+header h1 em{color:var(--gold);font-style:normal}
+header p{font-size:14px;color:var(--text2);max-width:500px;position:relative;z-index:1;margin-bottom:32px}
+header .btn{background:transparent;border:1px solid var(--gold);color:var(--gold);padding:12px 36px;font-size:13px;cursor:pointer;font-family:inherit;letter-spacing:2px;transition:all 0.4s;position:relative;z-index:1}
+header .btn:hover{background:var(--gold);color:var(--bg)}
+header .scroll{position:absolute;bottom:32px;font-size:11px;color:var(--text3);letter-spacing:2px}
+/* Sections */
+section{max-width:1000px;margin:0 auto;padding:80px 48px}
+.section-label{font-size:10px;letter-spacing:4px;color:var(--gold2);text-transform:uppercase;margin-bottom:8px;font-weight:400}
+.section-title{font-family:'Noto Serif SC',serif;font-size:30px;font-weight:700;color:var(--cream);margin-bottom:40px;line-height:1.2}
+.section-title em{color:var(--gold);font-style:normal}
+/* Culture cards */
+.culture-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:2px;background:var(--border);border:1px solid var(--border)}
+.culture-card{background:var(--card);padding:36px;transition:all 0.5s;cursor:pointer}
+.culture-card:hover{background:var(--card2)}
+.culture-card .icon{font-size:32px;margin-bottom:16px;display:block}
+.culture-card h3{font-family:'Noto Serif SC',serif;font-size:18px;color:var(--cream);margin-bottom:6px}
+.culture-card h3 .ru{font-size:12px;color:var(--gold2);font-weight:400;font-family:serif;font-style:italic;margin-left:8px}
+.culture-card p{font-size:13px;color:var(--text2);line-height:1.7}
+/* Timeline */
+.timeline{position:relative;padding-left:32px}
+.timeline::before{content:'';position:absolute;left:0;top:0;bottom:0;width:1px;background:var(--gold2)}
+.timeline-item{position:relative;padding:0 0 32px 24px}
+.timeline-item::before{content:'';position:absolute;left:-5px;top:6px;width:10px;height:10px;border-radius:50%;background:var(--gold);border:2px solid var(--bg)}
+.timeline-item .date{font-size:11px;color:var(--gold2);letter-spacing:1px;margin-bottom:4px}
+.timeline-item h4{font-family:'Noto Serif SC',serif;font-size:16px;color:var(--cream);margin-bottom:4px}
+.timeline-item p{font-size:13px;color:var(--text2)}
+/* Deep dive */
+.deep-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.deep-card{background:var(--card);border:1px solid var(--border);padding:24px;transition:all 0.3s}
+.deep-card:hover{border-color:var(--gold);transform:translateY(-2px)}
+.deep-card .num{font-family:'Noto Serif SC',serif;font-size:32px;color:rgba(196,168,98,0.15);margin-bottom:8px}
+.deep-card h4{font-size:14px;font-weight:600;color:var(--cream);margin-bottom:6px}
+.deep-card p{font-size:12px;color:var(--text2)}
+/* Call to action */
+.cta-section{text-align:center;border-top:1px solid var(--border);padding:60px 48px}
+.cta-section h2{font-family:'Noto Serif SC',serif;font-size:26px;color:var(--cream);margin-bottom:12px}
+.cta-section p{color:var(--text2);font-size:13px;margin-bottom:24px}
+.cta-section .btn-group{display:flex;gap:12px;justify-content:center}
+.cta-section .btn-primary{background:var(--gold);color:var(--bg);border:none;padding:12px 28px;font-size:13px;font-weight:600;cursor:pointer;font-family:inherit}
+.cta-section .btn-secondary{background:transparent;color:var(--gold);border:1px solid var(--gold);padding:12px 28px;font-size:13px;cursor:pointer;font-family:inherit}
+/* Footer */
+footer{text-align:center;padding:32px;border-top:1px solid var(--border);color:var(--text3);font-size:11px}
+footer .brand{font-family:'Noto Serif SC',serif;font-size:16px;color:var(--cream);margin-bottom:4px}
+@media(max-width:900px){
+  header h1{font-size:28px}.culture-grid{grid-template-columns:1fr}
+  .deep-grid{grid-template-columns:1fr}section{padding:48px 24px}
+}
+</style>
+</head>
+<body>
+<header><div class="pattern"></div><div class="cyr">КУЛЬТУРА</div>
+<h1>俄罗斯 · <em>文化深度</em>之旅</h1><p>不是走马观花，而是走进普希金的诗、列宾的画、柴可夫斯基的音符——用文化理解俄罗斯</p>
+<button class="btn">开始文化之旅</button><div class="scroll">— SCROLL —</div></header>
+<section><div class="section-label">01 — 文化地标</div><h2>每一座建筑 <em>都是历史</em></h2>
+<div class="culture-grid">
+<div class="culture-card"><span class="icon">🏛️</span><h3>克里姆林宫 <span class="ru">· Кремль</span></h3><p>俄罗斯的权力中心，从伊凡大帝到普京，八个世纪的权力更迭都写在这些红墙之上。阿杜带你读懂每一座教堂、每一尊炮王背后的故事。</p></div>
+<div class="culture-card"><span class="icon">🎭</span><h3>马林斯基剧院 <span class="ru">· Мариинка</span></h3><p>世界顶级芭蕾舞剧院，天鹅湖、胡桃夹子的故乡。阿杜教你如何买票、如何着装、如何欣赏一场真正的俄罗斯芭蕾。</p></div>
+<div class="culture-card"><span class="icon">🎨</span><h3>特列季亚科夫画廊 <span class="ru">· Третьяковка</span></h3><p>俄罗斯民族艺术的宝库，从安德烈·鲁布廖夫的圣像画到列宾的《伏尔加河上的纤夫》，每一幅画都是俄罗斯灵魂的窗口。</p></div>
+<div class="culture-card"><span class="icon">✍️</span><h3>托尔斯泰庄园 <span class="ru">· Ясная Поляна</span></h3><p>文学巨匠列夫·托尔斯泰的故居，他在此写下《战争与和平》和《安娜·卡列尼娜》。阿杜带你漫步林中，感受大师的呼吸。</p></div>
+</div></section>
+<section><div class="section-label">02 — 阿杜的文化笔记</div><h2>二十年 <em>读懂</em> 俄罗斯</h2>
+<div class="timeline">
+<div class="timeline-item"><div class="date">2006 · 初识</div><h4>第一脚踏上红场的条石路</h4><p>"圣瓦西里大教堂的洋葱头在夕阳下像火焰一样燃烧，那一刻我知道，这一生都要和这片土地结缘了。"</p></div>
+<div class="timeline-item"><div class="date">2012 · 深耕</div><h4>走遍金环七座古城</h4><p>从谢尔盖耶夫到苏兹达尔，每一座教堂的壁画、每一口古钟的铭文，都是俄罗斯灵魂的密码。</p></div>
+<div class="timeline-item"><div class="date">2018 · 传承</div><h4>开始用短视频记录俄罗斯</h4><p>"想让更多人看到真实的俄罗斯，不是新闻里的那个，而是有温度、有故事、有烟火气的俄罗斯。"</p></div>
+</div></section>
+<section><div class="section-label">03 — 主题路线</div><h2>按 <em>兴趣</em> 选择深度主题</h2>
+<div class="deep-grid">
+<div class="deep-card"><div class="num">01</div><h4>🎨 艺术之旅</h4><p>冬宫+特列季亚科夫+马林斯基芭蕾+俄罗斯博物馆 · 7天</p></div>
+<div class="deep-card"><div class="num">02</div><h4>📚 文学之旅</h4><p>托尔斯泰庄园+普希金故居+陀思妥耶夫斯基博物馆+作家咖啡馆 · 6天</p></div>
+<div class="deep-card"><div class="num">03</div><h4>🏛️ 历史之旅</h4><p>克里姆林宫+二战博物馆+古拉格博物馆+武装力量大教堂 · 8天</p></div>
+</div></section>
+<section class="cta-section"><h2>定制你的文化深度之旅</h2><p>告诉我你感兴趣的俄罗斯文化主题，阿杜为你量身定制</p><div class="btn-group"><button class="btn-primary">✍️ 填写需求</button><button class="btn-secondary">📖 查看全部主题</button></div></section>
+<footer><div class="brand">俄罗斯导游阿杜 · Культурный гид</div><p>二十年俄语导游 · 文化深度旅行专家</p><p>© 2026 阿杜俄旅</p></footer>
+</body></html>

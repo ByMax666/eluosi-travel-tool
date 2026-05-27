@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>阿杜说 · 带你看真正的俄罗斯</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700&family=ZCOOL+XiaoWei&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{--bg:#FFFDF5;--card:#FFFFFF;--warm:#F5F0E8;--red:#C65D47;--red2:#A34736;--gold:#D4A04A;--green:#5A7A5A;--text:#2D2D2D;--text2:#7A7A7A;--text3:#B0A898;--border:#EDE8DE}
+body{font-family:'Noto Sans SC','PingFang SC','Microsoft YaHei',sans-serif;background:var(--bg);color:var(--text);line-height:1.8}
+/* top bar */
+.top-strip{background:var(--warm);padding:6px 24px;text-align:center;font-size:12px;color:var(--text2);border-bottom:1px solid var(--border)}
+.top-strip span{color:var(--red);font-weight:500}
+/* Nav */
+nav{display:flex;justify-content:space-between;align-items:center;padding:12px 48px;background:var(--card);border-bottom:1px solid var(--border)}
+.nav-logo{display:flex;align-items:center;gap:10px}
+.nav-logo .avatar{width:38px;height:38px;border-radius:50%;background:var(--warm);display:flex;align-items:center;justify-content:center;font-size:18px;border:2px solid var(--gold)}
+.nav-logo .name{font-family:'ZCOOL XiaoWei',serif;font-size:18px;color:var(--red)}.nav-logo .name span{color:var(--text2);font-family:'Noto Sans SC',sans-serif;font-size:13px}
+.nav-links a{color:var(--text2);text-decoration:none;font-size:13px;padding:6px 14px}.nav-links a:hover{color:var(--red)}.nav-links a.cta{background:var(--red);color:#fff;padding:8px 20px;border-radius:20px}
+/* Hero Story */
+.hero{max-width:1000px;margin:0 auto;padding:48px 48px 32px;text-align:center}
+.hero .greeting{font-family:'ZCOOL XiaoWei',serif;font-size:36px;color:var(--red);margin-bottom:8px}
+.hero p{font-size:15px;color:var(--text2);max-width:600px;margin:0 auto 24px}
+.hero-actions{display:flex;gap:12px;justify-content:center}
+/* Story section */
+.story-section{max-width:800px;margin:0 auto;padding:0 48px 40px}
+.story-card{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:28px;margin-bottom:16px;position:relative}
+.story-card::before{content:'"';position:absolute;top:-8px;left:16px;font-size:48px;color:var(--gold);font-family:serif}
+.story-card .story-text{font-size:14px;color:var(--text);margin-bottom:8px;padding-left:8px}
+.story-card .story-meta{font-size:12px;color:var(--text3);display:flex;gap:16px}
+.story-card .story-meta .tag{background:var(--warm);padding:2px 10px;border-radius:10px;color:var(--red);font-size:11px}
+/* Features friendly */
+.features{max-width:1000px;margin:0 auto;padding:32px 48px 48px}
+.features h2{font-family:'ZCOOL XiaoWei',serif;text-align:center;font-size:24px;margin-bottom:24px;color:var(--text)}
+.feature-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.feat-card{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:24px;text-align:center;transition:all 0.3s}
+.feat-card:hover{transform:translateY(-3px);box-shadow:0 6px 16px rgba(0,0,0,0.04)}
+.feat-card .emoji{font-size:32px;margin-bottom:8px}
+.feat-card h3{font-size:15px;font-weight:600;margin-bottom:4px}
+.feat-card p{font-size:12px;color:var(--text2)}
+/* Products showcase */
+.products{max-width:1000px;margin:0 auto;padding:0 48px 48px}
+.products h2{font-family:'ZCOOL XiaoWei',serif;text-align:center;font-size:22px;margin-bottom:24px}
+.prod-scroll{display:flex;gap:16px;overflow-x:auto;padding-bottom:8px}
+.prod-card{min-width:260px;background:var(--card);border:1px solid var(--border);border-radius:10px;padding:20px;flex-shrink:0}
+.prod-card .city-tag{background:var(--warm);color:var(--red);font-size:11px;padding:2px 10px;border-radius:10px;display:inline-block;margin-bottom:8px}
+.prod-card h4{font-size:15px;font-weight:600;margin-bottom:4px}
+.prod-card .days{font-size:12px;color:var(--text3);margin-bottom:8px}
+.prod-card .price{font-weight:700;color:var(--red);font-size:18px}
+.prod-card .price span{font-size:12px;color:var(--text3);font-weight:400}
+.prod-card button{background:var(--red);color:#fff;border:none;padding:6px 16px;border-radius:16px;font-size:12px;cursor:pointer;margin-top:8px;font-family:inherit}
+/* Footer */
+footer{background:var(--warm);padding:32px 48px;text-align:center;color:var(--text2);font-size:12px;border-top:1px solid var(--border)}
+footer .brand{font-family:'ZCOOL XiaoWei',serif;font-size:18px;color:var(--red);margin-bottom:4px}
+@media(max-width:900px){
+  nav{padding:12px 24px}.nav-links a{font-size:12px;padding:4px 10px}
+  .hero{padding:32px 24px}.story-section,.features,.products{padding:24px}
+  .feature-grid{grid-template-columns:1fr}.prod-scroll{flex-direction:column}
+}
+</style>
+</head>
+<body>
+<div class="top-strip">🇷🇺 你好，我是阿杜 <span>·</span> 二十年俄罗斯老导游 <span>·</span> 带你像朋友一样游俄罗斯</div>
+<nav><div class="nav-logo"><div class="avatar">👨</div><div class="name">阿杜说 <span>· 带你看俄罗斯</span></div></div><div class="nav-links"><a href="#">首页</a><a href="#">阿杜故事</a><a href="#">路线推荐</a><a href="#">定制行程</a><a href="#" class="cta">找我聊</a></div></nav>
+<section class="hero">
+<div class="greeting">嘿，朋友！</div>
+<p>我是阿杜，在俄罗斯生活了二十年的中国导游。从红场的初雪到图拉庄园的苹果花香，从冬宫的鎏金到贝加尔湖的蓝冰——这些风景我等不及要带你去看。</p>
+<div class="hero-actions"><button class="cta" style="background:var(--red);color:#fff;border:none;padding:10px 24px;border-radius:20px;font-size:14px;cursor:pointer;font-family:inherit;font-weight:500">💬 跟我说说你的想法</button><button style="background:transparent;border:1px solid var(--border);padding:10px 24px;border-radius:20px;font-size:14px;cursor:pointer;font-family:inherit;color:var(--text2)">📖 看阿杜的故事</button></div></section>
+<section class="story-section">
+<div class="story-card"><div class="story-text">"06年我第一次踏上俄罗斯的土地，莫斯科的冬天冷得刺骨，但红场上的雪景美得让人忘记呼吸。那一刻我就想，一定要让更多同胞看到这样的风景。"</div><div class="story-meta"><span>📅 2006年 · 莫斯科</span><span class="tag">初心</span></div></div>
+<div class="story-card"><div class="story-text">"带过5000多位同胞游俄罗斯，每次看到他们在圣瓦西里大教堂前惊叹的表情，我都觉得这二十年的坚持值了。"</div><div class="story-meta"><span>📅 至今 · 5000+游客</span><span class="tag">坚持</span></div></div>
+</section>
+<section class="features"><h2>为什么跟我走？</h2>
+<div class="feature-grid">
+<div class="feat-card"><div class="emoji">🗣️</div><h3>中文沟通零障碍</h3><p>二十年在俄华人，比翻译还懂你</p></div>
+<div class="feat-card"><div class="emoji">🎯</div><h3>不踩坑不绕路</h3><p>二十年踩出来的精华路线</p></div>
+<div class="feat-card"><div class="emoji">💝</div><h3>像朋友一样</h3><p>不是导游和游客，是老朋友带路</p></div>
+</div></section>
+<section class="products"><h2>🎒 阿杜推荐的路线</h2>
+<div class="prod-scroll">
+<div class="prod-card"><span class="city-tag">📍 莫斯科+彼得堡</span><h4>经典双城9日</h4><div class="days">🕐 9天8晚 · 适合第一次来俄</div><div class="price">¥8,800 <span>起</span></div><button>看看详情</button></div>
+<div class="prod-card"><span class="city-tag">📍 莫斯科+彼得堡+金环</span><h4>深度全景12日</h4><div class="days">🕐 12天11晚 · 适合深度玩家</div><div class="price">¥13,800 <span>起</span></div><button>看看详情</button></div>
+<div class="prod-card"><span class="city-tag">📍 贝加尔湖</span><h4>蓝冰奇境7日</h4><div class="days">🕐 7天6晚 · 冬春季限定</div><div class="price">¥7,500 <span>起</span></div><button>看看详情</button></div>
+</div></section>
+<footer><div class="brand">俄罗斯导游阿杜</div><p>二十年俄语导游 · 64万抖音粉丝的信赖 · 你的俄罗斯朋友</p><p style="margin-top:4px">© 2026 阿杜俄旅 — 带你看真正的俄罗斯</p></footer>
+</body></html>

@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>阿杜俄旅 · 二十年专业之选</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;600;700;900&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --bg:#F8F6F2;--card:#FFFFFF;--primary:#1A3A5C;--primary-light:#E8EFF6;
+  --accent:#C8A84E;--text:#1F1F1F;--text2:#5A6678;--text3:#9AA5B8;
+  --border:#E2E6ED;--success:#0F7B3A;--shadow:0 2px 8px rgba(0,0,0,0.04);
+  --radius:8px;
+}
+body{font-family:'Inter','PingFang SC','Microsoft YaHei',sans-serif;background:var(--bg);color:var(--text)}
+/* 20 years badge bar */
+.top-badge{background:var(--primary);color:#fff;text-align:center;padding:6px;font-size:12px;font-weight:500;letter-spacing:2px}
+.top-badge span{color:var(--accent);font-weight:700}
+/* Nav */
+nav{display:flex;justify-content:space-between;align-items:center;padding:0 48px;height:64px;background:var(--card);border-bottom:1px solid var(--border)}
+.nav-logo{display:flex;align-items:center;gap:8px}
+.nav-logo .seal{width:36px;height:36px;border:2px solid var(--primary);border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:'Noto Serif SC',serif;font-size:12px;font-weight:900;color:var(--primary)}
+.nav-logo .name{font-family:'Noto Serif SC',serif;font-size:17px;font-weight:700;color:var(--primary)}
+.nav-logo .name span{font-weight:400;color:var(--text2);font-size:13px}
+.nav-links a{color:var(--text2);text-decoration:none;font-size:13px;padding:8px 16px;margin:0 2px}
+.nav-links a:hover{color:var(--primary)}.nav-links a.cta{background:var(--primary);color:#fff;border-radius:4px;padding:8px 20px}
+/* Hero */
+.hero{display:grid;grid-template-columns:1fr 1fr;gap:48px;padding:64px 48px;max-width:1200px;margin:0 auto}
+.hero-badge{display:inline-block;background:var(--primary-light);color:var(--primary);padding:4px 14px;font-size:11px;font-weight:600;border-radius:3px;margin-bottom:16px}
+.hero h1{font-family:'Noto Serif SC',serif;font-size:40px;font-weight:900;line-height:1.2;margin-bottom:16px}
+.hero h1 em{color:var(--accent);font-style:normal;border-bottom:3px solid var(--accent)}
+.hero p{font-size:14px;color:var(--text2);line-height:1.8;margin-bottom:24px}
+.hero-actions{display:flex;gap:12px}
+.btn-primary{background:var(--primary);color:#fff;border:none;padding:12px 28px;font-size:14px;font-weight:600;cursor:pointer;border-radius:4px;font-family:inherit}
+.btn-secondary{background:transparent;color:var(--primary);border:1px solid var(--primary);padding:12px 28px;font-size:14px;font-weight:500;cursor:pointer;border-radius:4px;font-family:inherit}
+.hero-visual{background:var(--primary-light);border-radius:8px;padding:32px;display:flex;flex-direction:column;gap:12px}
+.hero-visual .cert{background:var(--card);border:1px solid var(--border);padding:16px;border-radius:6px;display:flex;gap:12px;align-items:center}
+.hero-visual .cert .icon{font-size:24px}
+.hero-visual .cert .text h4{font-size:13px;font-weight:600;margin-bottom:2px}
+.hero-visual .cert .text p{font-size:11px;color:var(--text3);margin:0}
+/* Trust bar */
+.trust-bar{background:var(--card);border-top:1px solid var(--border);border-bottom:1px solid var(--border);padding:24px 48px;display:flex;justify-content:center;gap:48px;flex-wrap:wrap}
+.trust-item{display:flex;align-items:center;gap:8px;font-size:13px;color:var(--text2)}.trust-item .num{font-weight:700;color:var(--primary);font-size:16px}
+/* Products */
+.products{max-width:1200px;margin:0 auto;padding:64px 48px}
+.products h2{font-family:'Noto Serif SC',serif;font-size:28px;font-weight:700;margin-bottom:8px}
+.products .sub{color:var(--text2);font-size:14px;margin-bottom:32px}
+.prod-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+.prod-card{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:24px;transition:all 0.3s}
+.prod-card:hover{box-shadow:0 8px 24px rgba(0,0,0,0.06);border-color:var(--accent);transform:translateY(-2px)}
+.prod-card .tag{display:inline-block;font-size:10px;padding:2px 10px;border-radius:10px;font-weight:600;margin-bottom:8px}
+.prod-card .tag.hot{background:#FEF2F2;color:#DC2626}.prod-card .tag.pop{background:#FFF7ED;color:#C2410C}.prod-card .tag.pro{background:#EFF6FF;color:#2563EB}
+.prod-card h3{font-family:'Noto Serif SC',serif;font-size:17px;font-weight:700;margin-bottom:4px}
+.prod-card .meta{font-size:12px;color:var(--text3);margin-bottom:12px}
+.prod-card .price{font-size:20px;font-weight:700;color:var(--primary);margin-bottom:12px}.prod-card .price span{font-size:12px;color:var(--text3);font-weight:400}
+.prod-card .features li{font-size:12px;color:var(--text2);padding:2px 0}.prod-card .features li::before{content:'✓ ';color:var(--success)}
+.prod-card button{width:100%;padding:8px;background:transparent;border:1px solid var(--primary);color:var(--primary);border-radius:4px;font-size:12px;font-weight:600;cursor:pointer;margin-top:12px;font-family:inherit}
+.prod-card button:hover{background:var(--primary);color:#fff}
+/* Footer */
+footer{background:var(--primary);color:rgba(255,255,255,0.7);padding:32px 48px;text-align:center;font-size:12px}
+footer .brand{font-family:'Noto Serif SC',serif;font-size:18px;color:#fff;margin-bottom:4px}
+@media(max-width:900px){
+  nav{padding:0 24px}.hero{grid-template-columns:1fr;padding:40px 24px}.hero h1{font-size:28px}
+  .products{padding:40px 24px}.prod-grid{grid-template-columns:1fr}.trust-bar{padding:16px 24px;gap:24px}
+}
+</style>
+</head>
+<body>
+<div class="top-badge">🇷🇺 俄罗斯导游阿杜 · <span>二十年</span>俄语导游经验</div>
+<nav><div class="nav-logo"><div class="seal">俄</div><div class="name">阿杜俄旅 <span>· 专业定制</span></div></div><div class="nav-links"><a href="#">首页</a><a href="#">路线</a><a href="#">定制</a><a href="#">关于</a><a href="#" class="cta">开始定制</a></div></nav>
+<section class="hero">
+<div><div class="hero-badge">★ 俄罗斯联邦持证导游</div><h1>二十年 <em>俄旅</em> 专家<br>您的俄罗斯旅行管家</h1><p>从红场到冬宫，从贝加尔湖到金环小镇——阿杜用二十年踩过的每一寸土地，为您打造最地道的俄罗斯之旅。5000+中国游客的信赖之选。</p><div class="hero-actions"><button class="btn-primary">📝 免费定制行程</button><button class="btn-secondary">📖 经典路线</button></div></div>
+<div class="hero-visual">
+<div class="cert"><div class="icon">📜</div><div class="text"><h4>俄罗斯联邦导游资质</h4><p>持证上岗 · 二十年无投诉</p></div></div>
+<div class="cert"><div class="icon">🏆</div><div class="text"><h4>抖音64万粉丝信赖</h4><p>470万获赞 · 98%好评率</p></div></div>
+<div class="cert"><div class="icon">🌍</div><div class="text"><h4>覆盖全俄50+城市</h4><p>莫斯科 · 彼得堡 · 金环 · 贝加尔湖 · 喀山</p></div></div>
+</div></section>
+<section class="trust-bar">
+<div class="trust-item"><span class="num">20年</span>俄语导游经验</div>
+<div class="trust-item"><span class="num">5000+</span>服务中国游客</div>
+<div class="trust-item"><span class="num">50+</span>俄罗斯城市覆盖</div>
+<div class="trust-item"><span class="num">64万</span>抖音粉丝信赖</div>
+</section>
+<section class="products">
+<h2>精选俄罗斯旅行方案</h2>
+<div class="sub">根据您的需求，量身定制专属行程</div>
+<div class="prod-grid">
+<div class="prod-card"><span class="tag hot">🔥 热销</span><h3>莫斯科+圣彼得堡 9日经典</h3><div class="meta">🕒 9天8晚 · 🚐 全程用车</div><div class="price">¥8,800 <span>/人起</span></div><ul class="features"><li>红场/克里姆林宫深度游</li><li>冬宫/夏宫/叶宫全含</li><li>四星酒店+中文导游</li></ul><button>查看详情</button></div>
+<div class="prod-card"><span class="tag pop">⭐ 精选</span><h3>俄罗斯全景 12日深度</h3><div class="meta">🕒 12天11晚 · 🚄 高铁衔接</div><div class="price">¥13,800 <span>/人起</span></div><ul class="features"><li>莫斯科+彼得堡+金环小镇</li><li>图拉托尔斯泰庄园</li><li>全程VIP专车+金牌导游</li></ul><button>查看详情</button></div>
+<div class="prod-card"><span class="tag pro">👑 尊享</span><h3>俄罗斯全境 15日豪华</h3><div class="meta">🕒 15天14晚 · ✈️ 内陆飞</div><div class="price">¥22,800 <span>/人起</span></div><ul class="features"><li>莫斯科+彼得堡+喀山+索契</li><li>贝加尔湖蓝冰/夏景可选</li><li>五星酒店+商务舱+VIP免排</li></ul><button>查看详情</button></div>
+</div></section>
+<footer><div class="brand">俄罗斯导游阿杜 · Доверьтесь профессионалу</div><p>二十年俄语导游经验 | 俄罗斯联邦持证导游 | 服务超5000名中国游客</p><p style="margin-top:4px">© 2026 阿杜俄旅 — 专业 · 靠谱 · 有温度</p></footer>
+</body></html>

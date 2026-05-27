@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>阿杜俄旅 · 年轻人的俄罗斯</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{--bg:#0A0A0A;--card:#141414;--card2:#1E1E1E;--pink:#FF2D77;--blue:#4A90FF;--purple:#7C5CFC;--orange:#FF6B35;--green:#00D68F;--text:#F5F5F5;--text2:#888;--text3:#555;--border:#222}
+body{font-family:'Inter','PingFang SC',sans-serif;background:var(--bg);color:var(--text)}
+/* Top video strip */
+.vid-strip{display:flex;height:480px;overflow:hidden;position:relative}
+.vid-strip .vid-item{flex:1;display:flex;align-items:center;justify-content:center;font-size:48px;position:relative;transition:all 0.5s;cursor:pointer;overflow:hidden}
+.vid-strip .vid-item::before{content:'';position:absolute;inset:0;background:linear-gradient(180deg,transparent 30%,rgba(0,0,0,0.9) 100%)}
+.vid-strip .vid-item:hover{flex:1.5}
+.vid-strip .vid-item .label{position:absolute;bottom:24px;left:16px;right:16px;z-index:1}
+.vid-strip .vid-item .label .tag{font-size:10px;font-weight:600;padding:2px 8px;border-radius:3px;display:inline-block;margin-bottom:4px}
+.vid-strip .vid-item .label h3{font-size:14px;font-weight:600;margin-bottom:2px}
+.vid-strip .vid-item .label p{font-size:10px;color:var(--text2)}
+.v1{background:linear-gradient(135deg,#1A1A3E,#0A0A1A)}.v2{background:linear-gradient(135deg,#3E1A1A,#1A0A0A)}.v3{background:linear-gradient(135deg,#1A3E1A,#0A1A0A)}.v4{background:linear-gradient(135deg,#3E3E1A,#1A1A0A)}
+/* Nav overlay */
+.nav-overlay{position:absolute;top:0;left:0;right:0;z-index:10;display:flex;justify-content:space-between;align-items:center;padding:16px 24px;background:linear-gradient(180deg,rgba(0,0,0,0.6),transparent)}
+.nav-overlay .logo{font-weight:800;font-size:16px;color:#fff;letter-spacing:1px;display:flex;align-items:center;gap:8px}
+.nav-overlay .logo .douyin{background:var(--pink);padding:2px 8px;border-radius:4px;font-size:10px}
+.nav-overlay .nav-right{display:flex;gap:8px;align-items:center}
+.nav-overlay .nav-right .btn-nav{background:rgba(255,255,255,0.1);border:none;color:#fff;padding:6px 14px;border-radius:4px;font-size:11px;cursor:pointer;font-family:inherit}
+.nav-overlay .nav-right .btn-nav.primary{background:var(--pink)}
+/* Feed section */
+.feed-section{padding:32px 24px;max-width:1200px;margin:0 auto}
+.feed-section .section-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:20px}
+.feed-section .section-header h2{font-size:20px;font-weight:800}.feed-section .section-header .more{font-size:12px;color:var(--text2);cursor:pointer}
+.feed-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+.feed-card{background:var(--card);border-radius:8px;overflow:hidden;border:1px solid var(--border);transition:all 0.3s;cursor:pointer}
+.feed-card:hover{transform:translateY(-4px);border-color:var(--pink)}
+.feed-card .thumb{height:140px;display:flex;align-items:center;justify-content:center;font-size:32px;position:relative}
+.feed-card .thumb .play{position:absolute;width:32px;height:32px;background:rgba(0,0,0,0.6);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;color:#fff}
+.feed-card .info{padding:12px}
+.feed-card .info h4{font-size:13px;font-weight:600;margin-bottom:4px;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.feed-card .info .meta{font-size:11px;color:var(--text3);display:flex;gap:8px}
+.feed-card .info .meta span::before{content:'❤️ '}
+/* CTA big */
+.cta-big{background:linear-gradient(135deg,var(--pink),var(--purple));padding:48px 24px;text-align:center;margin:32px 0}
+.cta-big h2{font-size:28px;font-weight:900;margin-bottom:8px}
+.cta-big p{font-size:14px;opacity:0.8;margin-bottom:20px}
+.cta-big .btn-cta{background:#fff;color:var(--bg);border:none;padding:14px 40px;font-size:16px;font-weight:800;border-radius:8px;cursor:pointer;font-family:inherit}
+/* Cities row */
+.cities-row{display:flex;gap:8px;padding:24px;overflow-x:auto}
+.city-chip{display:flex;flex-direction:column;align-items:center;gap:6px;padding:16px 20px;background:var(--card);border:1px solid var(--border);border-radius:12px;min-width:100px;cursor:pointer;transition:all 0.2s}
+.city-chip:hover{border-color:var(--pink);background:var(--card2)}
+.city-chip .emoji{font-size:24px}.city-chip .name{font-size:12px;font-weight:600}.city-chip .count{font-size:10px;color:var(--text3)}
+/* Testimonials */
+.testimonials{padding:32px 24px;max-width:1200px;margin:0 auto;display:grid;grid-template-columns:repeat(2,1fr);gap:12px}
+.testimonial{background:var(--card);border-radius:8px;padding:16px;border:1px solid var(--border)}
+.testimonial .stars{color:var(--orange);font-size:12px;margin-bottom:4px}
+.testimonial p{font-size:12px;color:var(--text2);margin-bottom:8px}
+.testimonial .author{font-size:11px;color:var(--text3);display:flex;align-items:center;gap:6px}
+.testimonial .author .avi{width:20px;height:20px;border-radius:50%;background:var(--card2);display:flex;align-items:center;justify-content:center;font-size:10px}
+/* Footer */
+footer{padding:24px;text-align:center;color:var(--text3);font-size:11px;border-top:1px solid var(--border)}
+footer .social{display:flex;justify-content:center;gap:16px;margin-bottom:12px}
+footer .social span{width:32px;height:32px;border-radius:50%;background:var(--card);display:flex;align-items:center;justify-content:center;font-size:14px;cursor:pointer}
+@media(max-width:900px){
+  .vid-strip{height:300px;flex-direction:column}
+  .feed-grid{grid-template-columns:repeat(2,1fr)}
+  .testimonials{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+<!-- Video hero strip -->
+<div class="vid-strip">
+<div class="nav-overlay"><div class="logo">🎬 <span>阿杜俄旅</span><span class="douyin">抖音</span></div><div class="nav-right"><button class="btn-nav">关注 64万</button><button class="btn-nav primary">定制行程</button></div></div>
+<div class="vid-item v1"><div class="label"><span class="tag" style="background:var(--pink);color:#fff">🔥 18.5万播放</span><h3>扎姐全中文采访！</h3><p>在莫斯科红场采访扎哈罗娃</p></div></div>
+<div class="vid-item v2"><div class="label"><span class="tag" style="background:var(--blue);color:#fff">📈 12.3万播放</span><h3>莫斯科地铁有多深？</h3><p>地下宫殿般的艺术车站</p></div></div>
+<div class="vid-item v3"><div class="label"><span class="tag" style="background:var(--green);color:#000">🎯 9.8万播放</span><h3>图拉姜饼的秘密</h3><p>俄罗斯最古老甜品的诞生</p></div></div>
+<div class="vid-item v4"><div class="label"><span class="tag" style="background:var(--orange);color:#fff">✈️ 7.6万播放</span><h3>贝加尔湖蓝冰攻略</h3><p>冬季限定绝美奇观</p></div></div>
+</div>
+<!-- Feed -->
+<div class="feed-section">
+<div class="section-header"><h2>🔥 热门路线</h2><span class="more">查看全部 →</span></div>
+<div class="feed-grid">
+<div class="feed-card"><div class="thumb" style="background:linear-gradient(135deg,#FF2D77,#7C5CFC)">🇷🇺<div class="play">▶</div></div><div class="info"><h4>🔥 莫斯科+彼得堡9日经典</h4><div class="meta"><span>2.3万</span> <span>586</span></div></div></div>
+<div class="feed-card"><div class="thumb" style="background:linear-gradient(135deg,#4A90FF,#00D68F)">🏔️<div class="play">▶</div></div><div class="info"><h4>贝加尔湖蓝冰7日</h4><div class="meta"><span>1.8万</span> <span>423</span></div></div></div>
+<div class="feed-card"><div class="thumb" style="background:linear-gradient(135deg,#FF6B35,#FF2D77)">⛪<div class="play">▶</div></div><div class="info"><h4>金环小镇5日深度游</h4><div class="meta"><span>1.2万</span> <span>312</span></div></div></div>
+<div class="feed-card"><div class="thumb" style="background:linear-gradient(135deg,#7C5CFC,#4A90FF)">🎭<div class="play">▶</div></div><div class="info"><h4>莫斯科文化8日艺术之旅</h4><div class="meta"><span>9.8k</span> <span>267</span></div></div></div>
+</div></div>
+<!-- CTA -->
+<div class="cta-big"><h2>🇷🇺 你的俄罗斯之旅，从这里开始</h2><p>告诉我你想去哪里、玩几天、预算多少，阿杜帮你免费定制</p><button class="btn-cta">✏️ 立即定制</button></div>
+<!-- Cities -->
+<div class="cities-row">
+<div class="city-chip"><span class="emoji">🏛️</span><span class="name">莫斯科</span><span class="count">24条路线</span></div>
+<div class="city-chip"><span class="emoji">🌊</span><span class="name">圣彼得堡</span><span class="count">18条路线</span></div>
+<div class="city-chip"><span class="emoji">🌳</span><span class="name">图拉</span><span class="count">6条路线</span></div>
+<div class="city-chip"><span class="emoji">⛪</span><span class="name">金环小镇</span><span class="count">10条路线</span></div>
+<div class="city-chip"><span class="emoji">💎</span><span class="name">贝加尔湖</span><span class="count">8条路线</span></div>
+<div class="city-chip"><span class="emoji">🏰</span><span class="name">喀山</span><span class="count">5条路线</span></div>
+</div>
+<!-- Testimonials -->
+<div class="testimonials">
+<div class="testimonial"><div class="stars">★★★★★</div><p>"阿杜带团太棒了！讲解特别详细，比自己做攻略强一百倍。图拉庄园的托尔斯泰故居讲解让我差点听哭了。"</p><div class="author"><div class="avi">👩</div>@旅行达人小王 · 跟团12日</div></div>
+<div class="testimonial"><div class="stars">★★★★★</div><p>"第二次跟阿杜的团了，这次带了爸妈一起。老人家不会英语也不怕，阿杜全程翻译加照顾，特别放心。"</p><div class="author"><div class="avi">👨</div>@张先生 · 家庭9日团</div></div>
+</div>
+<footer><div class="social"><span>🎵</span><span>📺</span><span>💬</span><span>📧</span></div>俄罗斯导游阿杜 · 抖音：pandabai666 · 64万粉丝信赖<br>© 2026 阿杜俄旅</footer>
+</body></html>
