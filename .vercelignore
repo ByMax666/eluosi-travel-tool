@@ -1,0 +1,8 @@
+backend/
+版本备份/
+设计方案选型/
+*.py
+*.db
+*.png
+test-*
+minimal-*

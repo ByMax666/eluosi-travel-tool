@@ -343,12 +343,34 @@ nav .nav-actions button{padding:4px 12px;font-size:10px;border-radius:3px;cursor
 // ===== DATA LAYER (Single-key persistence) =====
 const STORAGE_KEY = 'adu_data';
 const APP_VERSION = '0.32';
-// Auto-detect API base: same host as page, port 8766
-// Falls back to localhost:8766 if opened as file://
+// API base: checks localStorage override first, then auto-detect, then localhost
+// To point to Railway: localStorage.setItem('adu_api_base', 'https://xxx.up.railway.app')
 var API_BASE = (function() {
   try {
+    // 1. Check localStorage override
+    var saved = localStorage.getItem('adu_api_base');
+    if (saved) return saved;
+
+    // 2. Auto-detect from page URL
     var u = new URL(window.location.href);
     if (u.protocol === 'file:') return 'http://localhost:8766';
+
+    // 3. If on Vercel (vercel.app), we need to manually configure
+    if (u.hostname.includes('vercel.app')) {
+      // Show API config prompt if not configured
+      setTimeout(function() {
+        if (!localStorage.getItem('adu_api_base')) {
+          var api = prompt('请输入后端API地址：\n(在Railway部署后获得，类似 https://xxx.up.railway.app)', 'https://');
+          if (api && api.startsWith('http')) {
+            localStorage.setItem('adu_api_base', api);
+            location.reload();
+          }
+        }
+      }, 500);
+      return 'http://localhost:8766';  // fallback until configured
+    }
+
+    // 4. Same-origin with different port (LAN mode)
     return u.protocol + '//' + u.hostname + ':8766';
   } catch(e) { return 'http://localhost:8766'; }
 })();
