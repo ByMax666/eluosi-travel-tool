@@ -1079,8 +1079,9 @@ function callAI(userMsg) {
     headers:{'Content-Type':'application/json','Authorization':'Bearer '+ak},
     body: JSON.stringify({
       model:'deepseek-chat',
-      messages:[
-        {role:'system',content:'你是一个俄罗斯旅游定制AI助手。你需要通过对话了解用户需求，然后自动配置行程。
+      messages:(function(){
+        // Build full conversation history: system message + all previous exchanges
+        var msgs = [{role:'system',content:'你是一个俄罗斯旅游定制AI助手。你需要通过对话了解用户需求，然后自动配置行程。
 
 可用城市（city key用英文）：
 - moscow: 莫斯科
@@ -1120,9 +1121,12 @@ function callAI(userMsg) {
 谢尔盖耶夫：trinity_lavra(圣三一修道院)
 苏兹达里：suzdal_kremlin(苏兹达里克里姆林宫), wooden_arch(木建筑博物馆), vladimir_cathedral(弗拉基米尔大教堂)
 
-注意：不要解释JSON结构，直接回复用户并添加[FILL]JSON。',
-        {role:'user',content:userMsg}
-      ]
+注意：不要解释JSON结构，直接回复用户并添加[FILL]JSON。'}];
+        // Append full conversation history
+        ch.forEach(function(m){ msgs.push(m); });
+        msgs.push({role:'user',content:userMsg});
+        return msgs;
+      })()
     })
   })
   .then(function(r){return r.json()})
