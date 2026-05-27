@@ -1080,7 +1080,47 @@ function callAI(userMsg) {
     body: JSON.stringify({
       model:'deepseek-chat',
       messages:[
-        {role:'system',content:'You are an AI assistant for a Russian travel agency tool. Help users configure their tour itinerary and pricing. Respond in Chinese. When the user confirms their requirements, add [FILL] at the end of your reply followed by a JSON object with the configuration data.'},
+        {role:'system',content:'你是一个俄罗斯旅游定制AI助手。你需要通过对话了解用户需求，然后自动配置行程。
+
+可用城市（city key用英文）：
+- moscow: 莫斯科
+- spb: 圣彼得堡
+- tula: 图拉
+- sergiev: 谢尔盖耶夫
+- suzdal: 苏兹达里+弗拉基米尔
+
+车型：bus(大巴), minibus(中巴), sedan(轿车/商务)
+客户类型：family(家庭团), group(常规团), vip(VIP精品团)
+住宿：3(三星), 4(四星), 5(五星)
+
+当用户确认需求后，在回复末尾添加[FILL]并跟一个JSON对象，格式如下：
+{
+  "basic": {
+    "name": "产品名称（如：莫斯科+圣彼得堡经典之旅）",
+    "people": 人数,
+    "days": 天数,
+    "depart": "出发城市（如：北京/上海/广州/深圳/成都/香港）",
+    "hotel": "3或4或5",
+    "vehicle": "bus或minibus或sedan",
+    "peak": true或false,
+    "client": "family或group或vip"
+  },
+  "cities": ["moscow","spb","tula"],
+  "cityDays": {"moscow":天数, "spb":天数, "tula":天数},
+  "attractions": {
+    "moscow": [{"id":"red_sq"}, {"id":"kremlin"}],
+    "spb": [{"id":"hermitage"}, {"id":"peterhof"}]
+  }
+}
+注意：cityDays的天数之和应等于basic.days总数。
+景点id从以下列表选择：
+莫斯科：red_sq(红场), st_basil(圣瓦西里), lenin_mau(列宁墓), gum(古姆百货), kremlin(克里姆林宫), armoury(军械库), tretyakov(特列季亚科夫画廊), sparrow(麻雀山), msu(莫大), christ_sav(基督救世主大教堂), vdnh(VDNH), novodevichy(新圣女公墓), tsaritsyno(察里津诺庄园), metro_tour(地铁巡游), victory_temple(武装力量大教堂), tank_museum(坦克博物馆), bunker42(冷战地堡), radisson(游船晚餐), bolshoi(大剧院)
+圣彼得堡：hermitage(冬宫), peterhof(夏宫), catherine_palace(叶宫), savior_blood(滴血大教堂), kazan_cathedral(喀山大教堂), st_isaac(圣以撒大教堂), peter_paul(彼得保罗要塞), nevsky(涅瓦大街), russian_museum(俄罗斯博物馆), lakhta(拉赫塔中心), mariinsky(马林斯基剧院)
+图拉：tula_kremlin(图拉克里姆林宫), gingerbread(姜饼博物馆), samovar(茶炊博物馆), weapon_museum(武器博物馆), yasnaya(托尔斯泰庄园)
+谢尔盖耶夫：trinity_lavra(圣三一修道院)
+苏兹达里：suzdal_kremlin(苏兹达里克里姆林宫), wooden_arch(木建筑博物馆), vladimir_cathedral(弗拉基米尔大教堂)
+
+注意：不要解释JSON结构，直接回复用户并添加[FILL]JSON。',
         {role:'user',content:userMsg}
       ]
     })
@@ -1115,25 +1155,90 @@ function callAI(userMsg) {
         try {
           var config = JSON.parse(parts[1].trim());
           if (config.basic) {
+            var nm = document.getElementById('f_name');
+            if (nm && config.basic.name) nm.value = config.basic.name;
+            var dp = document.getElementById('f_depart');
+            if (dp && config.basic.depart) { try{ dp.value = config.basic.depart; }catch(e){} }
             var ppl = document.getElementById('f_people');
             if (ppl && config.basic.people) ppl.value = config.basic.people;
             var dys = document.getElementById('f_days');
             if (dys && config.basic.days) dys.value = config.basic.days;
             var htl = document.getElementById('f_hotel');
-            if (htl && config.basic.hotel) htl.value = config.basic.hotel;
+            if (htl && config.basic.hotel) htl.value = String(config.basic.hotel);
             var veh = document.getElementById('f_vehicle');
-            if (veh && config.basic.vehicle) veh.value = config.basic.vehicle;
+            if (veh && config.basic.vehicle) { try{ veh.value = config.basic.vehicle; }catch(e){} }
             var pk = document.getElementById('f_peak');
             if (pk && config.basic.peak !== undefined) pk.value = config.basic.peak ? '1' : '0';
             var cl = document.getElementById('f_client');
-            if (cl && config.basic.client) cl.value = config.basic.client;
+            if (cl && config.basic.client) { try{ cl.value = config.basic.client; }catch(e){} }
           }
+          // Handle cities - clear existing first, then add
           if (config.cities && config.cities.length) {
-            window.selected = config.cities;
-            if (window.renderPool) window.renderPool();
-            if (window.renderOrder) window.renderOrder();
+            // Reset city selection
+            selectedCities = [];
+            config.cities.forEach(function(city) {
+              if (Object.keys(CITY_NAMES).includes(city)) {
+                selectedCities.push(city);
+              }
+            });
+            // Update city chip UI
+            document.querySelectorAll('.city-chip').forEach(function(chip) {
+              var city = chip.dataset.city;
+              if (selectedCities.includes(city)) {
+                chip.classList.add('selected');
+                chip.querySelector('input').checked = true;
+              } else {
+                chip.classList.remove('selected');
+                chip.querySelector('input').checked = false;
+              }
+            });
+            // Update city day allocation
+            window.updateCityAlloc();
           }
-          toast('\u2705 AI\u5df2\u914d\u7f6e\u884c\u7a0b\uff01');
+          // Handle city day distribution
+          if (config.cityDays) {
+            Object.keys(config.cityDays).forEach(function(city) {
+              var inp = document.getElementById('cd_' + city);
+              if (inp) inp.value = config.cityDays[city];
+            });
+          }
+          // Trigger rebuild to create day structure
+          if (window.onParamChange) window.onParamChange();
+          window.rebuildAll();
+          // Handle attractions - add to each day after dayData is built
+          if (config.attractions) {
+            Object.keys(config.attractions).forEach(function(city) {
+              var attrs = config.attractions[city];
+              if (attrs && attrs.length) {
+                dayData.forEach(function(day) {
+                  if (day.city === city) {
+                    attrs.forEach(function(attr) {
+                      var ainfo = null;
+                      var cityAttrs = ATTR[city] || [];
+                      for (var i = 0; i < cityAttrs.length; i++) {
+                        if (cityAttrs[i].id === attr.id) {
+                          ainfo = cityAttrs[i];
+                          break;
+                        }
+                      }
+                      if (ainfo && !day.attractions.some(function(x) { return x.id === ainfo.id; })) {
+                        day.attractions.push({id: ainfo.id, name: ainfo.name, cost: ainfo.cost});
+                      }
+                    });
+                  }
+                });
+              }
+            });
+            renderDays();
+            calcPrice();
+          }
+          // Update city day allocation display
+          var alloc = document.getElementById('cityDayAlloc');
+          if (alloc) { alloc.style.display = 'block'; updateCityAlloc(); }
+          // Scroll to day editor
+          var de = document.getElementById('dayEditor');
+          if (de) de.scrollIntoView({behavior:'smooth', block:'start'});
+          toast('\u2705 AI\u5df2\u81ea\u52a8\u914d\u7f6e\u884c\u7a0b\uff01\n\u8bf7\u68c0\u67e5\u5e76\u8c03\u6574\u6bcf\u5929\u660e\u7ec6');
         } catch(e) {
           toast('\u274c \u89e3\u6790\u5931\u8d25');
         }
