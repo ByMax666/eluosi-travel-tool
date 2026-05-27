@@ -192,9 +192,32 @@ body{font-family:var(--font);background:var(--bg);color:var(--text);line-height:
 </head>
 <body>
 <div class="container" id="app">
-<div class="header no-print">
-<h1>🇷🇺 阿杜俄旅 · 产品定制与报价核算</h1>
-<p>俄罗斯旅游产品定制工具 · 实时成本核算 · 一键生成行程单+报价单</p>
+<div class="topbar no-print"><div class="topbar-inner">
+<span>🇷🇺 阿杜俄旅 · 俄罗斯专业地接</span>
+<div style="display:flex;align-items:center;gap:10px">
+  <span id="adminIndicator" style="font-size:11px;color:rgba(255,255,255,.7)">🔒 未登录</span>
+  <button onclick="showLoginPanel()" style="background:rgba(255,255,255,.15);border:none;color:#fff;padding:4px 14px;border-radius:4px;cursor:pointer;font-size:11px;font-weight:500;letter-spacing:.3px" onmouseover="this.style.background='rgba(255,255,255,.25)'" onmouseout="this.style.background='rgba(255,255,255,.15)'">管理员登录</button>
+</div>
+</div></div>
+
+<div class="hdr no-print">
+<div class="hdr-inner">
+<div class="badge">V 0.32</div>
+<h1>产品定制与报价核算系统</h1>
+<p>多城市自由排序 · 实时精准报价 · 一键生成专业行程单+报价单</p>
+</div>
+</div>
+
+<div id="adminModal" style="display:none;position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,.5);z-index:9998;align-items:center;justify-content:center" onclick="if(event.target===this)hideLoginPanel()">
+<div style="background:#fff;border-radius:16px;padding:32px;width:360px;max-width:90vw;box-shadow:0 20px 60px rgba(0,0,0,.2);text-align:center" onclick="event.stopPropagation()">
+<div style="font-size:48px;margin-bottom:12px">🔐</div>
+<h3 style="font-size:18px;margin-bottom:4px;color:#A93226;font-weight:700">管理员登录</h3>
+<p style="font-size:12px;color:#888;margin-bottom:20px">登录后可启用AI助手自动配置行程</p>
+<input id="modalUser" type="password" placeholder="账号" value="3056898" style="width:100%;padding:10px 14px;border:1.5px solid #D5CCC4;border-radius:8px;font-size:14px;margin-bottom:10px;text-align:center;font-family:inherit">
+<input id="modalPass" type="password" placeholder="密码" style="width:100%;padding:10px 14px;border:1.5px solid #D5CCC4;border-radius:8px;font-size:14px;margin-bottom:16px;text-align:center;font-family:inherit" onkeydown="if(event.key==='Enter')modalLogin()">
+<button onclick="modalLogin()" style="width:100%;padding:10px;background:#A93226;color:#fff;border:none;border-radius:8px;font-size:14px;font-weight:600;cursor:pointer;font-family:inherit">登录</button>
+<p id="modalError" style="color:#e74c3c;font-size:12px;margin-top:8px;display:none"></p>
+</div>
 </div>
 
 <!-- ===== 第1步：基础信息 ===== -->
@@ -1050,7 +1073,23 @@ function pf(j){try{j=j.trim();var o=JSON.parse(j);
   if(o.days&&o.days.length){dayData=o.days.map(function(d,i){var dt=new Date(2026,6,11+i);return{day:i+1,date:(dt.getMonth()+1)+'/'+dt.getDate(),weekday:W[dt.getDay()],city:d.city,type:d.type||'sightseeing',label:d.label||'',attrs:(d.attrs||[]).map(function(id){var ca=ATTR[d.city]||[];var f=ca.find(function(a){return a.id===id});return f||{id:id,name:id,c:0}}),meals:d.meals||{bf:true,lu:true,dn:false,mt:'cn'},vh:d.vh||10,pk:2500,gc:(d.type==='arrival'||d.type==='departure')?P.gHalf:P.gFull,cc:0,cn:'',ex:0}})}
   renderDays();calcPrice();toast('✅ AI已配置行程！');$g('dayEditor').scrollIntoView({behavior:'smooth'})
 }catch(e){toast('❌ 解析失败: '+e.message)}}
-function adminLogin(){var u=$g('adminUser').value.trim();var p=$g('adminPass').value.trim();if(u==='3056898'&&p==='pan3056898'){sessionStorage.setItem('adu_admin','1');$g('loginStatus').textContent='✅ 已登录';$g('loginStatus').className='st ok';$g('logoutBtn').style.display='';$g('apiKeyBar').style.display='flex';$g('ctMs').innerHTML='';wm();toast('✅ 登录成功')}else{toast('❌ 账号或密码错误')}}
+
+function showLoginPanel(){document.getElementById('adminModal').style.display='flex';document.getElementById('modalPass').focus()}
+function hideLoginPanel(){document.getElementById('adminModal').style.display='none'}
+function modalLogin(){var u=$g('modalUser').value.trim();var p=$g('modalPass').value.trim();var e=$g('modalError');
+  if(u==='3056898'&&p==='pan3056898'){sessionStorage.setItem('adu_admin','1');hideLoginPanel();
+    $g('adminIndicator').innerHTML='🔓 已登录';$g('adminIndicator').style.color='rgba(255,255,255,.9)';
+    $g('loginStatus').textContent='✅ 已登录';$g('loginStatus').className='st ok';$g('logoutBtn').style.display='';$g('apiKeyBar').style.display='flex';
+    $g('ctMs').innerHTML='';wm();toast('✅ 登录成功')}
+  else{e.style.display='block';e.textContent='❌ 账号或密码错误'}}
+function adminLogout(){sessionStorage.removeItem('adu_admin');
+  $g('adminIndicator').innerHTML='🔒 未登录';$g('adminIndicator').style.color='rgba(255,255,255,.7)';
+  $g('loginStatus').textContent='未登录';$g('loginStatus').className='st';$g('logoutBtn').style.display='none';$g('apiKeyBar').style.display='none';
+  $g('sBtn').disabled=true;$g('ctMs').innerHTML='<div class="chat-msg chat-a" style="text-align:center;padding:24px"><div style="font-size:32px">🔐</div><div style="margin-top:8px;font-weight:600">请登录管理员账号</div><div style="font-size:11px;color:#888;margin-top:4px">登录后可启用AI助手</div></div>';toast('已退出')}
+// Init admin status
+if(sessionStorage.getItem('adu_admin')==='1'){$g('adminIndicator').innerHTML='🔓 已登录';$g('adminIndicator').style.color='rgba(255,255,255,.9)';
+  $g('loginStatus').textContent='✅ 已登录';$g('loginStatus').className='st ok';$g('logoutBtn').style.display='';$g('apiKeyBar').style.display='flex'}
+
 function adminLogout(){sessionStorage.removeItem('adu_admin');$g('loginStatus').textContent='未登录';$g('loginStatus').className='st';$g('logoutBtn').style.display='none';$g('apiKeyBar').style.display='none';$g('sBtn').disabled=true;$g('ctMs').innerHTML='<div class="chat-msg chat-a" style="text-align:center;padding:24px"><div style="font-size:32px">🔐</div><div style="margin-top:8px;font-weight:600">请登录管理员账号</div><div style="font-size:11px;color:#888;margin-top:4px">登录后可启用AI助手</div></div>';toast('已退出')}
 if(sessionStorage.getItem('adu_admin')==='1'){$g('loginStatus').textContent='✅ 已登录';$g('loginStatus').className='st ok';$g('logoutBtn').style.display='';$g('apiKeyBar').style.display='flex'}
 if(ak&&ak!==''){$g('akSt').textContent='✅';$g('akSt').style.color='#27ae60';if(sessionStorage.getItem('adu_admin')==='1')$g('sBtn').disabled=false;$g('akInp').value=ak.slice(0,4)+'...'+ak.slice(-4)}
