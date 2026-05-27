@@ -343,7 +343,15 @@ nav .nav-actions button{padding:4px 12px;font-size:10px;border-radius:3px;cursor
 // ===== DATA LAYER (Single-key persistence) =====
 const STORAGE_KEY = 'adu_data';
 const APP_VERSION = '0.32';
-const API_BASE = 'http://localhost:8766';
+// Auto-detect API base: same host as page, port 8766
+// Falls back to localhost:8766 if opened as file://
+var API_BASE = (function() {
+  try {
+    var u = new URL(window.location.href);
+    if (u.protocol === 'file:') return 'http://localhost:8766';
+    return u.protocol + '//' + u.hostname + ':8766';
+  } catch(e) { return 'http://localhost:8766'; }
+})();
 let apiToken = null;
 let apiOnline = false;
 
