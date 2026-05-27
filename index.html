@@ -3,223 +3,122 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>阿杜俄旅 · 定制报价 · 0.32</title>
+<title>阿杜俄旅 · 定制报价系统 0.32</title>
 <style>
-:root {
-  --p: #A93226; --p2: #7B1818; --p3: #FDF0ED;
-  --g: #C8A84E; --g2: #F5EDD6;
-  --bg: #F7F3EE; --card: #FFFFFF; --text: #1A1A1A; --text2: #6B5E55;
-  --border: #E2D9D0; --border2: #F0EBE6;
-  --s: #27AE60; --w: #E67E22;
-  --sh: 0 2px 8px rgba(0,0,0,.06);
-  --sh-lg: 0 8px 30px rgba(0,0,0,.08);
-  --r: 12px; --r-sm: 8px;
-  --font: 'Plus Jakarta Sans',-apple-system,BlinkMacSystemFont,"Microsoft YaHei",sans-serif;
-  --font-display: 'Playfair Display',Georgia,serif;
-}
-
+:root{--primary:#A93226;--primary-light:#E4B1A0;--bg:#FAF9F5;--card:#fff;--text:#3f3f3f;--border:#dfdfdf;--success:#27ae60;--warning:#f39c12;}
 *{margin:0;padding:0;box-sizing:border-box}
-body{font-family:var(--font);background:var(--bg);color:var(--text);line-height:1.6;padding:0}
+body{font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif;background:var(--bg);color:var(--text);line-height:1.6;padding:20px}
+.container{max-width:1260px;margin:0 auto}
+.header{text-align:center;padding:28px 20px;background:linear-gradient(135deg,#A93226,#CD5C5C);color:#fff;border-radius:20px;margin-bottom:20px;position:relative;overflow:hidden}
+.header h1{font-size:26px;margin-bottom:6px}
+.header p{font-size:13px;opacity:.9}
+.card{background:var(--card);border-radius:16px;padding:18px 22px;margin-bottom:16px;box-shadow:0 2px 8px rgba(0,0,0,.06)}
+.card h2{font-size:17px;color:var(--primary);margin-bottom:12px;padding-bottom:6px;border-bottom:2px solid var(--primary-light);display:flex;align-items:center;gap:8px}
+.section-title{font-size:15px;font-weight:600;margin:14px 0 10px;color:var(--text)}
+.form-row{display:flex;flex-wrap:wrap;gap:12px;margin-bottom:12px}
+.form-group{flex:1;min-width:160px}
+.form-group label{display:block;font-size:12px;font-weight:600;margin-bottom:3px;color:#666}
+.form-group input,.form-group select{width:100%;padding:8px 10px;border:1.5px solid var(--border);border-radius:8px;font-size:13px;background:#fff;transition:border-color .2s}
+.form-group input:focus,.form-group select:focus{outline:none;border-color:var(--primary)}
+.btn{display:inline-flex;align-items:center;gap:5px;padding:9px 18px;border:none;border-radius:8px;font-size:13px;font-weight:600;cursor:pointer;transition:all .2s}
+.btn-primary{background:var(--primary);color:#fff}
+.btn-primary:hover{background:#8B1A1A}
+.btn-success{background:var(--success);color:#fff}
+.btn-success:hover{background:#1e8449}
+.btn-outline{background:transparent;color:var(--primary);border:1.5px solid var(--primary)}
+.btn-outline:hover{background:var(--primary-light)}
+.btn-danger{background:#e74c3c;color:#fff}
+.btn-danger:hover{background:#c0392b}
+.btn-sm{padding:5px 10px;font-size:11px}
+.btn-group{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}
 
-/* ===== TOP BAR ===== */
-.topbar{background:var(--p2);color:#fff;padding:10px 0;font-size:12px;border-bottom:3px solid var(--g)}
-.topbar-inner{max-width:1400px;margin:0 auto;padding:0 32px;display:flex;justify-content:space-between;align-items:center}
-.topbar-inner span{opacity:.85}
+.city-grid{display:flex;flex-wrap:wrap;gap:8px;margin:8px 0}
+.city-chip{display:flex;align-items:center;gap:6px;padding:6px 14px;border-radius:20px;font-size:13px;cursor:pointer;border:1.5px solid var(--border);transition:all .2s;background:#fff;user-select:none}
+.city-chip.selected{background:var(--primary);color:#fff;border-color:var(--primary)}
+.city-chip input{display:none}
+.city-day-input{display:flex;align-items:center;gap:4px}
+.city-day-input input{width:40px;text-align:center;padding:3px;border:1px solid var(--border);border-radius:4px;font-size:12px}
 
-/* ===== HEADER ===== */
-.hdr{background:linear-gradient(135deg,var(--p2),var(--p));color:#fff;padding:40px 0 36px;position:relative;overflow:hidden}
-.hdr::before{content:'';position:absolute;top:-100px;right:-100px;width:400px;height:400px;background:radial-gradient(circle,rgba(255,255,255,.05) 0%,transparent 60%);border-radius:50%}
-.hdr::after{content:'\1F1F7\1F1FA';position:absolute;right:48px;top:35px;font-size:72px;opacity:.08;pointer-events:none}
-.hdr-inner{max-width:1400px;margin:0 auto;padding:0 32px;position:relative;z-index:1}
-.hdr h1{font-family:var(--font-display);font-size:34px;font-weight:700;letter-spacing:-.5px;margin-bottom:6px}
-.hdr p{font-size:15px;opacity:.8;font-weight:400}
-.hdr .badge{display:inline-block;background:var(--g);color:var(--p2);padding:3px 14px;border-radius:12px;font-size:11px;font-weight:700;margin-bottom:12px;letter-spacing:1px}
-
-/* ===== MAIN LAYOUT ===== */
-.c{max-width:1440px;margin:0 auto;padding:0 32px}
-.l-main{display:grid;grid-template-columns:1fr 400px;gap:28px;align-items:start}
-.l-main-wide{grid-column:1/-1}
-
-/* ===== SIDEBAR ===== */
-.sidebar{position:sticky;top:20px}
-.sidebar .card:first-child{margin-top:0}
-
-/* ===== CARDS ===== */
-.card{background:var(--card);border-radius:var(--r);padding:28px 32px;margin-bottom:24px;box-shadow:var(--sh);border:1px solid var(--border2);transition:box-shadow .2s}
-.card-accent{border-left:4px solid var(--p)}
-.card h2{font-family:var(--font-display);font-size:17px;color:var(--p);margin-bottom:16px;padding-bottom:10px;border-bottom:2px solid var(--p3);display:flex;align-items:center;gap:10px;letter-spacing:-.2px}
-.card h2 .step{display:inline-flex;align-items:center;justify-content:center;width:26px;height:26px;border-radius:50%;background:var(--p);color:#fff;font-size:12px;font-weight:700;font-family:var(--font)}
-.section-title{font-family:var(--font-display);font-size:16px;color:var(--p);margin:20px 0 12px}
-
-/* ===== FORM ===== */
-.fr{display:flex;flex-wrap:wrap;gap:14px;margin-bottom:14px}
-.fg{flex:1;min-width:170px}
-.fg label{display:block;font-size:11px;font-weight:600;margin-bottom:4px;color:var(--text2);text-transform:uppercase;letter-spacing:.8px}
-.fg input,.fg select{width:100%;padding:10px 14px;border:1.5px solid var(--border);border-radius:var(--r-sm);font-size:14px;background:#fff;transition:border-color .2s,box-shadow .2s;color:var(--text);font-family:var(--font)}
-.fg input:focus,.fg select:focus{outline:none;border-color:var(--p);box-shadow:0 0 0 3px rgba(169,50,38,.1)}
-
-/* ===== BUTTONS ===== */
-.btn{display:inline-flex;align-items:center;gap:6px;padding:10px 22px;border:none;border-radius:var(--r-sm);font-size:13px;font-weight:600;cursor:pointer;transition:all .2s;min-height:40px;font-family:var(--font);letter-spacing:.3px}
-.btn-p{background:linear-gradient(135deg,var(--p2),var(--p));color:#fff;box-shadow:0 2px 12px rgba(169,50,38,.25)}
-.btn-p:hover{transform:translateY(-2px);box-shadow:0 6px 20px rgba(169,50,38,.35)}
-.btn-s{background:linear-gradient(135deg,#219a52,#27ae60);color:#fff;box-shadow:0 2px 12px rgba(39,174,96,.25)}
-.btn-s:hover{transform:translateY(-2px);box-shadow:0 6px 20px rgba(39,174,96,.35)}
-.btn-o{background:transparent;color:var(--p);border:1.5px solid var(--p)}.btn-o:hover{background:var(--p3)}
-.btn-d{background:#e74c3c;color:#fff}.btn-d:hover{background:#c0392b}
-.btn-sm{padding:7px 14px;font-size:11px;min-height:32px}
-.btn-xs{padding:4px 10px;font-size:10px;border-radius:5px;min-height:26px}
-.bg{display:flex;gap:10px;flex-wrap:wrap;margin-top:16px;justify-content:center}
-
-/* ===== CITY SELECTOR ===== */
-.city-pool{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:12px}
-.city-chip{padding:7px 18px;border-radius:20px;font-size:12px;cursor:pointer;border:1.5px solid var(--border);transition:all .2s;background:#fff;user-select:none;min-height:34px;display:flex;align-items:center;gap:6px;font-weight:600}
-.city-chip:hover{border-color:var(--p);background:var(--p3);transform:translateY(-1px)}
-.city-chip.used{background:var(--p);color:#fff;border-color:var(--p);box-shadow:0 2px 8px rgba(169,50,38,.2)}
-.city-order{display:flex;flex-direction:column;gap:6px;margin:8px 0}
-.city-order-item{display:flex;align-items:center;gap:12px;padding:10px 16px;background:var(--p3);border-radius:var(--r-sm);border:1px solid var(--border2);transition:all .2s}
-.city-order-item:hover{border-color:var(--p)}
-.city-order-item .order-num{font-weight:700;color:var(--p);min-width:24px;font-size:13px}
-.city-order-item .city-name{flex:1;font-size:13px;font-weight:600}
-.city-order-item .day-ctrl{display:flex;align-items:center;gap:4px}
-.city-order-item .day-ctrl input{width:40px;text-align:center;padding:4px;border:1.5px solid var(--border);border-radius:5px;font-size:12px;font-weight:700}
-.city-order-item .move-btn{cursor:pointer;padding:4px 6px;border-radius:4px;color:var(--text2);font-size:14px}.city-order-item .move-btn:hover{background:var(--p);color:#fff}
-.city-order-item .del-btn{cursor:pointer;color:#e74c3c;font-size:18px;padding:4px;opacity:.5}.city-order-item .del-btn:hover{opacity:1}
-
-/* ===== TIMELINE DAYS ===== */
-.day-list{display:flex;flex-direction:column;gap:0;position:relative}
-.day-list::before{content:'';position:absolute;left:44px;top:12px;bottom:12px;width:2px;background:var(--border);z-index:0}
-.day-card{position:relative;padding-left:72px;padding-bottom:16px;z-index:1}
-.day-card::before{content:'';position:absolute;left:37px;top:18px;width:16px;height:16px;border-radius:50%;background:var(--p);border:3px solid var(--p3);z-index:2;transition:transform .2s}
-.day-card:hover::before{transform:scale(1.2);background:var(--p2)}
-.day-card:last-child{padding-bottom:0}
-.day-card-inner{background:var(--card);border:1px solid var(--border2);border-radius:var(--r);overflow:hidden;transition:box-shadow .2s;box-shadow:var(--sh)}
-.day-card-inner:hover{box-shadow:var(--sh-lg)}
-.day-hdr{display:flex;align-items:center;gap:12px;padding:12px 20px;cursor:pointer;user-select:none;background:var(--p3);min-height:48px;transition:background .15s}
-.day-hdr:hover{background:#F5E5E0}
-.day-hdr .dd-num{font-weight:700;color:var(--p);min-width:54px;font-size:14px;font-family:var(--font-display)}
-.day-hdr .dd-city{font-size:12px;color:var(--text2);min-width:70px;font-weight:600}
-.day-hdr .dd-theme{flex:1;font-size:13px;font-weight:500}
-.day-hdr .dd-ctrl{display:flex;gap:3px}
-.day-hdr .dd-toggle{font-size:11px;color:#bbb;margin-left:6px}
-.day-body{padding:20px;display:none;border-top:1px solid var(--border2)}
+.day-card{border:1px solid var(--border);border-radius:10px;margin-bottom:10px;overflow:hidden}
+.day-header{display:flex;align-items:center;justify-content:space-between;padding:10px 14px;background:#f8f4f0;cursor:pointer;user-select:none;gap:8px}
+.day-header .day-num{color:var(--primary);font-weight:700;min-width:60px}
+.day-header .day-city{font-size:12px;color:#888;min-width:50px}
+.day-header .day-theme{flex:1;font-size:13px}
+.day-header .day-toggle{font-size:12px;color:#999}
+.day-body{padding:14px;display:none}
 .day-body.open{display:block}
-.dr{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:10px}
-.dr .df{flex:1;min-width:120px}
-.dr .df label{font-size:10px;color:var(--text2);display:block;margin-bottom:2px;font-weight:600;text-transform:uppercase;letter-spacing:.5px}
-.dr .df input,.dr .df select{width:100%;padding:6px 10px;border:1.5px solid var(--border);border-radius:6px;font-size:12px;background:#fff}
+.day-body .ctrl-row{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:10px;align-items:end}
+.day-body .ctrl-row .fg{flex:1;min-width:100px}
+.day-body .ctrl-row .fg label{font-size:11px;color:#888;display:block;margin-bottom:2px}
+.day-body .ctrl-row .fg input,.day-body .ctrl-row .fg select{width:100%;padding:5px 8px;border:1px solid var(--border);border-radius:6px;font-size:12px}
 
-/* ===== ATTRACTIONS ===== */
-.ag{display:grid;grid-template-columns:repeat(auto-fill,minmax(185px,1fr));gap:3px;margin:8px 0}
-.ai{display:flex;align-items:center;gap:6px;font-size:12px;padding:4px 10px;border-radius:6px;cursor:pointer;min-height:30px;transition:background .15s}
-.ai:hover{background:var(--p3)}
-.ai input{accent-color:var(--p);width:15px;height:15px;cursor:pointer}
-.ap{font-size:10px;color:#aaa;margin-left:auto}
-.ab{font-size:9px;padding:1px 5px;border-radius:3px;background:#F0EBE6;color:var(--text2)}
-.st{display:flex;flex-wrap:wrap;gap:4px;margin:6px 0}
-.st .tag{display:inline-flex;align-items:center;gap:4px;padding:3px 10px;background:rgba(169,50,38,.1);color:var(--p);border-radius:12px;font-size:11px;font-weight:500}
-.st .tag .del{cursor:pointer;font-size:12px;color:#999;margin-left:3px}.st .tag .del:hover{color:#e74c3c}
-.mr{display:flex;gap:14px;flex-wrap:wrap;margin:8px 0;align-items:center}
-.mr label{font-size:12px;display:flex;align-items:center;gap:4px;min-height:26px}
-.mr select{font-size:11px;padding:3px 6px;border:1.5px solid var(--border);border-radius:4px}
+.attr-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(175px,1fr));gap:4px;margin:6px 0}
+.attr-item{display:flex;align-items:center;gap:5px;font-size:12px;padding:3px 6px;border-radius:5px;cursor:pointer;transition:background .15s}
+.attr-item:hover{background:#fdf0ed}
+.attr-item input{accent-color:var(--primary)}
+.attr-price{font-size:10px;color:#aaa}
+.attr-badge{font-size:9px;padding:1px 5px;border-radius:4px;background:#f0ece8;color:#666;margin-left:2px}
 
-/* ===== TABLES ===== */
-.tb-wrap{overflow-x:auto;margin:10px 0;border:1px solid var(--border2);border-radius:var(--r-sm);background:#fff}
-.qt{width:100%;border-collapse:collapse;font-size:13px}
-.qt th,.qt td{padding:10px 14px;text-align:right;border-bottom:1px solid var(--border2)}
-.qt th{background:var(--p3);text-align:center;font-weight:600;font-size:11px;color:var(--text2);text-transform:uppercase;letter-spacing:.5px}
-.qt td:first-child{text-align:left;font-weight:500}
-.qt tr:last-child td{border-bottom:none}
-.qt tr:hover td{background:var(--p3)}
-.qt .trt{background:#F5E5E0!important;font-weight:700;font-size:14px;color:var(--p)}
-.qt .trt td{border-top:2px solid var(--p)}
+.selected-attrs{display:flex;flex-wrap:wrap;gap:4px;margin:6px 0}
+.selected-attrs .tag{display:inline-flex;align-items:center;gap:3px;padding:3px 10px;background:var(--primary-light);color:var(--primary);border-radius:12px;font-size:11px;font-weight:500}
+.selected-attrs .tag .del{cursor:pointer;font-size:13px;line-height:1;margin-left:2px;color:#888}
+.selected-attrs .tag .del:hover{color:#e74c3c}
 
-/* ===== SIDEBAR PRICE ===== */
-.price-card{text-align:center;padding:20px}
-.price-card .big-num{font-family:var(--font-display);font-size:42px;color:var(--p);font-weight:700;line-height:1}
-.price-card .big-num span{font-size:16px;font-weight:400;color:var(--text2)}
-.price-card .per-person{font-size:13px;color:var(--text2);margin-top:6px}
-.price-divider{height:1px;background:var(--border2);margin:12px 0}
-.price-row{display:flex;justify-content:space-between;padding:4px 0;font-size:12px;color:var(--text2)}
-.price-row .val{font-weight:600;color:var(--text)}
+.meal-row{display:flex;gap:16px;flex-wrap:wrap;margin:6px 0;align-items:center}
+.meal-row label{font-size:12px;display:flex;align-items:center;gap:4px}
+.meal-row select{font-size:11px;padding:3px 6px;border:1px solid var(--border);border-radius:4px}
 
-/* ===== OUTPUT ===== */
-.ob{margin-top:16px;padding:24px 28px;background:#1A1A1A;color:#E8E0D8;border-radius:var(--r);display:none;font-size:13px;line-height:1.8;max-height:600px;overflow-y:auto;white-space:pre-wrap;font-family:'Cascadia Code','Fira Code',Menlo,monospace}
-.ob.open{display:block}
+.qt{width:100%;border-collapse:collapse;margin-top:10px;font-size:13px}
+.qt th,.qt td{padding:10px 14px;text-align:right;border-bottom:1px solid var(--border)}
+.qt th{background:#f8f4f0;text-align:center;font-weight:600}
+.qt td:first-child{text-align:left}
+.qt .tr-total{font-weight:700;background:#fdf0ed;font-size:14px;color:var(--primary)}.qt tr:last-child td{border-bottom:none}.qt tr:hover td{background:#fff8f5}
+.qt .tr-sub{color:#666;font-size:12px}
 
-/* ===== CHAT ===== */
-.chat-t{position:fixed;bottom:28px;right:28px;width:52px;height:52px;border-radius:50%;background:linear-gradient(135deg,var(--p2),var(--p));color:#fff;border:none;font-size:24px;cursor:pointer;box-shadow:0 4px 20px rgba(169,50,38,.35);z-index:1000;display:flex;align-items:center;justify-content:center;transition:transform .2s}
-.chat-t:hover{transform:scale(1.1) rotate(5deg)}
-.chat-p{position:fixed;bottom:92px;right:28px;width:420px;height:600px;background:#fff;border-radius:var(--r);box-shadow:0 12px 48px rgba(0,0,0,.15);z-index:999;display:none;flex-direction:column;overflow:hidden;border:1px solid var(--border)}
-.chat-p.on{display:flex}
-.chat-h{background:linear-gradient(135deg,var(--p2),var(--p));color:#fff;padding:16px 20px;display:flex;align-items:center;gap:12px}
-.chat-h .av{width:36px;height:36px;border-radius:50%;background:rgba(255,255,255,.15);display:flex;align-items:center;justify-content:center;font-size:20px}
-.chat-h .info{flex:1}.chat-h .info h3{font-size:14px;font-weight:700}.chat-h .info p{font-size:10px;opacity:.8}
-.chat-h .cb{background:none;border:none;color:#fff;font-size:20px;cursor:pointer;padding:4px}
-.chat-m{flex:1;overflow-y:auto;padding:16px;display:flex;flex-direction:column;gap:10px;background:var(--bg)}
+.output-box{margin-top:16px;padding:24px 28px;background:#fff;border:1px solid #e0d8d0;border-radius:8px;display:none;font-size:13px;line-height:1.8;max-height:700px;overflow-y:auto;white-space:pre-wrap;font-family:Menlo,Consolas,monospace;box-shadow:0 2px 8px rgba(0,0,0,.04)}
+.output-box.open{display:block}
+
+.form-row{flex-direction:column}.form-group{min-width:100%}}
+
+.toast{position:fixed;bottom:30px;left:50%;transform:translateX(-50%);background:#333;color:#fff;padding:10px 24px;border-radius:10px;font-size:13px;z-index:999;opacity:0;transition:opacity .3s;pointer-events:none}
+.toast.show{opacity:1}
 .chat-msg{max-width:88%;padding:10px 16px;border-radius:14px;font-size:13px;line-height:1.6;animation:mi .3s ease}
 @keyframes mi{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
-.chat-u{background:var(--p);color:#fff;align-self:flex-end;border-bottom-right-radius:4px}
-.chat-a{background:var(--card);color:var(--text);align-self:flex-start;border-bottom-left-radius:4px;box-shadow:0 1px 3px rgba(0,0,0,.06)}
-.chat-i{display:flex;gap:8px;padding:12px 16px;border-top:1px solid var(--border);background:#fff}
-.chat-i textarea{flex:1;border:1.5px solid var(--border);border-radius:8px;padding:8px 12px;font-size:13px;resize:none;height:40px;line-height:1.4;font-family:var(--font)}
-.chat-i textarea:focus{outline:none;border-color:var(--p)}
-.chat-i .sb{width:40px;height:40px;border-radius:50%;border:none;background:var(--p);color:#fff;font-size:18px;cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0}
-.chat-i .sb:disabled{background:#ccc;cursor:not-allowed}
-.chat-bar{display:flex;align-items:center;gap:6px;padding:8px 14px;border-bottom:1px solid var(--border2);background:var(--p3)}
-.chat-bar input{padding:5px 10px;border:1.5px solid var(--border);border-radius:5px;font-size:11px}
-.chat-bar input:focus{outline:none;border-color:var(--p)}
-.chat-bar .cb-btn{padding:4px 12px;border:none;border-radius:4px;font-size:10px;cursor:pointer;font-weight:600}
-.chat-bar .cb-btn.p{background:var(--p);color:#fff}.chat-bar .cb-btn.p:hover{background:var(--p2)}
-.chat-bar .cb-btn.d{border:1px solid #e74c3c;color:#e74c3c;background:transparent}
-.chat-bar .st{font-size:10px;color:var(--text2)}.chat-bar .st.ok{color:var(--s);font-weight:600}
+.chat-u{background:#A93226;color:#fff;align-self:flex-end;border-bottom-right-radius:4px}
+.chat-a{background:#fff;color:#2C2C2C;align-self:flex-start;border-bottom-left-radius:4px;box-shadow:0 1px 4px rgba(0,0,0,.06)}
 .ct{display:flex;gap:4px;padding:10px 16px;align-items:center;align-self:flex-start;background:#fff;border-radius:14px;box-shadow:0 1px 4px rgba(0,0,0,.06)}
 .ct .d{width:7px;height:7px;border-radius:50%;background:#ccc;animation:dp 1.2s infinite}
 .ct .d:nth-child(2){animation-delay:.2s}.ct .d:nth-child(3){animation-delay:.4s}
 @keyframes dp{0%,60%,100%{transform:scale(1);opacity:.4}30%{transform:scale(1.3);opacity:1}}
-.toast{position:fixed;bottom:28px;left:50%;transform:translateX(-50%);background:#333;color:#fff;padding:10px 28px;border-radius:8px;font-size:13px;z-index:9999;opacity:0;transition:opacity .3s;pointer-events:none;text-align:center}
-.toast.show{opacity:1}
 
-/* ===== DAY COST BADGE ===== */
-.day-cost{font-size:12px;color:var(--p);font-weight:600;background:var(--p3);padding:2px 10px;border-radius:10px;margin-left:auto}
-
-/* ===== RESPONSIVE ===== */
-@media(max-width:1100px){.l-main{grid-template-columns:1fr}.sidebar{position:static}}
-@media print{.no-print{display:none!important}body{background:#fff}.card{box-shadow:none;border:1px solid #ddd;break-inside:avoid}.hdr{background:var(--p2)!important;-webkit-print-color-adjust:exact}.ob{background:#fff!important;color:var(--text)!important}}
+@media print{.no-print{display:none!important}body{padding:0;background:#fff}.card{box-shadow:none;border:1px solid #ddd}.header{background:#A93226!important;-webkit-print-color-adjust:exact}.output-box{max-height:none!important}}
 </style>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
 <div class="container" id="app">
-<div class="topbar no-print"><div class="topbar-inner">
+<div class="topbar no-print" style="background:#7B1818;color:#fff;padding:8px 0;font-size:12px;border-bottom:3px solid #C8A84E"><div style="max-width:1260px;margin:0 auto;padding:0 20px;display:flex;justify-content:space-between;align-items:center">
 <span>🇷🇺 阿杜俄旅 · 俄罗斯专业地接</span>
-<div style="display:flex;align-items:center;gap:10px">
-  <span id="adminIndicator" style="font-size:11px;color:rgba(255,255,255,.7)">🔒 未登录</span>
-  <button onclick="showLoginPanel()" style="background:rgba(255,255,255,.15);border:none;color:#fff;padding:4px 14px;border-radius:4px;cursor:pointer;font-size:11px;font-weight:500;letter-spacing:.3px" onmouseover="this.style.background='rgba(255,255,255,.25)'" onmouseout="this.style.background='rgba(255,255,255,.15)'">管理员登录</button>
+<div style="display:flex;align-items:center;gap:12px">
+  <span id="adminIndicator" style="font-size:12px;color:rgba(255,255,255,.7)">🔒 未登录</span>
+  <button onclick="showLoginPanel()" style="background:rgba(255,255,255,.15);border:none;color:#fff;padding:4px 16px;border-radius:4px;cursor:pointer;font-size:12px;font-weight:500">管理员登录</button>
 </div>
 </div></div>
 
-<div class="hdr no-print">
-<div class="hdr-inner">
-<div class="badge">V 0.32</div>
-<h1>产品定制与报价核算系统</h1>
-<p>多城市自由排序 · 实时精准报价 · 一键生成专业行程单+报价单</p>
-</div>
+<div class="header no-print">
+<h1>🇷🇺 阿杜俄旅 · 产品定制与报价核算</h1>
+<p>俄罗斯旅游产品定制工具 · 实时成本核算 · 一键生成行程单+报价单</p>
 </div>
 
 <div id="adminModal" style="display:none;position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,.5);z-index:9998;align-items:center;justify-content:center" onclick="if(event.target===this)hideLoginPanel()">
-<div style="background:#fff;border-radius:16px;padding:32px;width:360px;max-width:90vw;box-shadow:0 20px 60px rgba(0,0,0,.2);text-align:center" onclick="event.stopPropagation()">
+<div style="background:#fff;border-radius:16px;padding:36px;width:380px;box-shadow:0 20px 60px rgba(0,0,0,.2);text-align:center">
 <div style="font-size:48px;margin-bottom:12px">🔐</div>
-<h3 style="font-size:18px;margin-bottom:4px;color:#A93226;font-weight:700">管理员登录</h3>
-<p style="font-size:12px;color:#888;margin-bottom:20px">登录后可启用AI助手自动配置行程</p>
-<input id="modalUser" type="password" placeholder="账号" value="3056898" style="width:100%;padding:10px 14px;border:1.5px solid #D5CCC4;border-radius:8px;font-size:14px;margin-bottom:10px;text-align:center;font-family:inherit">
-<input id="modalPass" type="password" placeholder="密码" style="width:100%;padding:10px 14px;border:1.5px solid #D5CCC4;border-radius:8px;font-size:14px;margin-bottom:16px;text-align:center;font-family:inherit" onkeydown="if(event.key==='Enter')modalLogin()">
-<button onclick="modalLogin()" style="width:100%;padding:10px;background:#A93226;color:#fff;border:none;border-radius:8px;font-size:14px;font-weight:600;cursor:pointer;font-family:inherit">登录</button>
-<p id="modalError" style="color:#e74c3c;font-size:12px;margin-top:8px;display:none"></p>
-</div>
-</div>
-
+<h3 style="font-size:20px;margin-bottom:4px;color:#A93226;font-weight:700">管理员登录</h3>
+<p style="font-size:13px;color:#888;margin-bottom:24px">登录后可启用AI助手自动配置行程</p>
+<input id="modalUser" type="password" placeholder="账号" value="3056898" style="width:100%;padding:12px 16px;border:1.5px solid #ddd;border-radius:8px;font-size:14px;margin-bottom:12px;text-align:center">
+<input id="modalPass" type="password" placeholder="密码" style="width:100%;padding:12px 16px;border:1.5px solid #ddd;border-radius:8px;font-size:14px;margin-bottom:20px;text-align:center" onkeydown="if(event.key==='Enter')modalLogin()">
+<button onclick="modalLogin()" style="width:100%;padding:12px;background:#A93226;color:#fff;border:none;border-radius:8px;font-size:15px;font-weight:600;cursor:pointer">登录</button>
+<p id="modalError" style="color:#e74c3c;font-size:13px;margin-top:10px;display:none"></p>
+</div></div>
 <!-- ===== 第1步：基础信息 ===== -->
 <div class="card no-print">
 <h2>📋 ① 基础信息</h2>
@@ -1040,60 +939,55 @@ document.addEventListener('DOMContentLoaded',()=>{
   rebuildAll();
 });
 
-// ===== AI CHAT =====
+// ADMIN + AI CHAT
 var ch = [];
 var ak = localStorage.getItem('adu_ak') || 'sk-93b7f24e8d4f4b55b7c7aff22b9c3ab8';
-function tc(){var p=$g('ctPnl');p.classList.toggle('on');if(p.classList.contains('on'))setTimeout(function(){$g('ctInp').focus()},300)}
-function sa(){var v=$g('akInp').value.trim();if(!v){toast('输入Key');return}
-  if(v.startsWith('sk-')){ak=v;localStorage.setItem('adu_ak',ak);$g('akSt').textContent='✅';$g('akSt').style.color='#27ae60';$g('sBtn').disabled=false;
-    $g('akInp').value=ak.slice(0,4)+'...'+ak.slice(-4);toast('✅ Key已保存');}
-  else toast('Key格式不对')}
-function wm(){$g('ctMs').innerHTML='<div class="chat-msg chat-a">你好！我是阿杜AI助手 🤖<br><br>告诉我你的旅行需求，我会自动配置行程和报价。<br><br><b>例如：</b><br>• "5人家庭团，9天莫斯科+圣彼得堡"<br>• "10个人，莫斯科+图拉，7天"<br>• "想看极光，4人摩尔曼斯克+莫斯科"<br><br>直接输入需求开始吧 👇</div>'}
+function showLoginPanel(){$g('adminModal').style.display='flex';setTimeout(function(){$g('modalPass').focus()},100)}
+function hideLoginPanel(){$g('adminModal').style.display='none'}
+function modalLogin(){var u=$g('modalUser').value.trim();var p=$g('modalPass').value.trim();var e=$g('modalError');
+  if(u==='3056898'&&p==='pan3056898'){sessionStorage.setItem('adu_admin','1');hideLoginPanel();
+    $g('adminIndicator').innerHTML='\ud83d\udd13 \u5df2\u767b\u5f55';$g('adminIndicator').style.color='rgba(255,255,255,.9)';
+    $g('loginStatus').textContent='\u2705 \u5df2\u767b\u5f55';$g('loginStatus').style.color='#27ae60';$g('logoutBtn').style.display='';
+    $g('apiKeyRow').style.display='flex';$g('ctMs').innerHTML='';wm();toast('\u2705 \u767b\u5f55\u6210\u529f')}
+  else{e.style.display='block';e.textContent='\u274c \u8d26\u53f7\u6216\u5bc6\u7801\u9519\u8bef'}}
+function adminLogout(){sessionStorage.removeItem('adu_admin');
+  $g('adminIndicator').innerHTML='\ud83d\udd12 \u672a\u767b\u5f55';$g('adminIndicator').style.color='rgba(255,255,255,.7)';
+  $g('loginStatus').textContent='\u672a\u767b\u5f55';$g('loginStatus').style.color='#888';$g('logoutBtn').style.display='none';
+  $g('apiKeyRow').style.display='none';$g('sBtn').disabled=true;
+  $g('ctMs').innerHTML='<div class="chat-msg chat-a" style="text-align:center;padding:30px"><div style="font-size:40px">\ud83d\udd10</div><div style="margin-top:10px;font-weight:600">\u8bf7\u767b\u5f55\u7ba1\u7406\u5458\u8d26\u53f7</div><div style="font-size:12px;color:#888;margin-top:6px">\u767b\u5f55\u540e\u53ef\u542f\u7528AI\u52a9\u624b</div></div>';toast('\u5df2\u9000\u51fa')}
+function tc(){var p=$g('ctPnl');p.style.display=(p.style.display==='flex'?'none':'flex');if(p.style.display==='flex')setTimeout(function(){$g('ctInp').focus()},200)}
+function sa(){var v=$g('akInp').value.trim();if(!v||!v.startsWith('sk-')){toast('\u8bf7\u8f93\u5165\u6709\u6548\u7684API Key');return}
+  ak=v;localStorage.setItem('adu_ak',ak);$g('akSt').textContent='\u2705';$g('akSt').style.color='#27ae60';$g('sBtn').disabled=false;
+  $g('akInp').value=ak.slice(0,6)+'...'+ak.slice(-4);toast('\u2705 Key\u5df2\u4fdd\u5b58')}
+function wm(){$g('ctMs').innerHTML='<div class="chat-msg chat-a">\u4f60\u597d\uff01\u6211\u662f\u963f\u675cAI\u52a9\u624b \ud83e\udd16<br><br>\u544a\u8bc9\u6211\u4f60\u7684\u65c5\u884c\u9700\u6c42\uff0c\u6211\u4f1a\u81ea\u52a8\u914d\u7f6e\u884c\u7a0b\u548c\u62a5\u4ef7\u3002<br><br><b>\u4f8b\u5982\uff1a</b><br>\u2022 "5\u4eba\u5bb6\u5ead\u56e2\uff0c9\u5929\u83ab\u65af\u79d1+\u5723\u5f7c\u5f97\u5821"<br>\u2022 "10\u4e2a\u4eba\uff0c\u83ab\u65af\u79d1+\u56fe\u62c9\uff0c7\u5929"<br>\u2022 "\u60f3\u770b\u6781\u5149\uff0c4\u4eba\u6469\u5c14\u66fc\u65af\u514b+\u83ab\u65af\u79d1"<br><br>\u76f4\u63a5\u8f93\u5165\u9700\u6c42\u5f00\u59cb\u5427 \udbc0\udcbc</div>'}
 function am(t,r){var m=$g('ctMs');var d=document.createElement('div');d.className='chat-msg '+(r==='u'?'chat-u':'chat-a');d.innerHTML=t;m.appendChild(d);d.scrollIntoView({behavior:'smooth'})}
 function tp(){$g('ctMs').insertAdjacentHTML('beforeend','<div class="ct" id="td"><span class="d"></span><span class="d"></span><span class="d"></span></div>');$g('td').scrollIntoView({behavior:'smooth'})}
 function rp(){var e=$g('td');if(e)e.remove()}
-function sc(){if(sessionStorage.getItem('adu_admin')!=='1'){toast('请先登录');return}var i=$g('ctInp');var t=i.value.trim();if(!t)return;if(!ak){toast('请先设置API Key');return}
+function sc(){if(sessionStorage.getItem('adu_admin')!=='1'){toast('\u8bf7\u5148\u767b\u5f55');return}
+  var i=$g('ctInp');var t=i.value.trim();if(!t)return;if(!ak){toast('\u8bf7\u5148\u8bbe\u7f6eAPI Key');return}
   i.value='';am(t,'u');ch.push({role:'user',content:t});$g('sBtn').disabled=true;tp();ca()}
 function bs(){$g('sBtn').disabled=false}
 function ca(){fetch('https://api.deepseek.com/v1/chat/completions',{method:'POST',headers:{'Content-Type':'application/json','Authorization':'Bearer '+ak},
-  body:JSON.stringify({model:'deepseek-chat',messages:[{role:'system',content:'你是阿杜俄旅的AI配置助手，通过对话了解客户需求后自动配置行程报价系统。可用城市：莫斯科(moscow)、圣彼得堡(spb)、图拉(tula)、谢尔盖耶夫(sergiev)、苏兹达里+弗拉基米尔(suzdal)、喀山(kazan)、摩尔曼斯克(murmansk)、索契(sochi)、加里宁格勒(kaliningrad)、伊尔库茨克+贝加尔湖(irkutsk)、叶卡捷琳堡(ekaterinburg)、下诺夫哥罗德(novgorod)、大诺夫哥罗德(veliky)、喀琅施塔得(kronstadt)、普斯科夫(pskov)。住宿：三星5000/间、四星7000/间、五星12000/间。用车：中巴2500/h、大巴3510/h、轿车1800/h。导游全天30000、半日15000。餐标：中餐午2300晚2300、俄餐午1400晚1200。高铁莫斯科彼得堡6000/人/程。旺季7-8月+15%。接送13000/次。流程：了解需求→问预算偏好→推荐景点→输出填表指令。当用户确认后，在回复末尾加上【填表】标记和JSON：{"basic":{"people":5,"days":9,"hotel":4,"vehicle":"minibus","peak":false,"client":"family"},"cities":["moscow","spb"],"cityDays":{"moscow":4,"spb":5},"days":[{"city":"moscow","label":"抵达","type":"arrival","vh":4,"meals":{"bf":true,"lu":false,"dn":true,"mt":"cn"},"attrs":[]},{"city":"moscow","label":"红场","type":"sightseeing","vh":10,"meals":{"bf":true,"lu":true,"dn":true,"mt":"cn"},"attrs":["red_sq","st_basil"]},{"city":"spb","label":"冬宫","type":"sightseeing","vh":10,"meals":{"bf":true,"lu":true,"dn":true,"mt":"cn"},"attrs":["hermitage"]},{"city":"spb","label":"送机","type":"departure","vh":4,"meals":{"bf":true,"lu":false,"dn":false,"mt":"cn"},"attrs":[]}]}。注意：attrs用景点ID、type可选arrival/sightseeing/transfer_in/transfer_out/departure、总天数=各城市天数之和。用中文交流。'},{role:'user',content:t}]})})
+  body:JSON.stringify({model:'deepseek-chat',messages:[{role:'system',content:'\u4f60\u662f\u963f\u675c\u4fc4\u65c5\u7684AI\u914d\u7f6e\u52a9\u624b\uff0c\u901a\u8fc7\u5bf9\u8bdd\u4e86\u89e3\u5ba2\u6237\u9700\u6c42\u540e\u81ea\u52a8\u914d\u7f6e\u884c\u7a0b\u62a5\u4ef7\u7cfb\u7edf\u3002\u7528\u4e2d\u6587\u4ea4\u6d41\u3002\u5f53\u7528\u6237\u786e\u8ba4\u540e\u5728\u56de\u590d\u672b\u5c3e\u52a0\u4e0a\u3010\u586b\u8868\u3011\u6807\u8bb0\u548cJSON\u3002'},{role:'user',content:t}]})})
   .then(function(r){return r.json()})
-  .then(function(d){rp();bs();
-    if(d.error){am('❌ '+d.error.message,'a');return}
+  .then(function(d){rp();bs();if(d.error){am('\u274c '+d.error.message,'a');return}
     var t=d.choices[0].message.content;
-    if(t.indexOf('【填表】')>=0){var p=t.split('【填表】');if(p[0].trim())am(p[0],'a');ch.push({role:'assistant',content:t});pf(p[1])}
+    if(t.indexOf('\u3010\u586b\u8868\u3011')>=0){var p=t.split('\u3010\u586b\u8868\u3011');if(p[0].trim())am(p[0],'a');ch.push({role:'assistant',content:t});pf(p[1])}
     else{am(t,'a');ch.push({role:'assistant',content:t})}})
-  .catch(function(e){rp();bs();var m=e.message||'未知错误';if(m.indexOf('401')>=0)m='API Key无效';if(m.indexOf('429')>=0)m='请求太频繁';am('❌ '+m,'a')})}
+  .catch(function(e){rp();bs();toast('\u274c '+e.message)})}
 function pf(j){try{j=j.trim();var o=JSON.parse(j);
-  if(o.basic){if(o.basic.people)$g('f_ppl').value=o.basic.people;if(o.basic.days)$g('f_days').value=o.basic.days;
-    if(o.basic.hotel)$g('f_hotel').value=o.basic.hotel;if(o.basic.vehicle)$g('f_veh').value=o.basic.vehicle;
+  if(o.basic){if(o.basic.people)$g('f_people').value=o.basic.people;if(o.basic.days)$g('f_days').value=o.basic.days;
+    if(o.basic.hotel)$g('f_hotel').value=o.basic.hotel;if(o.basic.vehicle)$g('f_vehicle').value=o.basic.vehicle;
     if(o.basic.peak!==undefined)$g('f_peak').value=o.basic.peak?'1':'0';if(o.basic.client)$g('f_client').value=o.basic.client}
-  if(o.cities&&o.cities.length){selected=o.cities;renderPool()}
+  if(o.cities&&o.cities.length){selected=o.cities;renderPool();renderOrder()}
   if(o.cityDays&&o.cities){renderOrder();o.cities.forEach(function(k){var e=$g('cd_'+k);if(e&&o.cityDays[k])e.value=o.cityDays[k]});updateCityTip()}
   if(o.days&&o.days.length){dayData=o.days.map(function(d,i){var dt=new Date(2026,6,11+i);return{day:i+1,date:(dt.getMonth()+1)+'/'+dt.getDate(),weekday:W[dt.getDay()],city:d.city,type:d.type||'sightseeing',label:d.label||'',attrs:(d.attrs||[]).map(function(id){var ca=ATTR[d.city]||[];var f=ca.find(function(a){return a.id===id});return f||{id:id,name:id,c:0}}),meals:d.meals||{bf:true,lu:true,dn:false,mt:'cn'},vh:d.vh||10,pk:2500,gc:(d.type==='arrival'||d.type==='departure')?P.gHalf:P.gFull,cc:0,cn:'',ex:0}})}
-  renderDays();calcPrice();toast('✅ AI已配置行程！');$g('dayEditor').scrollIntoView({behavior:'smooth'})
-}catch(e){toast('❌ 解析失败: '+e.message)}}
-
-function showLoginPanel(){document.getElementById('adminModal').style.display='flex';document.getElementById('modalPass').focus()}
-function hideLoginPanel(){document.getElementById('adminModal').style.display='none'}
-function modalLogin(){var u=$g('modalUser').value.trim();var p=$g('modalPass').value.trim();var e=$g('modalError');
-  if(u==='3056898'&&p==='pan3056898'){sessionStorage.setItem('adu_admin','1');hideLoginPanel();
-    $g('adminIndicator').innerHTML='🔓 已登录';$g('adminIndicator').style.color='rgba(255,255,255,.9)';
-    $g('loginStatus').textContent='✅ 已登录';$g('loginStatus').className='st ok';$g('logoutBtn').style.display='';$g('apiKeyBar').style.display='flex';
-    $g('ctMs').innerHTML='';wm();toast('✅ 登录成功')}
-  else{e.style.display='block';e.textContent='❌ 账号或密码错误'}}
-function adminLogout(){sessionStorage.removeItem('adu_admin');
-  $g('adminIndicator').innerHTML='🔒 未登录';$g('adminIndicator').style.color='rgba(255,255,255,.7)';
-  $g('loginStatus').textContent='未登录';$g('loginStatus').className='st';$g('logoutBtn').style.display='none';$g('apiKeyBar').style.display='none';
-  $g('sBtn').disabled=true;$g('ctMs').innerHTML='<div class="chat-msg chat-a" style="text-align:center;padding:24px"><div style="font-size:32px">🔐</div><div style="margin-top:8px;font-weight:600">请登录管理员账号</div><div style="font-size:11px;color:#888;margin-top:4px">登录后可启用AI助手</div></div>';toast('已退出')}
-// Init admin status
-if(sessionStorage.getItem('adu_admin')==='1'){$g('adminIndicator').innerHTML='🔓 已登录';$g('adminIndicator').style.color='rgba(255,255,255,.9)';
-  $g('loginStatus').textContent='✅ 已登录';$g('loginStatus').className='st ok';$g('logoutBtn').style.display='';$g('apiKeyBar').style.display='flex'}
-
-function adminLogout(){sessionStorage.removeItem('adu_admin');$g('loginStatus').textContent='未登录';$g('loginStatus').className='st';$g('logoutBtn').style.display='none';$g('apiKeyBar').style.display='none';$g('sBtn').disabled=true;$g('ctMs').innerHTML='<div class="chat-msg chat-a" style="text-align:center;padding:24px"><div style="font-size:32px">🔐</div><div style="margin-top:8px;font-weight:600">请登录管理员账号</div><div style="font-size:11px;color:#888;margin-top:4px">登录后可启用AI助手</div></div>';toast('已退出')}
-if(sessionStorage.getItem('adu_admin')==='1'){$g('loginStatus').textContent='✅ 已登录';$g('loginStatus').className='st ok';$g('logoutBtn').style.display='';$g('apiKeyBar').style.display='flex'}
-if(ak&&ak!==''){$g('akSt').textContent='✅';$g('akSt').style.color='#27ae60';if(sessionStorage.getItem('adu_admin')==='1')$g('sBtn').disabled=false;$g('akInp').value=ak.slice(0,4)+'...'+ak.slice(-4)}
-if(sessionStorage.getItem('adu_admin')==='1'){wm()}else{$g('ctMs').innerHTML='<div class="chat-msg chat-a" style="text-align:center;padding:24px"><div style="font-size:32px">🔐</div><div style="margin-top:8px;font-weight:600">请登录管理员账号</div><div style="font-size:11px;color:#888;margin-top:4px">登录后可启用AI助手</div></div>'}
+  renderDays();calcPrice();toast('\u2705 AI\u5df2\u914d\u7f6e\u884c\u7a0b\uff01');$g('dayEditor').scrollIntoView({behavior:'smooth'})
+}catch(e){toast('\u274c \u89e3\u6790\u5931\u8d25: '+e.message)}}
+if(sessionStorage.getItem('adu_admin')==='1'){$g('adminIndicator').innerHTML='\ud83d\udd13 \u5df2\u767b\u5f55';$g('adminIndicator').style.color='rgba(255,255,255,.9)';
+  $g('loginStatus').textContent='\u2705 \u5df2\u767b\u5f55';$g('loginStatus').style.color='#27ae60';$g('logoutBtn').style.display='';$g('apiKeyRow').style.display='flex'}
+if(ak&&ak!==''){$g('akSt').textContent='\u2705';$g('akSt').style.color='#27ae60';if(sessionStorage.getItem('adu_admin')==='1')$g('sBtn').disabled=false;$g('akInp').value=ak.slice(0,6)+'...'+ak.slice(-4)}
+if(sessionStorage.getItem('adu_admin')==='1'){wm()}else{$g('ctMs').innerHTML='<div class="chat-msg chat-a" style="text-align:center;padding:30px"><div style="font-size:40px">\ud83d\udd10</div><div style="margin-top:10px;font-weight:600">\u8bf7\u767b\u5f55\u7ba1\u7406\u5458\u8d26\u53f7</div><div style="font-size:12px;color:#888;margin-top:6px">\u767b\u5f55\u540e\u53ef\u542f\u7528AI\u52a9\u624b</div></div>'}
 
 </script>
 </body>
