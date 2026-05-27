@@ -2,3 +2,5 @@
 build_tool.py
 write_app.py
 *.py
+*.png
+设计方案选型/_preview_*.png

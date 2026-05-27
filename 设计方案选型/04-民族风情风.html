@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>阿杜俄旅 · 俄罗斯风情 | Russian Folk Travel</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,400&family=Nunito:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --red: #D32F2F;
+  --red2: #B71C1C;
+  --gold: #F9A825;
+  --gold2: #FFD54F;
+  --green: #388E3C;
+  --blue: #1565C0;
+  --cream: #FFF8E1;
+  --cream2: #FFECB3;
+  --brown: #4E342E;
+  --white: #FFFFFF;
+  --offwhite: #FFFDF5;
+  --font-display: 'Playfair Display', Georgia, serif;
+  --font-body: 'Nunito', -apple-system, sans-serif;
+}
+body{font-family:var(--font-body);background:var(--offwhite);color:var(--brown);overflow-x:hidden}
+/* Pattern header */
+.pattern-header{height:12px;background:repeating-linear-gradient(90deg,var(--red) 0px,var(--red) 20px,var(--gold2) 20px,var(--gold2) 24px,var(--green) 24px,var(--green) 44px,var(--red) 44px)}
+/* Top decorative strip */
+.top-deco{display:flex;justify-content:center;padding:8px;background:var(--cream);border-bottom:2px solid var(--red);font-size:11px;color:var(--red);font-weight:600;letter-spacing:2px}
+.top-deco span{margin:0 16px;color:var(--gold);font-size:14px}
+/* Nav */
+nav{display:flex;justify-content:space-between;align-items:center;padding:16px 48px;background:var(--white);border-bottom:3px solid var(--cream2)}
+.nav-logo{display:flex;align-items:center;gap:10px}
+.nav-logo .matryoshka{width:36px;height:36px;background:var(--red);border-radius:50% 50% 40% 40%;position:relative;display:flex;align-items:center;justify-content:center;overflow:hidden}
+.nav-logo .matryoshka::before{content:'☺';font-size:18px;color:var(--gold2)}
+.nav-logo .matryoshka::after{content:'';position:absolute;top:0;left:0;right:0;height:40%;background:var(--gold);border-radius:50% 50% 0 0}
+.nav-logo .name{font-family:var(--font-display);font-size:20px;font-weight:700;color:var(--red)}
+.nav-logo .name span{color:var(--brown);font-weight:400}
+.nav-links{display:flex;gap:6px}
+.nav-links a{color:var(--brown);text-decoration:none;font-size:14px;font-weight:500;padding:6px 16px;border-radius:20px;transition:all 0.2s}
+.nav-links a:hover{background:var(--cream);color:var(--red)}
+.nav-links a.cta{background:var(--red);color:var(--white);font-weight:700}
+.nav-links a.cta:hover{background:var(--red2)}
+/* Hero */
+.hero{display:grid;grid-template-columns:1fr 1fr;gap:40px;padding:60px 48px;max-width:1200px;margin:0 auto;position:relative}
+.hero::before{content:'❄ ❄ ❄';position:absolute;top:20px;right:48px;font-size:24px;color:rgba(217,167,57,0.15);letter-spacing:16px;pointer-events:none}
+.hero-content h1{font-family:var(--font-display);font-size:46px;font-weight:700;line-height:1.15;margin-bottom:16px;color:var(--brown)}
+.hero-content h1 em{font-style:italic;color:var(--red)}
+.hero-content h1 .small{font-family:var(--font-body);font-size:16px;font-weight:400;display:block;margin-top:8px;color:var(--brown);opacity:0.7}
+.hero-content p{font-size:15px;color:#666;line-height:1.8;margin-bottom:28px}
+.hero-actions{display:flex;gap:12px}
+.btn-primary{background:var(--red);color:var(--white);border:none;padding:14px 28px;border-radius:30px;font-size:14px;font-weight:700;cursor:pointer;font-family:inherit;transition:all 0.3s;box-shadow:0 4px 14px rgba(211,47,47,0.3)}
+.btn-primary:hover{background:var(--red2);transform:translateY(-2px);box-shadow:0 6px 20px rgba(211,47,47,0.4)}
+.btn-secondary{background:transparent;color:var(--brown);border:2px solid var(--cream2);padding:14px 28px;border-radius:30px;font-size:14px;font-weight:600;cursor:pointer;font-family:inherit;transition:all 0.3s}
+.btn-secondary:hover{border-color:var(--gold);color:var(--red)}
+.hero-visual{position:relative;display:flex;align-items:center;justify-content:center}
+.hero-visual .folk-circle{width:280px;height:280px;border-radius:50%;background:radial-gradient(circle,var(--cream) 0%,var(--cream2) 60%,transparent 100%);display:flex;align-items:center;justify-content:center;position:relative}
+.hero-visual .folk-circle::before{content:'';position:absolute;width:320px;height:320px;border-radius:50%;border:3px dashed var(--gold2);animation:spin 20s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+.hero-visual .folk-circle .inner{text-align:center}
+.hero-visual .folk-circle .inner .big{font-size:72px;display:block;margin-bottom:8px}
+.hero-visual .folk-circle .inner .text{font-family:var(--font-display);font-size:18px;color:var(--red);font-weight:600}
+/* Features */
+.features{padding:60px 48px;background:var(--white);position:relative}
+.features::before{content:'';position:absolute;top:0;left:0;right:0;height:6px;background:repeating-linear-gradient(90deg,var(--red) 0px,var(--red) 30px,var(--gold2) 30px,var(--gold2) 36px,var(--green) 36px,var(--green) 66px,var(--red) 66px)}
+.section-label{text-align:center;font-size:11px;letter-spacing:4px;color:var(--gold);font-weight:700;text-transform:uppercase;margin-bottom:8px}
+.section-title{text-align:center;font-family:var(--font-display);font-size:34px;font-weight:700;color:var(--brown);margin-bottom:40px}
+.section-title em{color:var(--red);font-style:italic}
+.feature-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;max-width:1200px;margin:0 auto}
+.feature-card{background:var(--offwhite);border-radius:20px;padding:32px;text-align:center;border:2px solid transparent;transition:all 0.3s;position:relative;overflow:hidden}
+.feature-card::after{content:'❄';position:absolute;top:-8px;right:-8px;font-size:24px;opacity:0}
+.feature-card:hover{border-color:var(--gold2);transform:translateY(-4px);box-shadow:0 12px 30px rgba(0,0,0,0.06)}
+.feature-card:hover::after{opacity:0.3}
+.feature-card .icon-wrap{width:60px;height:60px;border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 16px;font-size:26px}
+.feature-card:nth-child(1) .icon-wrap{background:var(--cream);color:var(--red)}
+.feature-card:nth-child(2) .icon-wrap{background:#E8F5E9;color:var(--green)}
+.feature-card:nth-child(3) .icon-wrap{background:#E3F2FD;color:var(--blue)}
+.feature-card h3{font-family:var(--font-display);font-size:20px;font-weight:700;margin-bottom:8px}
+.feature-card p{font-size:13px;color:#777;line-height:1.7}
+/* Cities folk style */
+.cities{padding:60px 48px;max-width:1200px;margin:0 auto}
+.city-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:20px}
+.city-card{background:var(--white);border-radius:20px;overflow:hidden;border:2px solid var(--cream2);transition:all 0.3s;cursor:pointer}
+.city-card:hover{transform:translateY(-4px);border-color:var(--gold2);box-shadow:0 8px 24px rgba(0,0,0,0.08)}
+.city-card .color-block{height:100px;display:flex;align-items:center;justify-content:center;position:relative}
+.city-card .color-block .pattern{position:absolute;bottom:0;left:0;right:0;height:6px;background:repeating-linear-gradient(90deg,transparent 0px,transparent 10px,rgba(255,255,255,0.2) 10px,rgba(255,255,255,0.2) 12px)}
+.city-card .color-block .emoji{font-size:36px}
+.city-card .info{padding:16px}
+.city-card .info h4{font-family:var(--font-display);font-size:16px;font-weight:700;color:var(--brown);margin-bottom:2px}
+.city-card .info p{font-size:12px;color:#999;font-weight:500}
+/* Footer */
+footer{background:var(--brown);color:rgba(255,255,255,0.7);padding:40px 48px;text-align:center;position:relative}
+footer::before{content:'';position:absolute;top:0;left:0;right:0;height:6px;background:repeating-linear-gradient(90deg,var(--red) 0px,var(--red) 20px,var(--gold2) 20px,var(--gold2) 24px,var(--green) 24px,var(--green) 44px,var(--red) 44px)}
+footer .brand{font-family:var(--font-display);font-size:22px;color:var(--gold2);margin-bottom:4px}
+footer .brand span{color:var(--white)}
+footer p{font-size:12px;margin-top:4px}
+/* Responsive */
+@media(max-width:900px){
+  nav{padding:12px 24px;flex-wrap:wrap;gap:8px}
+  .nav-links{gap:4px}
+  .nav-links a{font-size:12px;padding:4px 10px}
+  .hero{grid-template-columns:1fr;padding:40px 24px;text-align:center}
+  .hero-content h1{font-size:32px}
+  .hero-actions{justify-content:center}
+  .hero-visual .folk-circle{width:200px;height:200px}
+  .hero-visual .folk-circle::before{width:240px;height:240px}
+  .features,.cities{padding:40px 24px}
+  .feature-grid,.city-grid{grid-template-columns:1fr;gap:16px}
+}
+</style>
+</head>
+<body>
+<div class="pattern-header"></div>
+<div class="top-deco">✦ ДОБРО ПОЖАЛОВАТЬ ✦ <span>★</span> 欢迎来到俄罗斯 ✦</div>
+<nav>
+  <div class="nav-logo"><div class="matryoshka"></div><div class="name">阿杜俄旅 <span>· 风情游</span></div></div>
+  <div class="nav-links">
+    <a href="#">首页</a>
+    <a href="#">目的地</a>
+    <a href="#">定制行程</a>
+    <a href="#">关于阿杜</a>
+    <a href="#" class="cta">开始定制</a>
+  </div>
+</nav>
+<section class="hero">
+  <div class="hero-content">
+    <h1>遇见 <em>俄罗斯</em><span class="small">— 一场跨越欧亚的梦幻之旅</span></h1>
+    <p>从莫斯科红场的洋葱头到圣彼得堡的涅瓦河，从金环小镇的田园牧歌到贝加尔湖的蓝冰奇观——阿杜带您感受最地道的俄罗斯风情</p>
+    <div class="hero-actions">
+      <button class="btn-primary">🎯 开始定制</button>
+      <button class="btn-secondary">📖 浏览路线</button>
+    </div>
+  </div>
+  <div class="hero-visual">
+    <div class="folk-circle">
+      <div class="inner">
+        <span class="big">☃️</span>
+        <span class="text">Добро пожаловать<br>в Россию!</span>
+      </div>
+    </div>
+  </div>
+</section>
+<section class="features">
+  <div class="section-label">— 为什么选阿杜</div>
+  <h2 class="section-title">因为 <em>了解</em>，所以不同</h2>
+  <div class="feature-grid">
+    <div class="feature-card">
+      <div class="icon-wrap">🎪</div>
+      <h3>地道体验</h3>
+      <p>不住 tourist trap，不吃团餐——带你像当地人一样感受俄罗斯的生活与文化</p>
+    </div>
+    <div class="feature-card">
+      <div class="icon-wrap">🌿</div>
+      <h3>深度探索</h3>
+      <p>金环小镇的教堂钟声、图拉庄园的林中漫步、莫斯科河畔的黄昏——不留遗憾</p>
+    </div>
+    <div class="feature-card">
+      <div class="icon-wrap">🤝</div>
+      <h3>贴心服务</h3>
+      <p>从接机到送机，全程中文陪同，签证指导、电话卡、货币兑换一站式搞定</p>
+    </div>
+  </div>
+</section>
+<section class="cities">
+  <div class="section-label">— 热门目的地</div>
+  <h2 class="section-title" style="margin-bottom:32px"><em>俄罗斯</em> 明珠城市</h2>
+  <div class="city-grid">
+    <div class="city-card">
+      <div class="color-block" style="background:linear-gradient(135deg,#D32F2F,#B71C1C)"><div class="pattern"></div><span class="emoji">🏛️</span></div>
+      <div class="info"><h4>莫斯科</h4><p>🟢 红场 · 克里姆林宫 · 7站</p></div>
+    </div>
+    <div class="city-card">
+      <div class="color-block" style="background:linear-gradient(135deg,#1565C0,#0D47A1)"><div class="pattern"></div><span class="emoji">🌊</span></div>
+      <div class="info"><h4>圣彼得堡</h4><p>🔵 冬宫 · 夏宫 · 6站</p></div>
+    </div>
+    <div class="city-card">
+      <div class="color-block" style="background:linear-gradient(135deg,#388E3C,#1B5E20)"><div class="pattern"></div><span class="emoji">🌳</span></div>
+      <div class="info"><h4>图拉</h4><p>🟢 托尔斯泰庄园 · 2站</p></div>
+    </div>
+    <div class="city-card">
+      <div class="color-block" style="background:linear-gradient(135deg,#F9A825,#F57F17)"><div class="pattern"></div><span class="emoji">⛪</span></div>
+      <div class="info"><h4>金环小镇</h4><p>🟡 谢尔盖耶夫 · 苏兹达尔</p></div>
+    </div>
+  </div>
+</section>
+<footer>
+  <div class="brand">俄罗斯导游阿杜 <span>· АДУ</span></div>
+  <p>二十年俄语导游经验 · 俄罗斯联邦持证导游 · 服务超5000名中国游客</p>
+  <p style="margin-top:8px">© 2026 阿杜俄旅 · Сделано с ❤️ в России</p>
+</footer>
+</body>
+</html>

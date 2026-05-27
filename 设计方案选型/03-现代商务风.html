@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>阿杜俄旅 · 智能定制 | Smart Russia Travel</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --bg: #F8F9FC;
+  --card: #FFFFFF;
+  --primary: #E53935;
+  --primary-dark: #B71C1C;
+  --primary-light: #FFEBEE;
+  --accent: #1E88E5;
+  --text: #1A1A2E;
+  --text2: #6B7280;
+  --text3: #9CA3AF;
+  --border: #E5E7EB;
+  --border2: #F3F4F6;
+  --success: #10B981;
+  --shadow: 0 1px 3px rgba(0,0,0,0.04), 0 1px 2px rgba(0,0,0,0.06);
+  --shadow-hover: 0 10px 25px rgba(0,0,0,0.08), 0 4px 10px rgba(0,0,0,0.04);
+  --radius: 12px;
+  --radius-sm: 8px;
+}
+body{font-family:'Inter',-apple-system,BlinkMacSystemFont,sans-serif;background:var(--bg);color:var(--text);line-height:1.5}
+/* Top bar */
+.top-bar{background:var(--text);color:rgba(255,255,255,0.6);padding:6px 48px;display:flex;justify-content:space-between;align-items:center;font-size:11px}
+.top-bar span{font-weight:500}
+/* Nav */
+nav{display:flex;justify-content:space-between;align-items:center;padding:0 48px;height:64px;background:var(--card);border-bottom:1px solid var(--border);position:sticky;top:0;z-index:100}
+.nav-logo{display:flex;align-items:center;gap:8px}
+.nav-logo .mark{width:32px;height:32px;background:var(--primary);border-radius:8px;display:flex;align-items:center;justify-content:center;color:white;font-weight:800;font-size:14px}
+.nav-logo .name{font-size:16px;font-weight:700}
+.nav-logo .name span{font-weight:400;color:var(--text2)}
+.nav-links{display:flex;gap:4px}
+.nav-links a{color:var(--text2);text-decoration:none;font-size:13px;font-weight:500;padding:8px 16px;border-radius:var(--radius-sm);transition:all 0.2s}
+.nav-links a:hover{background:var(--border2);color:var(--text)}
+.nav-links a.active{background:var(--primary-light);color:var(--primary);font-weight:600}
+/* Hero */
+.hero{display:grid;grid-template-columns:1fr 1fr;gap:48px;padding:64px 48px;max-width:1200px;margin:0 auto;align-items:center}
+.hero-content h1{font-size:44px;font-weight:800;line-height:1.1;margin-bottom:16px;letter-spacing:-1px}
+.hero-content h1 span{color:var(--primary)}
+.hero-content p{font-size:15px;color:var(--text2);line-height:1.7;margin-bottom:28px;max-width:480px}
+.hero-actions{display:flex;gap:12px}
+.btn-primary{background:var(--primary);color:white;border:none;padding:12px 24px;border-radius:var(--radius-sm);font-size:14px;font-weight:600;cursor:pointer;font-family:inherit;transition:all 0.2s}
+.btn-primary:hover{background:var(--primary-dark);transform:translateY(-1px);box-shadow:0 4px 12px rgba(229,57,53,0.3)}
+.btn-secondary{background:var(--card);color:var(--text);border:1px solid var(--border);padding:12px 24px;border-radius:var(--radius-sm);font-size:14px;font-weight:500;cursor:pointer;font-family:inherit;transition:all 0.2s}
+.btn-secondary:hover{background:var(--border2);border-color:var(--text3)}
+.hero-visual{background:linear-gradient(135deg,var(--primary-light),#E3F2FD);border-radius:var(--radius);padding:24px;position:relative;min-height:300px}
+.hero-visual .mock-card{background:white;border-radius:var(--radius-sm);padding:16px;box-shadow:var(--shadow);margin-bottom:12px}
+.hero-visual .mock-card .row{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px}
+.hero-visual .mock-card .city{display:flex;gap:6px;flex-wrap:wrap}
+.hero-visual .mock-card .city span{background:var(--primary-light);color:var(--primary);padding:2px 10px;border-radius:12px;font-size:11px;font-weight:600}
+.hero-visual .mock-card .price{font-weight:700;font-size:18px;color:var(--primary)}
+.hero-visual .mock-bar{height:6px;background:var(--border2);border-radius:3px;margin:6px 0;overflow:hidden}
+.hero-visual .mock-bar .fill{height:100%;background:var(--primary);border-radius:3px;width:70%;transition:width 0.5s}
+/* Features */
+.features{max-width:1200px;margin:0 auto;padding:0 48px 64px}
+.features-header{text-align:center;margin-bottom:40px}
+.features-header .badge{display:inline-block;background:var(--primary-light);color:var(--primary);padding:4px 14px;border-radius:20px;font-size:11px;font-weight:600;margin-bottom:12px}
+.features-header h2{font-size:32px;font-weight:700;margin-bottom:8px}
+.features-header p{color:var(--text2);font-size:14px}
+.feature-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+.feature-card{background:var(--card);border-radius:var(--radius);padding:28px;border:1px solid var(--border);transition:all 0.3s;cursor:default}
+.feature-card:hover{border-color:var(--primary);box-shadow:var(--shadow-hover);transform:translateY(-2px)}
+.feature-card .icon{width:44px;height:44px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:20px;margin-bottom:16px}
+.feature-card:nth-child(1) .icon{background:#FFEBEE;color:#E53935}
+.feature-card:nth-child(2) .icon{background:#FFF3E0;color:#F57C00}
+.feature-card:nth-child(3) .icon{background:#E8F5E9;color:#43A047}
+.feature-card h3{font-size:16px;font-weight:600;margin-bottom:6px}
+.feature-card p{font-size:13px;color:var(--text2);line-height:1.6}
+/* Tool preview */
+.tool-preview{background:var(--card);border-top:1px solid var(--border);padding:64px 48px}
+.tool-preview-inner{max-width:1200px;margin:0 auto}
+.tool-preview-inner h2{font-size:28px;font-weight:700;margin-bottom:32px;display:flex;align-items:center;gap:12px}
+.tool-preview-inner h2 .status{background:var(--success);color:white;font-size:10px;font-weight:600;padding:2px 10px;border-radius:20px}
+.tool-interface{background:var(--bg);border-radius:var(--radius);border:1px solid var(--border);overflow:hidden}
+.tool-tabs{display:flex;border-bottom:1px solid var(--border);background:var(--card)}
+.tool-tabs div{padding:12px 20px;font-size:13px;font-weight:500;color:var(--text2);cursor:pointer;border-bottom:2px solid transparent;transition:all 0.2s}
+.tool-tabs div.active{color:var(--primary);border-bottom-color:var(--primary)}
+.tool-body{padding:24px;display:grid;grid-template-columns:1fr 1fr;gap:24px}
+.tool-body .left h4{font-size:13px;font-weight:600;margin-bottom:12px;color:var(--text2)}
+.tool-body .city-select{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:16px}
+.tool-body .city-select span{padding:6px 16px;border-radius:20px;font-size:12px;font-weight:500;cursor:pointer;border:1px solid var(--border);transition:all 0.2s}
+.tool-body .city-select span:hover{border-color:var(--primary);background:var(--primary-light);color:var(--primary)}
+.tool-body .city-select span.active{background:var(--primary);color:white;border-color:var(--primary)}
+.tool-body .right{background:var(--card);border-radius:var(--radius-sm);padding:20px;border:1px solid var(--border)}
+.tool-body .right .quote-row{display:flex;justify-content:space-between;padding:4px 0;font-size:13px;color:var(--text2)}
+.tool-body .right .quote-total{font-weight:700;font-size:18px;color:var(--primary);margin-top:8px;padding-top:8px;border-top:1px solid var(--border);display:flex;justify-content:space-between}
+/* Footer */
+footer{background:var(--text);color:rgba(255,255,255,0.6);padding:32px 48px;text-align:center;font-size:12px}
+footer .brand{color:white;font-weight:600;margin-bottom:4px}
+/* Responsive */
+@media(max-width:900px){
+  .top-bar,.hero,.features,.tool-preview,footer{padding-left:24px;padding-right:24px}
+  nav{padding:0 24px}
+  .hero{grid-template-columns:1fr;padding:40px 24px}
+  .hero-content h1{font-size:32px}
+  .hero-visual{min-height:200px}
+  .feature-grid{grid-template-columns:1fr}
+  .tool-body{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+<div class="top-bar"><span>🇷🇺 俄罗斯导游阿杜 · 智能定制系统</span><span>中文导游 · 20年品质</span></div>
+<nav>
+  <div class="nav-logo"><div class="mark">А</div><div class="name">阿杜俄旅 <span>· 智能定制</span></div></div>
+  <div class="nav-links">
+    <a href="#" class="active">工作台</a>
+    <a href="#">目的地</a>
+    <a href="#">经典路线</a>
+    <a href="#">我的方案</a>
+    <a href="#">关于</a>
+  </div>
+</nav>
+<section class="hero">
+  <div class="hero-content">
+    <h1>智能定制你的<br><span>俄罗斯之旅</span></h1>
+    <p>选择城市、调整天数、实时算价——三分钟生成专业行程单+报价单。二十年俄语导游经验，让你的俄罗斯之行不留遗憾</p>
+    <div class="hero-actions">
+      <button class="btn-primary">✏️ 开始定制</button>
+      <button class="btn-secondary">📋 查看经典路线</button>
+    </div>
+  </div>
+  <div class="hero-visual">
+    <div class="mock-card">
+      <div class="row"><span>🚂 莫斯科+圣彼得堡9日</span><span class="price">¥9,800</span></div>
+      <div class="city"><span>莫斯科</span><span>圣彼得堡</span><span>图拉</span></div>
+    </div>
+    <div class="mock-card">
+      <div class="row"><span>🏔️ 贝加尔湖蓝冰7日</span><span class="price">¥7,500</span></div>
+      <div class="city"><span>伊尔库茨克</span><span>利斯特维扬卡</span></div>
+    </div>
+    <div class="mock-card">
+      <div class="row"><span>⛪ 金环小镇5日</span><span class="price">¥5,200</span></div>
+      <div class="city"><span>谢尔盖耶夫</span><span>弗拉基米尔</span><span>苏兹达尔</span></div>
+    </div>
+  </div>
+</section>
+<section class="features">
+  <div class="features-header">
+    <div class="badge">🚀 强大功能</div>
+    <h2>一站式俄旅定制平台</h2>
+    <p>从选城市到出报价，全部在线搞定</p>
+  </div>
+  <div class="feature-grid">
+    <div class="feature-card"><div class="icon">🎯</div><h3>多城市自由搭配</h3><p>莫斯科、圣彼得堡、金环小镇、喀山、贝加尔湖等15+城市任意组合，自由排序</p></div>
+    <div class="feature-card"><div class="icon">📊</div><h3>实时报价核算</h3><p>酒店、交通、门票、导游费逐项计算，卢布/人民币双币显示，零隐藏消费</p></div>
+    <div class="feature-card"><div class="icon">📄</div><h3>一键生成行程单</h3><p>专业排版行程单+报价单，可导出打印，媲美广之旅等大社出品</p></div>
+    <div class="feature-card"><div class="icon">🤖</div><h3>AI智能助手</h3><p>输入你的需求，AI自动推荐行程方案，智能填写每日安排</p></div>
+    <div class="feature-card"><div class="icon">🔄</div><h3>拖拽式编辑</h3><p>城市顺序自由拖拽调整，每日行程支持增删改，灵活随心</p></div>
+    <div class="feature-card"><div class="icon">💾</div><h3>方案保存分享</h3><p>方案自动保存云端，一键分享给客户，手机电脑都能看</p></div>
+  </div>
+</section>
+<section class="tool-preview">
+  <div class="tool-preview-inner">
+    <h2>🛠️ 定制工作台 <span class="status">LIVE</span></h2>
+    <div class="tool-interface">
+      <div class="tool-tabs">
+        <div class="active">选城市</div>
+        <div>排天数</div>
+        <div>编行程</div>
+        <div>看报价</div>
+        <div>出单子</div>
+      </div>
+      <div class="tool-body">
+        <div class="left">
+          <h4>选择目的地城市</h4>
+          <div class="city-select">
+            <span class="active">莫斯科</span>
+            <span>圣彼得堡</span>
+            <span>图拉</span>
+            <span>谢尔盖耶夫</span>
+            <span>苏兹达尔</span>
+            <span>喀山</span>
+          </div>
+          <h4 style="margin-top:16px">城市顺序（拖拽调整）</h4>
+          <div style="background:var(--card);border-radius:var(--radius-sm);padding:12px;border:1px solid var(--border)">
+            <div style="display:flex;align-items:center;gap:8px;padding:8px;border-bottom:1px solid var(--border2);cursor:grab">☰ ① 莫斯科 · 4天</div>
+            <div style="display:flex;align-items:center;gap:8px;padding:8px;border-bottom:1px solid var(--border2);cursor:grab">☰ ② 圣彼得堡 · 3天</div>
+            <div style="display:flex;align-items:center;gap:8px;padding:8px;cursor:grab">☰ ③ 图拉 · 2天</div>
+          </div>
+        </div>
+        <div class="right">
+          <h4 style="font-size:14px;font-weight:600;margin-bottom:8px;color:var(--text)">💰 实时报价</h4>
+          <div class="quote-row"><span>🏨 酒店（4晚×3间）</span><span>¥12,000</span></div>
+          <div class="quote-row"><span>🚐 用车（6天）</span><span>¥8,400</span></div>
+          <div class="quote-row"><span>🎫 门票（预估）</span><span>¥3,600</span></div>
+          <div class="quote-row"><span>👨 中文导游（6天）</span><span>¥6,000</span></div>
+          <div class="quote-row"><span>🚄 高铁（2程）</span><span>¥2,400</span></div>
+          <div class="quote-total"><span>合计</span><span>¥32,400</span></div>
+          <div style="font-size:11px;color:var(--text3);margin-top:8px">≈ ₽405,000 卢布 · 5人团 · 人均¥6,480</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<footer>
+  <div class="brand">俄罗斯导游阿杜 · 智能定制系统 v0.3</div>
+  <p>二十年俄语导游经验 | 俄罗斯联邦持证导游 | 服务超过5000名中国游客</p>
+  <p style="margin-top:4px">© 2026 阿杜俄旅 — 让每个中国人都能轻松游俄罗斯</p>
+</footer>
+</body>
+</html>

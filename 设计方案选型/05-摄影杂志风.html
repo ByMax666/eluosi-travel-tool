@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>阿杜俄旅 · 影像俄罗斯 | Visual Russia</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Inter:wght@200;300;400;500;600&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --black: #0D0D0D;
+  --black2: #1A1A1A;
+  --white: #FAFAF8;
+  --gray: #8A8A8A;
+  --gray2: #C4C4C4;
+  --red: #B81A1A;
+  --font-display: 'Playfair Display', Georgia, serif;
+  --font-body: 'Inter', -apple-system, sans-serif;
+}
+body{font-family:var(--font-body);background:var(--white);color:var(--black);line-height:1.5}
+/* Full viewport hero */
+.hero{position:relative;height:100vh;min-height:600px;display:flex;align-items:center;overflow:hidden;background:var(--black)}
+.hero-bg{position:absolute;inset:0;background:linear-gradient(135deg,#1A1A2E 0%,#0D0D0D 40%,#2D1B1B 100%);overflow:hidden}
+.hero-bg::before{content:'';position:absolute;top:-30%;left:-20%;width:140%;height:140%;background:radial-gradient(ellipse at 30% 50%,rgba(184,26,26,0.08),transparent 50%)}
+.hero-bg .grid-overlay{position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,0.02) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,0.02) 1px,transparent 1px);background-size:60px 60px}
+.hero-content{position:relative;z-index:1;max-width:1200px;margin:0 auto;padding:48px;width:100%}
+.hero-top{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:120px}
+.hero-logo{font-family:var(--font-display);font-size:14px;color:rgba(255,255,255,0.5);letter-spacing:4px;text-transform:uppercase}
+.hero-logo strong{font-size:18px;color:var(--white);display:block;letter-spacing:6px}
+.hero-nav{display:flex;gap:24px}
+.hero-nav a{color:rgba(255,255,255,0.5);text-decoration:none;font-size:11px;font-weight:300;letter-spacing:2px;text-transform:uppercase;transition:color 0.3s}
+.hero-nav a:hover{color:var(--white)}
+.hero-main{display:grid;grid-template-columns:1.2fr 1fr;gap:80px;align-items:end}
+.hero-text h1{font-family:var(--font-display);font-size:72px;font-weight:700;line-height:1;color:var(--white);margin-bottom:8px;letter-spacing:-2px}
+.hero-text h1 .light{font-weight:400;font-style:italic;color:rgba(255,255,255,0.4);font-size:52px;display:block}
+.hero-text .sub{font-size:13px;color:rgba(255,255,255,0.3);letter-spacing:3px;text-transform:uppercase;margin-top:20px;font-weight:300}
+.hero-meta{text-align:right}
+.hero-meta .num{font-family:var(--font-display);font-size:96px;font-weight:700;color:var(--red);line-height:0.8;margin-bottom:8px}
+.hero-meta .label{font-size:11px;color:rgba(255,255,255,0.3);letter-spacing:2px;text-transform:uppercase}
+.hero-cta{position:absolute;bottom:48px;left:48px;display:flex;gap:16px;align-items:center}
+.hero-cta .btn{background:transparent;border:1px solid rgba(255,255,255,0.15);color:var(--white);padding:12px 28px;font-size:11px;font-weight:300;letter-spacing:2px;text-transform:uppercase;cursor:pointer;font-family:inherit;transition:all 0.4s}
+.hero-cta .btn:hover{background:rgba(184,26,26,0.8);border-color:var(--red)}
+.hero-cta .btn-solid{background:var(--red);border-color:var(--red);font-weight:500}
+/* Stats strip */
+.stats-strip{display:flex;justify-content:center;gap:80px;padding:40px;background:var(--white);border-bottom:1px solid #E8E4DF}
+.stat-item{text-align:center}
+.stat-item .number{font-family:var(--font-display);font-size:32px;font-weight:700;color:var(--red)}
+.stat-item .label{font-size:10px;color:var(--gray);letter-spacing:2px;text-transform:uppercase;margin-top:4px;font-weight:400}
+/* Story section */
+.story{display:grid;grid-template-columns:1fr 1fr;max-width:1200px;margin:0 auto;padding:80px 48px;gap:64px;align-items:center}
+.story-text .tag{font-size:10px;letter-spacing:4px;color:var(--gray);text-transform:uppercase;font-weight:400;margin-bottom:12px}
+.story-text h2{font-family:var(--font-display);font-size:40px;font-weight:700;line-height:1.1;margin-bottom:20px}
+.story-text h2 em{color:var(--red);font-style:italic}
+.story-text p{font-size:14px;color:#555;line-height:1.9;font-weight:300;margin-bottom:16px}
+.story-text .read-more{color:var(--red);text-decoration:none;font-size:12px;font-weight:500;letter-spacing:1px;text-transform:uppercase;border-bottom:1px solid var(--red);padding-bottom:2px}
+.story-image{aspect-ratio:4/3;background:linear-gradient(135deg,#2D1B1B,#1A1A2E);position:relative;overflow:hidden}
+.story-image .placeholder{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-family:var(--font-display);font-size:32px;color:rgba(255,255,255,0.1)}
+.story-image .corner{position:absolute;bottom:16px;right:16px;font-size:10px;color:rgba(255,255,255,0.2);letter-spacing:2px}
+/* Portfolio grid */
+.portfolio{padding:0 48px 80px;max-width:1200px;margin:0 auto}
+.portfolio-header{display:flex;justify-content:space-between;align-items:end;margin-bottom:32px}
+.portfolio-header .tag{font-size:10px;letter-spacing:4px;color:var(--gray);text-transform:uppercase;font-weight:400}
+.portfolio-header h2{font-family:var(--font-display);font-size:32px;font-weight:700}
+.portfolio-header h2 em{color:var(--red);font-style:italic}
+.portfolio-header .nav-arrows{display:flex;gap:8px}
+.portfolio-header .nav-arrows span{width:36px;height:36px;border:1px solid #ddd;display:flex;align-items:center;justify-content:center;font-size:14px;cursor:pointer;transition:all 0.2s;color:var(--gray)}
+.portfolio-header .nav-arrows span:hover{background:var(--black);color:var(--white)}
+.portfolio-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:2px}
+.portfolio-item{position:relative;aspect-ratio:3/4;overflow:hidden;cursor:pointer;background:var(--black2)}
+.portfolio-item .img-placeholder{width:100%;height:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;transition:all 0.5s}
+.portfolio-item:hover .img-placeholder{transform:scale(1.05)}
+.portfolio-item .img-placeholder .icon{font-size:32px;margin-bottom:8px;opacity:0.6}
+.portfolio-item .img-placeholder .city-name{font-family:var(--font-display);font-size:18px;color:rgba(255,255,255,0.8)}
+.portfolio-item .img-placeholder .city-sub{font-size:10px;color:rgba(255,255,255,0.3);letter-spacing:2px;margin-top:4px;text-transform:uppercase}
+.portfolio-item .overlay{position:absolute;bottom:0;left:0;right:0;padding:20px;background:linear-gradient(transparent,rgba(0,0,0,0.8));opacity:0;transition:opacity 0.4s}
+.portfolio-item:hover .overlay{opacity:1}
+.portfolio-item .overlay h4{font-family:var(--font-display);font-size:14px;color:var(--white)}
+.portfolio-item .overlay p{font-size:10px;color:rgba(255,255,255,0.5);margin-top:2px}
+/* Feature strip */
+.feature-strip{display:grid;grid-template-columns:repeat(3,1fr);border-top:1px solid #E8E4DF;border-bottom:1px solid #E8E4DF}
+.feature-strip-item{padding:32px 48px;text-align:center;border-right:1px solid #E8E4DF}
+.feature-strip-item:last-child{border-right:none}
+.feature-strip-item .icon{font-size:28px;margin-bottom:12px;display:block}
+.feature-strip-item h3{font-family:var(--font-display);font-size:18px;font-weight:600;margin-bottom:6px}
+.feature-strip-item p{font-size:12px;color:var(--gray);line-height:1.6;font-weight:300}
+/* Footer */
+footer{background:var(--black);color:rgba(255,255,255,0.4);padding:48px;text-align:center}
+footer .brand{font-family:var(--font-display);font-size:20px;color:var(--white);margin-bottom:4px}
+footer p{font-size:11px;font-weight:300;letter-spacing:0.5px}
+/* Responsive */
+@media(max-width:900px){
+  .hero-content{padding:24px}
+  .hero-top{flex-direction:column;gap:16px;margin-bottom:60px}
+  .hero-nav{gap:12px}
+  .hero-main{grid-template-columns:1fr;gap:40px}
+  .hero-text h1{font-size:42px}
+  .hero-text h1 .light{font-size:32px}
+  .hero-meta{text-align:left}
+  .hero-meta .num{font-size:60px}
+  .hero-cta{position:relative;bottom:auto;left:auto;margin-top:32px}
+  .stats-strip{gap:24px;flex-wrap:wrap}
+  .story{grid-template-columns:1fr;padding:48px 24px;gap:32px}
+  .portfolio-grid{grid-template-columns:repeat(2,1fr)}
+  .feature-strip{grid-template-columns:1fr}
+  .feature-strip-item{border-right:none;border-bottom:1px solid #E8E4DF;padding:24px}
+}
+</style>
+</head>
+<body>
+<section class="hero">
+  <div class="hero-bg"><div class="grid-overlay"></div></div>
+  <div class="hero-content">
+    <div class="hero-top">
+      <div class="hero-logo"><strong>АДУ</strong>俄罗斯导游</div>
+      <div class="hero-nav">
+        <a href="#">精选路线</a>
+        <a href="#">定制工具</a>
+        <a href="#">影像集</a>
+        <a href="#">关于</a>
+      </div>
+    </div>
+    <div class="hero-main">
+      <div class="hero-text">
+        <h1>Russia<br><span class="light">through my eyes</span></h1>
+        <div class="sub">二十年 · 五十城 · 一万种风景</div>
+      </div>
+      <div class="hero-meta">
+        <div class="num">20</div>
+        <div class="label">Years of Experience</div>
+      </div>
+    </div>
+    <div class="hero-cta">
+      <button class="btn btn-solid">开始定制旅程</button>
+      <button class="btn">浏览经典路线</button>
+    </div>
+  </div>
+</section>
+<section class="stats-strip">
+  <div class="stat-item"><div class="number">5,000+</div><div class="label">服务游客</div></div>
+  <div class="stat-item"><div class="number">50+</div><div class="label">原创路线</div></div>
+  <div class="stat-item"><div class="number">15</div><div class="label">覆盖城市</div></div>
+  <div class="stat-item"><div class="number">98%</div><div class="label">好评率</div></div>
+</section>
+<section class="story">
+  <div class="story-text">
+    <div class="tag">— 关于阿杜</div>
+    <h2>二十年 <em>俄旅</em> 人<br>一位中国导游的俄罗斯故事</h2>
+    <p>2006年，我第一次踏上俄罗斯的土地。圣彼得堡的白夜、莫斯科的初雪、贝加尔湖的蓝冰——那一刻我知道，这片土地值得被更多人看见。</p>
+    <p>二十年过去，我走遍了俄罗斯50多座城市，带过5000多位同胞领略大俄风光。从克里姆林宫的卫兵换岗到图拉庄园的苹果花香，每一处风景都像老朋友般熟悉。</p>
+    <a href="#" class="read-more">Read more →</a>
+  </div>
+  <div class="story-image"><div class="placeholder">「 俄罗斯·映像 」</div><div class="corner">MOSCOW · 2026</div></div>
+</section>
+<section class="portfolio">
+  <div class="portfolio-header">
+    <div><div class="tag">— 目的地</div><h2>影像 <em>俄罗斯</em></h2></div>
+    <div class="nav-arrows"><span>←</span><span>→</span></div>
+  </div>
+  <div class="portfolio-grid">
+    <div class="portfolio-item">
+      <div class="img-placeholder" style="background:linear-gradient(135deg,#8B1A1A,#3A0A0A)"><div class="icon">🏛️</div><div class="city-name">Москва</div><div class="city-sub">莫斯科</div></div>
+      <div class="overlay"><h4>莫斯科</h4><p>红场 · 克里姆林宫 · 7个景点</p></div>
+    </div>
+    <div class="portfolio-item">
+      <div class="img-placeholder" style="background:linear-gradient(135deg,#1A3A5C,#0A1A2C)"><div class="icon">🌊</div><div class="city-name">СПб</div><div class="city-sub">圣彼得堡</div></div>
+      <div class="overlay"><h4>圣彼得堡</h4><p>冬宫 · 夏宫 · 6个景点</p></div>
+    </div>
+    <div class="portfolio-item">
+      <div class="img-placeholder" style="background:linear-gradient(135deg,#2D5A27,#1A3A18)"><div class="icon">🌳</div><div class="city-name">Тула</div><div class="city-sub">图拉</div></div>
+      <div class="overlay"><h4>图拉</h4><p>托尔斯泰庄园 · 2个景点</p></div>
+    </div>
+    <div class="portfolio-item">
+      <div class="img-placeholder" style="background:linear-gradient(135deg,#5A4A2D,#2A1A0A)"><div class="icon">⛪</div><div class="city-name">Суздаль</div><div class="city-sub">苏兹达尔</div></div>
+      <div class="overlay"><h4>苏兹达尔</h4><p>金环小镇 · 田园风光</p></div>
+    </div>
+  </div>
+</section>
+<section class="feature-strip">
+  <div class="feature-strip-item"><span class="icon">🎯</span><h3>专属定制</h3><p>根据您的兴趣、时间和预算，一对一定制专属俄罗斯行程</p></div>
+  <div class="feature-strip-item"><span class="icon">📊</span><h3>实时报价</h3><p>酒店、交通、门票、导游——各项费用逐项计算，明明白白</p></div>
+  <div class="feature-strip-item"><span class="icon">📄</span><h3>一键出单</h3><p>专业排版行程单+报价单，媲美大社出品，客户直接可用</p></div>
+</section>
+<footer>
+  <div class="brand">俄罗斯导游阿杜 · АДУ</div>
+  <p>二十年俄语导游经验 | 俄罗斯联邦持证导游 | 服务超5000名中国游客</p>
+  <p style="margin-top:8px">© 2026 阿杜俄旅 — 影像俄罗斯 · Visual Russia</p>
+</footer>
+</body>
+</html>
