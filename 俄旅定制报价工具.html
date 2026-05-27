@@ -1,0 +1,698 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>阿杜俄旅 · 定制报价系统 v3</title>
+<style>
+:root{--p:#A93226;--pl:#E4B1A0;--bg:#FAF9F5;--c:#fff;--t:#3f3f3f;--b:#dfdfdf;--s:#27ae60;--w:#f39c12;--font:-apple-system,BlinkMacSystemFont,"PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:var(--font);background:var(--bg);color:var(--t);line-height:1.6;padding:16px}
+.c{max-width:1300px;margin:0 auto}
+.hdr{text-align:center;padding:24px 16px;background:linear-gradient(135deg,#A93226,#CD5C5C);color:#fff;border-radius:16px;margin-bottom:16px}
+.hdr h1{font-size:22px}.hdr p{font-size:12px;opacity:.9}
+.card{background:var(--c);border-radius:14px;padding:16px 18px;margin-bottom:14px;box-shadow:0 2px 8px rgba(0,0,0,.05)}
+.card h2{font-size:15px;color:var(--p);margin-bottom:10px;padding-bottom:6px;border-bottom:2px solid var(--pl);display:flex;align-items:center;gap:6px}
+.fr{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:10px}
+.fg{flex:1;min-width:140px}
+.fg label{display:block;font-size:11px;font-weight:600;margin-bottom:3px;color:#666}
+.fg input,.fg select{width:100%;padding:7px 9px;border:1.5px solid var(--b);border-radius:7px;font-size:12px;background:#fff}
+.fg input:focus,.fg select:focus{outline:none;border-color:var(--p)}
+
+.btn{display:inline-flex;align-items:center;gap:4px;padding:7px 14px;border:none;border-radius:7px;font-size:12px;font-weight:600;cursor:pointer;transition:.15s}
+.btn-p{background:var(--p);color:#fff}.btn-p:hover{background:#8B1A1A}
+.btn-s{background:var(--s);color:#fff}.btn-s:hover{background:#1e8449}
+.btn-o{background:transparent;color:var(--p);border:1.5px solid var(--p)}.btn-o:hover{background:var(--pl)}
+.btn-d{background:#e74c3c;color:#fff}.btn-d:hover{background:#c0392b}
+.btn-sm{padding:4px 8px;font-size:10px}
+.btn-xs{padding:2px 6px;font-size:10px;border-radius:4px}
+.bg{display:flex;gap:6px;flex-wrap:wrap;margin-top:8px}
+
+/* ===== City Order ===== */
+.city-pool{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:10px}
+.city-chip{padding:5px 14px;border-radius:16px;font-size:12px;cursor:pointer;border:1.5px solid var(--b);transition:.15s;background:#fff;user-select:none}
+.city-chip.used{background:var(--p);color:#fff;border-color:var(--p)}
+.city-chip.inactive{opacity:.4}
+.city-order{display:flex;flex-direction:column;gap:6px;margin:8px 0}
+.city-order-item{display:flex;align-items:center;gap:8px;padding:8px 12px;background:#f8f4f0;border-radius:8px;border:1px solid var(--b);transition:.15s}
+.city-order-item .order-num{font-weight:700;color:var(--p);min-width:24px;font-size:13px}
+.city-order-item .city-name{flex:1;font-size:13px;font-weight:600}
+.city-order-item .day-ctrl{display:flex;align-items:center;gap:4px}
+.city-order-item .day-ctrl input{width:36px;text-align:center;padding:3px;border:1px solid var(--b);border-radius:4px;font-size:11px}
+.city-order-item .day-ctrl span{font-size:11px;color:#888}
+.city-order-item .move-btn{font-size:13px;cursor:pointer;padding:2px 4px;border-radius:4px;color:#888}
+.city-order-item .move-btn:hover{background:var(--pl);color:var(--p)}
+.city-order-item .del-btn{cursor:pointer;color:#e74c3c;font-size:16px;padding:0 4px}
+
+/* ===== Day Cards ===== */
+.day-list{display:flex;flex-direction:column;gap:8px}
+.day-card{border:1px solid var(--b);border-radius:10px;overflow:hidden}
+.day-hdr{display:flex;align-items:center;gap:6px;padding:8px 12px;cursor:pointer;user-select:none}
+.day-hdr .dd-num{font-weight:700;color:var(--p);min-width:44px;font-size:12px}
+.day-hdr .dd-city{font-size:11px;color:#888;min-width:54px}
+.day-hdr .dd-theme{flex:1;font-size:12px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.day-hdr .dd-ctrl{display:flex;gap:2px;flex-shrink:0}
+.day-hdr .dd-toggle{font-size:10px;color:#bbb;margin-left:4px}
+.day-body{padding:12px;display:none;border-top:1px solid var(--b)}
+.day-body.open{display:block}
+.dr{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:8px}
+.dr .df{flex:1;min-width:90px}
+.dr .df label{font-size:10px;color:#888;display:block;margin-bottom:2px}
+.dr .df input,.dr .df select{width:100%;padding:4px 6px;border:1px solid var(--b);border-radius:5px;font-size:11px}
+
+.ag{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:3px;margin:6px 0}
+.ai{display:flex;align-items:center;gap:4px;font-size:11px;padding:2px 5px;border-radius:4px;cursor:pointer}
+.ai:hover{background:#fdf0ed}
+.ai input{accent-color:var(--p)}
+.ap{font-size:9px;color:#aaa}
+.ab{font-size:9px;padding:1px 4px;border-radius:3px;background:#f0ece8;color:#666}
+
+.st{display:flex;flex-wrap:wrap;gap:3px;margin:4px 0}
+.st .tag{display:inline-flex;align-items:center;gap:3px;padding:2px 8px;background:var(--pl);color:var(--p);border-radius:10px;font-size:10px;font-weight:500}
+.st .tag .del{cursor:pointer;font-size:12px;color:#888;margin-left:2px}
+.st .tag .del:hover{color:#e74c3c}
+
+.mr{display:flex;gap:12px;flex-wrap:wrap;margin:6px 0;align-items:center}
+.mr label{font-size:11px;display:flex;align-items:center;gap:3px}
+.mr select{font-size:10px;padding:2px 5px;border:1px solid var(--b);border-radius:3px}
+
+/* ===== Quote Table ===== */
+.qt{width:100%;border-collapse:collapse;margin-top:8px;font-size:12px}
+.qt th,.qt td{border:1px solid var(--b);padding:6px 8px;text-align:right}
+.qt th{background:#f8f4f0;text-align:center;font-weight:600;font-size:11px}
+.qt td:first-child{text-align:left}
+.qt .trt{font-weight:700;background:#fdf0ed;font-size:13px;color:var(--p)}
+
+/* ===== Output ===== */
+.ob{margin-top:14px;padding:16px;background:#fafafa;border:1px solid var(--b);border-radius:10px;display:none;font-size:12px;line-height:1.7;max-height:600px;overflow-y:auto;white-space:pre-wrap;font-family:Menlo,monospace}
+.ob.open{display:block}
+
+@media print{.no-print{display:none!important}body{padding:0;background:#fff}.card{box-shadow:none;border:1px solid #ddd}.hdr{background:#A93226!important;-webkit-print-color-adjust:exact}.ob{max-height:none!important}}
+@media(max-width:768px){.ag{grid-template-columns:1fr 1fr}.fr{flex-direction:column}.fg{min-width:100%}}
+
+.toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%);background:#333;color:#fff;padding:8px 20px;border-radius:8px;font-size:12px;z-index:999;opacity:0;transition:opacity .3s;pointer-events:none}
+.toast.show{opacity:1}
+
+/* ===== City Colors ===== */
+.cc-moscow{--cc:#A93226}.cc-spb{--cc:#1F618D}.cc-tula{--cc:#B7950B}.cc-sergiev{--cc:#229954}.cc-suzdal{--cc:#8E44AD}.cc-kazan{--cc:#D35400}.cc-murmansk{--cc:#2C3E50}.cc-sochi{--cc:#1ABC9C}.cc-kaliningrad{--cc:#F39C12}.cc-irkutsk{--cc:#2980B9}.cc-ekaterinburg{--cc:#7D3C98}.cc-novgorod{--cc:#17A589}.cc-veliky{--cc:#C0392B}.cc-kronstadt{--cc:#5D6D7E}.cc-pskov{--cc:#6C3483}
+</style>
+</head>
+<body>
+<div class="c" id="app">
+<div class="hdr no-print">
+<h1>🇷🇺 阿杜俄旅 · 产品定制与报价核算</h1>
+<p>多城市自由排序 · 拖拽调整行程 · 实时精准报价 · 一键生成专业文档</p>
+</div>
+
+<!-- ===== STEP 1: BASICS ===== -->
+<div class="card no-print">
+<h2>📋 ① 基础信息</h2>
+<div class="fr">
+<div class="fg"><label>产品名称</label><input id="f_name" value="俄罗斯经典之旅"></div>
+<div class="fg"><label>客户类型</label><select id="f_client"><option value="family">家庭团</option><option value="group">常规团</option><option value="vip">VIP精品团</option></select></div>
+<div class="fg"><label>人数</label><input type="number" id="f_ppl" value="5" min="1" max="50" onchange="onBaseChange()"></div>
+<div class="fg"><label>出发城市</label><select id="f_depart"><option>北京</option><option>上海</option><option>广州</option><option>深圳</option><option>成都</option><option>香港</option></select></div>
+</div>
+<div class="fr">
+<div class="fg"><label>住宿等级</label><select id="f_hotel" onchange="onBaseChange()"><option value="3">★★★ 三星</option><option value="4" selected>★★★★ 四星</option><option value="5">★★★★★ 五星</option></select></div>
+<div class="fg"><label>用车类型</label><select id="f_veh" onchange="onBaseChange()"><option value="minibus">中巴(18座 ≤15人)</option><option value="bus">大巴(35-40座)</option><option value="sedan">轿车/商务(1-4人)</option></select></div>
+<div class="fg"><label>是否旺季</label><select id="f_peak" onchange="onBaseChange()"><option value="0">平季</option><option value="1">旺季(7-8月+15%)</option></select></div>
+<div class="fg"><label>总行程天数</label><input type="number" id="f_days" value="9" min="2" max="30" onchange="onBaseChange()"></div>
+</div>
+</div>
+
+<!-- ===== STEP 2: CITIES (ORDERED) ===== -->
+<div class="card no-print">
+<h2>🏙️ ② 选择游览城市并按顺序排列</h2>
+<div style="font-size:11px;color:#888;margin-bottom:8px;">点击城市添加 → 拖拽或按钮调整顺序 → 分配各城市天数</div>
+<div class="city-pool" id="cityPool"></div>
+<div id="cityOrderArea"><div class="city-order" id="cityOrderList"></div></div>
+<div id="cityDayTip" style="font-size:11px;margin-top:6px;"></div>
+</div>
+
+<!-- ===== STEP 3: DAILY ITINERARY ===== -->
+<div class="card no-print">
+<h2>📅 ③ 每日行程 <span id="dayCount" style="font-weight:400;font-size:12px;color:#888;"></span></h2>
+<div id="dayEditor" class="day-list"></div>
+</div>
+
+<!-- ===== STEP 4: PRICE ===== -->
+<div class="card no-print">
+<h2>💰 ④ 实时报价 <span id="priceTag" style="font-weight:400;font-size:12px;color:#888;"></span></h2>
+<div id="priceBox"><p style="color:#999;text-align:center;padding:16px;">配置行程后自动核算</p></div>
+</div>
+
+<!-- ===== ACTIONS ===== -->
+<div class="bg no-print" style="justify-content:center;margin:16px 0">
+<button class="btn btn-s" onclick="genDoc()">📄 生成行程单+报价单</button>
+<button class="btn btn-p" onclick="window.print()">🖨️ 打印/PDF</button>
+<button class="btn btn-o" onclick="saveFile()">💾 保存方案</button>
+<button class="btn btn-o" onclick="loadFile()">📂 载入方案</button>
+<button class="btn btn-d" onclick="resetAll()">🔄 重置</button>
+</div>
+
+<div class="ob" id="outBox"></div>
+</div>
+<div class="toast" id="toast"></div>
+
+<script>
+// ===== PRICE DATABASE =====
+const P={veh:{bus:3510,minibus:2500,sedan:1800},hotel:{3:5000,4:7000,5:12000},
+  gh:{3:5000,4:7500,5:12000},dh:{3:3500,4:5500,5:8000},gFull:30000,gHalf:15000,
+  meal:{lcn:2300,dcn:2300,lru:1400,dru:1200},dm:1500,pk:2500,xfer:13000,hs:6000};
+
+// ===== CITIES DATABASE =====
+const C={
+moscow:{name:'莫斯科',color:'#A93226',note:'俄罗斯首都，红场克里姆林宫',
+  attrs:[
+    {id:'r1',name:'红场',c:0,n:'世界文化遗产'},
+    {id:'r2',name:'圣瓦西里大教堂(入内)',c:1500,n:'导游票另算'},
+    {id:'r3',name:'列宁墓',c:0,n:'10-13点三/四/六/日'},
+    {id:'r4',name:'古姆百货',c:0,n:'冰淇淋50₽'},
+    {id:'r5',name:'克里姆林宫',c:1500,n:'导游票另算'},
+    {id:'r6',name:'军械库(兵器馆)',c:2000,n:'导游票另算'},
+    {id:'r7',name:'特列季亚科夫画廊',c:1400,n:'周一闭馆'},
+    {id:'r8',name:'麻雀山+莫大(外观)',c:0,n:'莫斯科最高点'},
+    {id:'r9',name:'网红地铁站巡游',c:180,n:'含导游票'},
+    {id:'r10',name:'武装力量大教堂+爱国者公园',c:5000,n:'郊区1h'},
+    {id:'r11',name:'库宾卡坦克博物馆',c:550},
+    {id:'r12',name:'Bunker-42冷战地堡',c:4500,n:'19点后人少'},
+    {id:'r13',name:'Radisson游船晚餐',c:8700,n:'含餐'},
+    {id:'r14',name:'VDNH+太空博物馆',c:600},
+    {id:'r15',name:'FSO特车博物馆',c:1450},
+    {id:'r16',name:'新圣女公墓',c:700,n:'周一闭馆'},
+    {id:'r17',name:'基督救世主大教堂',c:0},
+    {id:'r18',name:'大剧院参观',c:4000,n:'需提前确认'},
+    {id:'r19',name:'中共六大会址',c:0},
+    {id:'r20',name:'列宁故居',c:950,n:'10人成团'},
+    {id:'r21',name:'斯大林办公室',c:600},
+    {id:'r22',name:'察里津诺庄园',c:0},
+  ]},
+spb:{name:'圣彼得堡',color:'#1F618D',note:'俄罗斯文化首都，冬宫夏宫',
+  attrs:[
+    {id:'s1',name:'冬宫博物馆',c:3500,n:'俄语讲解另算'},
+    {id:'s2',name:'夏宫(彼得霍夫)',c:3000},
+    {id:'s3',name:'叶卡捷琳娜宫(皇村)',c:3500},
+    {id:'s4',name:'滴血大教堂',c:1500},
+    {id:'s5',name:'喀山大教堂',c:0,n:'免费'},
+    {id:'s6',name:'圣以撒大教堂',c:1200},
+    {id:'s7',name:'彼得保罗要塞',c:1500},
+    {id:'s8',name:'拉赫塔中心(外观)',c:0},
+    {id:'s9',name:'涅瓦大街',c:0},
+    {id:'s10',name:'俄罗斯博物馆',c:1500},
+    {id:'s11',name:'彼得堡地铁巡游',c:150},
+    {id:'s12',name:'马林斯基剧院(外观)',c:0,n:'演出票500-15000₽'},
+  ]},
+tula:{name:'图拉',color:'#B7950B',note:'武器之都，姜饼与茶炊',
+  attrs:[
+    {id:'t1',name:'图拉克里姆林宫',c:0},
+    {id:'t2',name:'姜饼博物馆+制作体验',c:1200},
+    {id:'t3',name:'茶炊博物馆',c:800},
+    {id:'t4',name:'武器博物馆',c:1000},
+    {id:'t5',name:'托尔斯泰庄园',c:1500,n:'雅斯纳亚·波良纳'},
+  ]},
+sergiev:{name:'谢尔盖耶夫',color:'#229954',note:'金环城市，圣三一修道院',
+  attrs:[
+    {id:'se1',name:'圣三一修道院',c:1200},
+    {id:'se2',name:'谢尔盖耶夫历史博物馆',c:800},
+    {id:'se3',name:'玩具博物馆',c:500},
+  ]},
+suzdal:{name:'苏兹达里+弗拉基米尔',color:'#8E44AD',note:'金环古城，木建筑',
+  attrs:[
+    {id:'su1',name:'苏兹达里克里姆林宫',c:1000},
+    {id:'su2',name:'弗拉基米尔圣母升天大教堂',c:800},
+    {id:'su3',name:'木建筑露天博物馆',c:900},
+    {id:'su4',name:'德米特里耶夫大教堂',c:600},
+    {id:'su5',name:'金门(弗拉基米尔)',c:400},
+  ]},
+kazan:{name:'喀山',color:'#D35400',note:'鞑靼斯坦首都，双文化交融',
+  attrs:[
+    {id:'k1',name:'喀山克里姆林宫',c:1500,n:'世界文化遗产'},
+    {id:'k2',name:'库尔沙里夫清真寺',c:0,n:'欧洲最大清真寺之一'},
+    {id:'k3',name:'鲍曼步行街',c:0},
+    {id:'k4',name:'喀山大学',c:0,n:'列宁曾就读'},
+    {id:'k5',name:'苏尤姆别卡塔楼',c:500},
+    {id:'k6',name:'喀山家庭中心(结婚宫殿)',c:0,n:'造型独特'},
+    {id:'k7',name:'伏尔加河游船',c:2000},
+  ]},
+murmansk:{name:'摩尔曼斯克',color:'#2C3E50',note:'北极圈城市，追极光圣地',
+  attrs:[
+    {id:'m1',name:'追极光之旅',c:5000,n:'最佳9-3月'},
+    {id:'m2',name:'列宁号核动力破冰船',c:1000,n:'世界第一艘核动力破冰船'},
+    {id:'m3',name:'北极圈标志碑',c:0},
+    {id:'m4',name:'阿廖沙雕像(卫国战争)',c:0},
+    {id:'m5',name:'萨米村(驯鹿/雪橇)',c:3500,n:'体验萨米文化'},
+    {id:'m6',name:'捷里别尔卡(北冰洋)',c:5000,n:'世界尽头'},
+    {id:'m7',name:'渔民市场',c:0,n:'新鲜帝王蟹'},
+  ]},
+sochi:{name:'索契',color:'#1ABC9C',note:'黑海海滨度假胜地',
+  attrs:[
+    {id:'so1',name:'玫瑰庄园滑雪场',c:3000,n:'冬奥场地'},
+    {id:'so2',name:'黑海海滨大道',c:0},
+    {id:'so3',name:'阿洪山观景台',c:500,n:'俯瞰索契全景'},
+    {id:'so4',name:'斯大林别墅',c:800,n:'绿色丛林'},
+    {id:'so5',name:'奥林匹克公园',c:1000,n:'2014冬奥'},
+    {id:'so6',name:'植物园',c:600},
+    {id:'so7',name:'马采斯特温泉',c:2500,n:'疗养胜地'},
+  ]},
+kaliningrad:{name:'加里宁格勒',color:'#F39C12',note:'俄罗斯飞地，琥珀之都',
+  attrs:[
+    {id:'ka1',name:'琥珀博物馆',c:800,n:'世界最大琥珀藏品'},
+    {id:'ka2',name:'柯尼斯堡大教堂',c:500,n:'康德之墓'},
+    {id:'ka3',name:'琥珀工厂参观',c:500,n:'可购买琥珀'},
+    {id:'ka4',name:'世界海洋博物馆',c:700},
+    {id:'ka5',name:'库尔斯沙嘴',c:1500,n:'世界遗产'},
+    {id:'ka6',name:'渔村(德国建筑)',c:0},
+  ]},
+irkutsk:{name:'伊尔库茨克+贝加尔湖',color:'#2980B9',note:'西伯利亚明珠，贝加尔湖',
+  attrs:[
+    {id:'i1',name:'贝加尔湖(利斯特维扬卡)',c:2000,n:'湖边小镇'},
+    {id:'i2',name:'贝加尔湖博物馆',c:600,n:'淡水海豹'},
+    {id:'i3',name:'塔利茨木建筑博物馆',c:800},
+    {id:'i4',name:'奥利洪岛(蓝冰/气泡冰)',c:5000,n:'冬季贝加尔湖'},
+    {id:'i5',name:'喀山大教堂(伊尔库茨克)',c:0,n:'西伯利亚最美教堂'},
+    {id:'i6',name:'基洛夫广场+安加拉河',c:0},
+    {id:'i7',name:'十二月党人博物馆',c:500},
+    {id:'i8',name:'环湖火车',c:3000,n:'贝加尔湖经典路线'},
+  ]},
+ekaterinburg:{name:'叶卡捷琳堡',color:'#7D3C98',note:'乌拉尔中心，欧亚分界',
+  attrs:[
+    {id:'e1',name:'欧亚分界线纪念碑',c:0,n:'一脚欧一脚亚'},
+    {id:'e2',name:'滴血教堂(罗曼诺夫)',c:500,n:'末代沙皇遇难地'},
+    {id:'e3',name:'乌拉尔机械厂',c:1000,n:'军事历史'},
+    {id:'e4',name:'叶卡捷琳堡博物馆',c:600},
+    {id:'e5',name:'维索茨基大厦观景台',c:500,n:'城市全景'},
+  ]},
+novgorod:{name:'下诺夫哥罗德',color:'#17A589',note:'伏尔加河畔古城',
+  attrs:[
+    {id:'n1',name:'下诺夫哥罗德克里姆林宫',c:800},
+    {id:'n2',name:'伏尔加河河畔长廊',c:0},
+    {id:'n3',name:'佩切尔斯基修道院',c:0},
+    {id:'n4',name:'高尔基博物馆',c:400},
+    {id:'n5',name:'下诺夫哥罗德体育场',c:300,n:'2018世界杯'},
+  ]},
+veliky:{name:'大诺夫哥罗德',color:'#C0392B',note:'千年俄罗斯发源地',
+  attrs:[
+    {id:'v1',name:'千年俄罗斯纪念碑',c:0,n:'1862年立'},
+    {id:'v2',name:'圣索菲亚大教堂',c:800,n:'俄罗斯最古老教堂'},
+    {id:'v3',name:'大诺夫哥罗德克里姆林宫',c:500},
+    {id:'v4',name:'尤里耶夫修道院',c:0},
+    {id:'v5',name:'木建筑博物馆(维托斯拉夫利齐)',c:600},
+  ]},
+kronstadt:{name:'喀琅施塔得',color:'#5D6D7E',note:'波罗的海海军要塞',
+  attrs:[
+    {id:'kr1',name:'海军大教堂',c:500,n:'俄罗斯海军精神象征'},
+    {id:'kr2',name:'喀琅施塔得要塞',c:0},
+    {id:'kr3',name:'彼得大帝船坞',c:0},
+    {id:'kr4',name:'海军博物馆分馆',c:400},
+  ]},
+pskov:{name:'普斯科夫',color:'#6C3483',note:'俄罗斯西部古城',
+  attrs:[
+    {id:'p1',name:'普斯科夫克里姆林宫',c:600},
+    {id:'p2',name:'三一教堂',c:0},
+    {id:'p3',name:'米罗日修道院',c:400,n:'12世纪壁画'},
+    {id:'p4',name:'普希金庄园(米哈伊洛夫)',c:800,n:'诗人流放地'},
+    {id:'p5',name:'伊兹博尔斯克要塞',c:500,n:'古堡垒'},
+  ]},
+};
+
+const CN={};Object.keys(C).forEach(k=>{CN[k]=C[k].name});
+const W=['日','一','二','三','四','五','六'];
+
+// ===== STATE =====
+let selected=[]; // ordered array of city keys
+let dayData=[];
+
+function $g(i){return document.getElementById(i)}
+function ppl(){return parseInt($g('f_ppl').value)||5}
+function days(){return parseInt($g('f_days').value)||9}
+function hstar(){return parseInt($g('f_hotel').value)||4}
+function veh(){return $g('f_veh').value}
+function peak(){return $g('f_peak').value==='1'}
+function peakM(){return peak()?1.15:1}
+function hc(){return P.hotel[hstar()]}
+function ghc(){return P.gh[hstar()]}
+function dhc(){return P.dh[hstar()]}
+
+// ===== CITY POOL + ORDER =====
+function renderPool(){
+  const pool=$g('cityPool');
+  pool.innerHTML=Object.keys(C).map(k=>{
+    const inList=selected.includes(k);
+    return `<div class="city-chip${inList?' used':''}" onclick="addCity('${k}')">${C[k].name}${inList?' ✓':''}</div>`;
+  }).join('');
+}
+
+function addCity(k){
+  if(!selected.includes(k)){selected.push(k);renderPool();renderOrder();rebuildDays();}
+}
+
+function removeCity(idx){
+  selected.splice(idx,1);
+  renderPool();renderOrder();rebuildDays();
+}
+
+function moveCity(idx,dir){
+  const to=idx+dir;
+  if(to<0||to>=selected.length)return;
+  [selected[idx],selected[to]]=[selected[to],selected[idx]];
+  renderOrder();rebuildDays();
+}
+
+function renderOrder(){
+  const area=$g('cityOrderArea');
+  if(selected.length===0){area.innerHTML='<div style="font-size:12px;color:#999;padding:12px;text-align:center;">点击上方城市添加 → 已选城市将按顺序出现在这里</div>';$g('cityDayTip').textContent='';return}
+  const total=days();
+  let h='<div class="city-order">';
+  selected.forEach((k,i)=>{
+    const dd=$g('cd_'+k);const cur=dd?parseInt(dd.value)||0:0;
+    h+=`<div class="city-order-item">
+      <span class="order-num">#${i+1}</span>
+      <span class="city-name" style="color:${C[k].color}">${C[k].name}</span>
+      <span style="font-size:10px;color:#888;max-width:80px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${C[k].note}</span>
+      <div class="day-ctrl">
+        <span>停留</span>
+        <input type="number" id="cd_${k}" value="${cur||1}" min="1" max="20" onchange="onCityDayChange()">
+        <span>天</span>
+      </div>
+      ${i>0?`<span class="move-btn" onclick="moveCity(${i},-1)">↑</span>`:'<span style="width:16px"></span>'}
+      ${i<selected.length-1?`<span class="move-btn" onclick="moveCity(${i},1)">↓</span>`:'<span style="width:16px"></span>'}
+      <span class="del-btn" onclick="removeCity(${i})">✕</span>
+    </div>`;
+  });
+  h+='</div>';
+  area.innerHTML=h;
+  updateCityTip();
+}
+
+function onCityDayChange(){updateCityTip();rebuildDays()}
+
+function updateCityTip(){
+  let sum=0;selected.forEach(k=>{sum+=parseInt(($g('cd_'+k)||{value:0}).value)||0});
+  const tip=$g('cityDayTip');const total=days();
+  if(selected.length===0){tip.textContent='';return}
+  if(sum===total){tip.style.color='#27ae60';tip.textContent='✅ 各城市天数合计'+sum+'天，正确';return true}
+  else{tip.style.color='#e74c3c';tip.textContent='❌ 当前合计'+sum+'天，应为'+total+'天';return false}
+}
+
+function getCD(k){return parseInt(($g('cd_'+k)||{value:1}).value)||1}
+
+// ===== GENERATE DAYS =====
+function rebuildDays(){
+  if(selected.length===0){dayData=[];renderDays();calcPrice();return}
+  const orig=dayData;
+  // Build days sequentially by city order * day count
+  let seq=[];
+  selected.forEach(k=>{
+    const dc=getCD(k);
+    for(let i=0;i<dc;i++){
+      let type='sightseeing',label=C[k].name+'游览';
+      if(i===0&&seq.length===0&&dc>1){type='arrival';label='抵达'+C[k].name}
+      else if(i===dc-1){type='departure';label='离开'+C[k].name}
+      if(dc===1){type='sightseeing';label=C[k].name+'一日游'}
+      seq.push({city:k,type,label});
+    }
+  });
+  // Trim/pad
+  const total=days();
+  while(seq.length>total)seq.pop();
+  while(seq.length<total)seq.push({city:selected[selected.length-1]||'moscow',type:'sightseeing',label:'自由活动'});
+  
+  dayData=seq.map((item,idx)=>{
+    const old=orig[idx]||{};
+    const d=new Date(2026,6,11+idx);
+    return {
+      day:idx+1,date:(d.getMonth()+1)+'/'+d.getDate(),weekday:W[d.getDay()],
+      city:item.city,type:item.type,
+      label:old.label||item.label,
+      attrs:old.attrs||[],
+      meals:old.meals||{bf:true,lu:true,dn:false,mt:'cn'},
+      vh:old.vh||(item.type==='arrival'||item.type==='departure'?4:10),
+      pk:old.pk||2500,
+      gc:old.gc||(item.type==='arrival'||item.type==='departure'?P.gHalf:P.gFull),
+      cc:old.cc||0,cn:old.cn||'',ex:old.ex||0,
+    };
+  });
+  renderDays();calcPrice();
+}
+
+// ===== RENDER DAYS =====
+function renderDays(){
+  const ed=$g('dayEditor');$g('dayCount').textContent='('+dayData.length+'天)';
+  if(dayData.length===0){ed.innerHTML='<p style="color:#999;text-align:center;padding:16px;">请选择城市并分配天数</p>';return}
+  let h='';
+  dayData.forEach((d,idx)=>{
+    const city=C[d.city];const att=city?city.attrs||[]:[];
+    const cc=city?city.color:'#888';
+    h+=`<div class="day-card">
+      <div class="day-hdr" onclick="td(${idx})" style="border-left:3px solid ${cc};background:${cc}08">
+        <span class="dd-num">D${d.day}</span>
+        <span class="dd-city" style="color:${cc}">${city?city.name:d.city}</span>
+        <span class="dd-theme">${d.label}</span>
+        <div class="dd-ctrl">
+          ${idx>0?`<button class="btn btn-xs btn-o" onclick="event.stopPropagation();md(${idx},-1)">↑</button>`:''}
+          ${idx<dayData.length-1?`<button class="btn btn-xs btn-o" onclick="event.stopPropagation();md(${idx},1)">↓</button>`:''}
+          <button class="btn btn-xs btn-d" onclick="event.stopPropagation();rd(${idx})">✕</button>
+        </div>
+        <span class="dd-toggle">${($g('db_'+idx)||{}).classList&&$g('db_'+idx).classList.contains('open')?'🔼':'🔽'}</span>
+      </div>
+      <div class="day-body open" id="db_${idx}">`;
+    
+    // Row 1
+    h+=`<div class="dr">
+      <div class="df" style="flex:2"><label>主题</label><input value="${esc(d.label)}" onchange="dayData[${idx}].label=this.value;calcPrice()"></div>
+      <div class="df"><label>城市</label><select onchange="dayData[${idx}].city=this.value;renderDays();calcPrice()">${selected.map(c=>`<option value="${c}"${c===d.city?' selected':''}>${C[c].name}</option>`).join('')}</select></div>
+      <div class="df"><label>用车(h)</label><input type="number" value="${d.vh}" min="0" max="16" onchange="dayData[${idx}].vh=parseInt(this.value)||0;calcPrice()"></div>
+      <div class="df"><label>停车费</label><input type="number" value="${d.pk}" min="0" onchange="dayData[${idx}].pk=parseInt(this.value)||0;calcPrice()"></div>
+    </div>`;
+    // Row 2
+    h+=`<div class="dr">
+      <div class="df"><label>导游费</label><input type="number" value="${d.gc}" min="0" onchange="dayData[${idx}].gc=parseInt(this.value)||0;calcPrice()"></div>
+      <div class="df"><label>额外房间</label><input type="number" value="${d.ex}" min="0" max="5" onchange="dayData[${idx}].ex=parseInt(this.value)||0;calcPrice()"></div>
+      <div class="df" style="flex:2"><label>附加费(₽)</label><input type="number" value="${d.cc}" min="0" onchange="dayData[${idx}].cc=parseInt(this.value)||0;calcPrice()"></div>
+    </div>`;
+    // Attractions
+    if(att.length){
+      h+=`<div style="font-size:11px;font-weight:600;margin:6px 0 3px;">🎯 景点选勾</div>
+      <div class="ag">`;
+      att.forEach(a=>{
+        const ch=d.attrs.some(x=>x.id===a.id)?' checked':'';
+        h+=`<label class="ai"><input type="checkbox" ${ch} onchange="ta(${idx},'${a.id}','${esc(a.name)}',${a.c})"><span>${a.name}</span>${a.c>0?`<span class="ap">${a.c}₽</span>`:''}${a.n?`<span class="ab">${a.n}</span>`:''}</label>`;
+      });
+      h+=`</div>`;
+    }
+    // Selected tags
+    h+=`<div class="st" id="sat_${idx}">`;
+    d.attrs.forEach(a=>{h+=`<span class="tag">${a.name}${a.c>0?a.c+'₽':''}<span class="del" onclick="ra(${idx},'${a.id}')">✕</span></span>`});
+    h+=`</div>`;
+    // Meals
+    h+=`<div class="mr">
+      <label style="font-weight:600;font-size:11px">🍽️</label>
+      <label><input type="checkbox" ${d.meals.bf?' checked':''} onchange="dayData[${idx}].meals.bf=this.checked;calcPrice()"> 早餐</label>
+      <label><input type="checkbox" ${d.meals.lu?' checked':''} onchange="dayData[${idx}].meals.lu=this.checked;calcPrice()"> 午餐</label>
+      <label><input type="checkbox" ${d.meals.dn?' checked':''} onchange="dayData[${idx}].meals.dn=this.checked;calcPrice()"> 晚餐</label>
+      <label>餐标 <select onchange="dayData[${idx}].meals.mt=this.value;calcPrice()">
+        <option value="cn"${d.meals.mt==='cn'?' selected':''}>中餐(午2300/晚2300)</option>
+        <option value="ru"${d.meals.mt==='ru'?' selected':''}>俄餐(午1400/晚1200)</option>
+        <option value="mx"${d.meals.mt==='mx'?' selected':''}>混合(午俄1400/晚中2300)</option>
+      </select></label>
+    </div>`;
+    // Note
+    h+=`<input placeholder="备注（如预约要求/交通方式等）" value="${esc(d.cn)}" style="width:100%;padding:4px 6px;border:1px solid var(--b);border-radius:5px;font-size:11px" onchange="dayData[${idx}].cn=this.value">`;
+    h+=`</div></div>`;
+  });
+  ed.innerHTML=h;
+}
+
+function esc(s){return String(s).replace(/'/g,"\\'").replace(/"/g,'&quot;').replace(/</g,'&lt;')}
+function td(i){const b=$g('db_'+i);if(b)b.classList.toggle('open')}
+function md(i,dir){const t=i+dir;if(t<0||t>=dayData.length)return;[dayData[i],dayData[t]]=[dayData[t],dayData[i]];renderDays();calcPrice()}
+function rd(i){dayData.splice(i,1);renderDays();calcPrice()}
+function ta(di,aid,an,ac){
+  const d=dayData[di];const ei=d.attrs.findIndex(a=>a.id===aid);
+  if(ei>=0)d.attrs.splice(ei,1);else d.attrs.push({id:aid,name:an,c:ac});
+  refTags(di);calcPrice();
+}
+function ra(di,aid){dayData[di].attrs=dayData[di].attrs.filter(a=>a.id!==aid);refTags(di);calcPrice()}
+function refTags(di){
+  const c=$g('sat_'+di);if(!c)return;
+  c.innerHTML=dayData[di].attrs.map(a=>`<span class="tag">${a.name}${a.c>0?a.c+'₽':''}<span class="del" onclick="ra(${di},'${a.id}')">✕</span></span>`).join('');
+}
+
+// ===== CALCULATE =====
+function calcPrice(){
+  const p=ppl(),pm=peakM(),v=P.veh[veh()]||2500,hot=hc(),gh=ghc(),dh=dhc();
+  const box=$g('priceBox');
+  if(dayData.length===0){box.innerHTML='<p style="color:#999;text-align:center;padding:16px;">请配置行程</p>';$g('priceTag').textContent='';return}
+  const rooms=Math.ceil(p/2);
+  let dc=[],tot={veh:0,pk:0,gd:0,ht:0,ght:0,ml:0,drv:0,tk:0,cu:0};
+  
+  dayData.forEach((d,idx)=>{
+    const mt=d.meals.mt||'cn';
+    const lp=mt==='cn'?P.meal.lcn:P.meal.lru;
+    const dp=mt==='cn'?P.meal.dcn:(mt==='ru'?P.meal.dru:P.meal.dcn);
+    const v=d.vh*v*pm,pk=d.pk,g=d.gc;
+    const ho=d.type!=='departure'?hot*rooms:0;
+    const gh2=d.type!=='departure'?gh+dh:0;
+    const ex=d.ex>0?hot*d.ex:0;
+    const ml=(d.meals.lu?lp*p:0)+(d.meals.dn?dp*p:0);
+    const dm=(d.meals.lu?P.dm:0)+(d.meals.dn?P.dm:0);
+    const tk=d.attrs.reduce((s,a)=>s+a.c*p,0);
+    const cu=d.cc;
+    const total=v+pk+g+ho+gh2+ex+ml+dm+tk+cu;
+    dc.push({idx,l:d.label,ci:C[d.city]?C[d.city].name:d.city,v,pk,g,ho,gh2,ex,ml,dm,tk,cu,total});
+    tot.veh+=v;tot.pk+=pk;tot.gd+=g;tot.ht+=ho;tot.ght+=gh2+ex;tot.ml+=ml;tot.drv+=dm;tot.tk+=tk;tot.cu+=cu;
+  });
+  
+  let tc=0,trc=0;
+  const hasM=selected.includes('moscow'),hasS=selected.includes('spb');
+  if(hasM&&hasS){tc=P.hs*p*(dayData.some(d=>C[d.city]&&d.type==='departure'&&C[d.city].name==='圣彼得堡')?2:1)}
+  dayData.forEach(d=>{if(['arrival','departure','transfer_in','transfer_out'].includes(d.type))trc+=P.xfer});
+  
+  const gt=tot.veh+tot.pk+tot.gd+tot.ht+tot.ght+tot.ml+tot.drv+tot.tk+tot.cu+tc+trc;
+  const pp=Math.round(gt/p),ppC=Math.round(pp/13),gtC=Math.round(gt/13);
+  
+  $g('priceTag').textContent=`≈ ${ppC.toLocaleString()}元/人 | 总计 ${gtC.toLocaleString()}元`;
+  
+  let h=`<div style="font-size:11px;color:#888;margin-bottom:6px">${p}人·${rooms}间房·${{3:'三星',4:'四星',5:'五星'}[hstar()]}·${veh()==='bus'?'大巴':veh()==='minibus'?'中巴':'轿车'}${peak()?'·🌞旺季+15%':''}</div>
+  <table class="qt"><thead><tr><th>项目</th><th>₽</th><th>人均₽</th><th>人民币</th></tr></thead><tbody>
+  <tr><td>🚐 用车(含停车+司机餐)</td><td>${(tot.veh+tot.pk+tot.drv).toLocaleString()}</td><td>${Math.round((tot.veh+tot.pk+tot.drv)/p).toLocaleString()}</td><td>≈${Math.round((tot.veh+tot.pk+tot.drv)/13).toLocaleString()}元</td></tr>
+  <tr><td>👤 中文导游</td><td>${tot.gd.toLocaleString()}</td><td>${Math.round(tot.gd/p).toLocaleString()}</td><td>≈${Math.round(tot.gd/13).toLocaleString()}元</td></tr>
+  <tr><td>🏨 住宿(含导/司)</td><td>${(tot.ht+tot.ght).toLocaleString()}</td><td>${Math.round((tot.ht+tot.ght)/p).toLocaleString()}</td><td>≈${Math.round((tot.ht+tot.ght)/13).toLocaleString()}元</td></tr>
+  <tr><td>🍽️ 餐费</td><td>${tot.ml.toLocaleString()}</td><td>${Math.round(tot.ml/p).toLocaleString()}</td><td>≈${Math.round(tot.ml/13).toLocaleString()}元</td></tr>
+  <tr><td>🎫 门票</td><td>${tot.tk.toLocaleString()}</td><td>${Math.round(tot.tk/p).toLocaleString()}</td><td>≈${Math.round(tot.tk/13).toLocaleString()}元</td></tr>`;
+  if(tc>0)h+=`<tr><td>🚄 高铁</td><td>${tc.toLocaleString()}</td><td>${Math.round(tc/p).toLocaleString()}</td><td>≈${Math.round(tc/13).toLocaleString()}元</td></tr>`;
+  if(trc>0)h+=`<tr><td>🚐 接送×${dayData.filter(d=>['arrival','departure','transfer_in','transfer_out'].includes(d.type)).length}</td><td>${trc.toLocaleString()}</td><td>${Math.round(trc/p).toLocaleString()}</td><td>≈${Math.round(trc/13).toLocaleString()}元</td></tr>`;
+  if(tot.cu>0)h+=`<tr><td>📌 附加</td><td>${tot.cu.toLocaleString()}</td><td>${Math.round(tot.cu/p).toLocaleString()}</td><td>≈${Math.round(tot.cu/13).toLocaleString()}元</td></tr>`;
+  h+=`<tr class="trt"><td>★ 总计</td><td>${gt.toLocaleString()}</td><td>${pp.toLocaleString()}</td><td>≈${gtC.toLocaleString()}元</td></tr>
+  <tr class="trt"><td>★ 人均</td><td colspan="3">${pp.toLocaleString()}₽ ≈ ${ppC.toLocaleString()}元 (1元≈13₽)</td></tr></tbody></table>`;
+  
+  h+=`<div style="font-size:12px;font-weight:600;margin:12px 0 6px">📅 每日明细</div>
+  <table class="qt"><thead><tr><th>日</th><th>主题</th><th>用车</th><th>导游</th><th>住宿</th><th>餐</th><th>门票</th><th>₽</th></tr></thead><tbody>`;
+  dc.forEach(d=>{h+=`<tr><td>D${d.idx+1}</td><td style="text-align:left;max-width:100px;overflow:hidden;text-overflow:ellipsis">${d.ci} ${d.l}</td><td>${d.v.toLocaleString()}</td><td>${d.g.toLocaleString()}</td><td>${(d.ho+d.gh2+d.ex).toLocaleString()}</td><td>${d.ml.toLocaleString()}</td><td>${d.tk.toLocaleString()}</td><td><b>${d.total.toLocaleString()}</b></td></tr>`});
+  h+=`</tbody></table>`;
+  box.innerHTML=h;
+}
+
+// ===== GENERATE DOC =====
+function genDoc(){
+  const p=ppl(),rooms=Math.ceil(p/2),hs=hstar(),vv=veh(),pk=peak();
+  if(dayData.length===0){toast('请先配置行程');return}
+  // recalc
+  const pm=peakM(),v=P.veh[vv]||2500,hot=hc(),gh=ghc(),dh=dhc();
+  let dc=[],tot={veh:0,pk:0,gd:0,ht:0,ght:0,ml:0,drv:0,tk:0,cu:0};
+  dayData.forEach((d,idx)=>{
+    const mt=d.meals.mt||'cn';
+    const lp=mt==='cn'?P.meal.lcn:P.meal.lru;
+    const dp=mt==='cn'?P.meal.dcn:(mt==='ru'?P.meal.dru:P.meal.dcn);
+    const v=d.vh*v*pm,pk=d.pk,g=d.gc,ho=d.type!=='departure'?hot*rooms:0;
+    const gh2=d.type!=='departure'?gh+dh:0,ex=d.ex>0?hot*d.ex:0;
+    const ml=(d.meals.lu?lp*p:0)+(d.meals.dn?dp*p:0);
+    const dm=(d.meals.lu?P.dm:0)+(d.meals.dn?P.dm:0);
+    const tk=d.attrs.reduce((s,a)=>s+a.c*p,0),cu=d.cc;
+    const total=v+pk+g+ho+gh2+ex+ml+dm+tk+cu;
+    dc.push({idx,day:d.day,date:d.date,wd:d.weekday,ci:C[d.city]?C[d.city].name:d.city,l:d.label,attrs:d.attrs,meals:d.meals,mt,vh:d.vh,cn:d.cn,type:d.type,v,pk,g,ho,gh2,ex,ml,dm,tk,cu,total});
+    tot.veh+=v;tot.pk+=pk;tot.gd+=g;tot.ht+=ho;tot.ght+=gh2+ex;tot.ml+=ml;tot.drv+=dm;tot.tk+=tk;tot.cu+=cu;
+  });
+  let tc=0,trc=0;
+  const hasM=selected.includes('moscow'),hasS=selected.includes('spb');
+  if(hasM&&hasS){tc=P.hs*p*(dayData.some(d=>C[d.city]&&d.type==='departure'&&C[d.city].name==='圣彼得堡')?2:1)}
+  dayData.forEach(d=>{if(['arrival','departure','transfer_in','transfer_out'].includes(d.type))trc+=P.xfer});
+  const gt=tot.veh+tot.pk+tot.gd+tot.ht+tot.ght+tot.ml+tot.drv+tot.tk+tot.cu+tc+trc;
+  const pp=Math.round(gt/p),ppC=Math.round(pp/13),gtC=Math.round(gt/13);
+
+  let doc='';
+  doc+=`═══════════════════════════════════════════════════════════════\n`;
+  doc+=`          🇷🇺 阿杜俄旅 · 定制行程方案及报价单\n`;
+  doc+=`═══════════════════════════════════════════════════════════════\n\n`;
+  doc+=`  产品名称：${$g('f_name').value}\n`;
+  doc+=`  客户类型：${{family:'家庭团',group:'常规团',vip:'VIP精品团'}[$g('f_client').value]}\n`;
+  doc+=`  出发城市：${$g('f_depart').value}\n`;
+  doc+=`  出行人数：${p}人 · ${rooms}间房\n`;
+  doc+=`  住宿标准：${{3:'★★★三星',4:'★★★★四星',5:'★★★★★五星'}[hs]}\n`;
+  doc+=`  用车标准：${{bus:'大巴(35-40座)',minibus:'中巴(18座)',sedan:'轿车/商务'}[vv]}\n`;
+  doc+=`  ${pk?'🌞 旺季附加：已含15%上浮':'  旺季附加：无'}\n`;
+  doc+=`  报价日期：${new Date().toLocaleDateString('zh-CN')}\n`;
+  doc+=`  汇率参考：1元 ≈ 13₽\n`;
+  doc+=`  游览城市：${selected.map(k=>C[k].name).join(' → ')}\n\n`;
+  
+  doc+=`───────────────────────────────────────────────────────────\n`;
+  doc+=`  📋 详细行程\n`;
+  doc+=`───────────────────────────────────────────────────────────\n\n`;
+  
+  dc.forEach(d=>{
+    doc+=`  【第${d.day}天】${d.date} 周${d.wd}  ${d.ci}\n`;
+    doc+=`  ──────────────────────────────────────\n`;
+    if(d.type==='arrival')doc+=`  ✈️ 抵达，中文导游接机，入住酒店休息\n`;
+    else if(d.type==='departure')doc+=`  ✈️ 送机返程，结束愉快的俄罗斯之旅！\n`;
+    doc+=`  主题：${d.l}\n`;
+    if(d.attrs.length){doc+=`  🎯 景点：\n`;d.attrs.forEach(a=>{doc+=`    · ${a.name}${a.c>0?` (${a.c}₽/人)`:''}\n`})}
+    doc+=`  🍽️ 用餐：${d.meals.bf?'早餐✓ ':''}${d.meals.lu?'午餐✓('+(d.mt==='cn'?'中餐':'俄餐')+') ':''}${d.meals.dn?'晚餐✓('+(d.mt==='cn'?'中餐':'俄餐')+') ':''}\n`;
+    doc+=`  🚐 用车：${d.vh}小时\n`;
+    if(d.cn)doc+=`  📌 ${d.cn}\n`;
+    doc+=`\n`;
+  });
+  
+  doc+=`───────────────────────────────────────────────────────────\n`;
+  doc+=`  💰 报价明细\n`;
+  doc+=`───────────────────────────────────────────────────────────\n\n`;
+  const items=[
+    ['🚐 用车(含停车司机餐)',(tot.veh+tot.pk+tot.drv).toLocaleString(),Math.round((tot.veh+tot.pk+tot.drv)/p).toLocaleString(),'≈'+Math.round((tot.veh+tot.pk+tot.drv)/13).toLocaleString()+'元'],
+    ['👤 中文导游',tot.gd.toLocaleString(),Math.round(tot.gd/p).toLocaleString(),'≈'+Math.round(tot.gd/13).toLocaleString()+'元'],
+    ['🏨 住宿(含导/司)',(tot.ht+tot.ght).toLocaleString(),Math.round((tot.ht+tot.ght)/p).toLocaleString(),'≈'+Math.round((tot.ht+tot.ght)/13).toLocaleString()+'元'],
+    ['🍽️ 餐费',tot.ml.toLocaleString(),Math.round(tot.ml/p).toLocaleString(),'≈'+Math.round(tot.ml/13).toLocaleString()+'元'],
+    ['🎫 门票',tot.tk.toLocaleString(),Math.round(tot.tk/p).toLocaleString(),'≈'+Math.round(tot.tk/13).toLocaleString()+'元'],
+  ];
+  if(tc>0)items.push(['🚄 高铁',tc.toLocaleString(),Math.round(tc/p).toLocaleString(),'≈'+Math.round(tc/13).toLocaleString()+'元']);
+  if(trc>0)items.push(['🚐 接送',trc.toLocaleString(),Math.round(trc/p).toLocaleString(),'≈'+Math.round(trc/13).toLocaleString()+'元']);
+  if(tot.cu>0)items.push(['📌 附加',tot.cu.toLocaleString(),Math.round(tot.cu/p).toLocaleString(),'≈'+Math.round(tot.cu/13).toLocaleString()+'元']);
+  items.forEach(([n,v1,v2,v3])=>{doc+=`  ${n.padEnd(18)} ${v1.padStart(12)}  ${v2.padStart(10)}  ${v3}\n`});
+  doc+=`  ─────────────────────────────────────────────────────────\n`;
+  doc+=`  ★ 总计              ${gt.toLocaleString().padStart(12)}  ${pp.toLocaleString().padStart(10)}  ≈${gtC.toLocaleString()}元\n`;
+  doc+=`  ★ 人均              ${pp.toLocaleString().padStart(12)}₽                  ≈${ppC.toLocaleString()}元\n\n`;
+  
+  doc+=`───────────────────────────────────────────────────────────\n✅ 费用包含\n───────────────────────────────────────────────────────────\n`;
+  doc+=`· 全程中文导游服务\n· ${{bus:'大巴(35-40座)',minibus:'中巴(18座)',sedan:'轿车/商务'}[vv]}用车${pk?'(含旺季15%附加)':''}\n· ${{3:'★★★三星',4:'★★★★四星',5:'★★★★★五星'}[hs]}酒店${dayData.filter(d=>d.type!=='departure').length}晚含早餐\n· 行程所列景点首道门票\n· 行程所列餐食\n`;
+  if(tc>0)doc+=`· 莫斯科↔圣彼得堡高铁\n`;
+  doc+=`· 机场/车站接送\n\n❌ 费用不含\n`;
+  doc+=`· 中国↔俄罗斯国际机票（可代查）\n· 俄罗斯签证（电子签约2000-3000元，可代办）\n· 旅游意外保险（建议购买）\n· 演出票（如需代订请提前告知）\n· 个人消费、纪念品、酒水\n· 司机导游小费（建议每人每日500₽）\n· 不可抗力因素产生的额外费用\n\n`;
+  doc+=`📌 温馨提示\n1. 以上报价基于实时汇率，以预订时为准\n2. 博物馆有固定休息日，行程根据开放日微调\n3. 旺季酒店上浮20-30%，建议尽早确认\n4. 如需调整用车/餐食/住宿，报价可灵活调整\n5. 如需俄方地接社正式报价单，可另行出具\n6. 电子签证最快4天出签，停留16天以内适用\n7. 莫斯科↔彼得堡高铁「游隼号」约4小时\n\n`;
+  doc+=`═══════════════════════════════════════════════════════════════\n🏢 阿杜俄旅 · 俄罗斯导游阿杜\n从业二十年 · 专业俄罗斯地接服务\n═══════════════════════════════════════════════════════════════\n`;
+  
+  const box=$g('outBox');box.textContent=doc;box.classList.add('open');box.scrollIntoView({behavior:'smooth'});
+  toast('✅ 已生成');
+  const blob=new Blob([doc],{type:'text/plain;charset=utf-8'});
+  const a=document.createElement('a');a.href=URL.createObjectURL(blob);
+  a.download=`${$g('f_name').value}_行程报价.txt`;a.click();
+}
+
+function saveFile(){
+  const state={selected,dayData,f_name:$g('f_name').value,f_client:$g('f_client').value,f_ppl:$g('f_ppl').value,f_days:$g('f_days').value,f_depart:$g('f_depart').value,f_hotel:$g('f_hotel').value,f_veh:$g('f_veh').value,f_peak:$g('f_peak').value};
+  const blob=new Blob([JSON.stringify(state)],{type:'application/json'});
+  const a=document.createElement('a');a.href=URL.createObjectURL(blob);
+  a.download=`俄旅方案_${new Date().toISOString().slice(0,10)}.json`;a.click();toast('✅ 已保存');
+}
+function loadFile(){
+  const inp=document.createElement('input');inp.type='file';inp.accept='.json';
+  inp.onchange=async e=>{const f=e.target.files[0];if(!f)return;
+    try{const s=JSON.parse(await f.text());
+      if(s.selected)selected=s.selected;if(s.dayData)dayData=s.dayData;
+      ['f_name','f_client','f_ppl','f_days','f_depart','f_hotel','f_veh','f_peak'].forEach(k=>{if(s[k])$g(k).value=s[k]});
+      renderPool();renderOrder();renderDays();calcPrice();toast('✅ 已载入');
+    }catch(e){toast('❌ 文件错误')}};inp.click();
+}
+function resetAll(){
+  if(!confirm('重置所有数据？'))return;
+  selected=[];dayData=[];$g('f_name').value='俄罗斯经典之旅';$g('f_client').value='family';
+  $g('f_ppl').value='5';$g('f_days').value='9';$g('f_hotel').value='4';$g('f_veh').value='minibus';
+  $g('f_peak').value='0';$g('outBox').classList.remove('open');
+  renderPool();renderOrder();renderDays();calcPrice();toast('🔄 已重置');
+}
+function onBaseChange(){updateCityTip();rebuildDays()}
+function toast(m){const t=$g('toast');t.textContent=m;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),2500)}
+
+// ===== INIT =====
+document.addEventListener('DOMContentLoaded',()=>{selected=['moscow','spb'];renderPool();renderOrder();rebuildDays()});
+</script>
+</body>
+</html>
