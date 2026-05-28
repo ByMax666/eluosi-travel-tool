@@ -526,7 +526,7 @@ function loadAppData() {
         }
         // Guide migration: old 'guide' -> 'guideAdu'
         if(d.costs.guide!==undefined){
-          d.costs.guideAdu=!!d.costs.guide;
+          d.costs.guideAdu=d.costs.guide?2:0;
           d.costs.guideCn=false;
           delete d.costs.guide;
         }
@@ -535,8 +535,8 @@ function loadAppData() {
         if(d.costs.metro===undefined)d.costs.metro=false;
         if(d.costs.pickup===undefined)d.costs.pickup=false;
         if(d.costs.dropoff===undefined)d.costs.dropoff=false;
-        if(d.costs.guideAdu===undefined)d.costs.guideAdu=true;
-        if(d.costs.guideCn===undefined)d.costs.guideCn=false;
+        if(d.costs.guideAdu===undefined)d.costs.guideAdu=2;
+        if(d.costs.guideCn===undefined)d.costs.guideCn=0;
       });
     });
     return true;
@@ -761,7 +761,7 @@ function updateCityDays(k,v){state.cityDays[k]=Math.max(1,Math.min(20,parseInt(v
 function rebuildDays(){
 if(activeProjectId)autoSaveCurrent();
 const nd={},no=[];state.cities.forEach(c=>{const n=state.cityDays[c]||3;
-for(let i=1;i<=n;i++){const id=c+'-d'+i;no.push(id);nd[id]=state.days[id]||{city:c,title:db.cities[c]?.name+' 第'+i+'天',items:[],costs:{hotel:!0,guideAdu:!0,guideCn:!1,parking:!0,highway:!1,driverMeal:!1,driverOvernight:!1,car:!0,metro:!1,pickup:!1,dropoff:!1}};
+for(let i=1;i<=n;i++){const id=c+'-d'+i;no.push(id);nd[id]=state.days[id]||{city:c,title:db.cities[c]?.name+' 第'+i+'天',items:[],costs:{hotel:!0,guideAdu:2,guideCn:0,parking:!0,highway:!1,driverMeal:!1,driverOvernight:!1,car:!0,metro:!1,pickup:!1,dropoff:!1}};
 if(!state.days[id]){nd[id].items=[{time:'09:00',desc:'酒店出发',type:'transport',cost:0},{time:'12:00',desc:'午餐',type:'meal',cost:0},{time:'18:00',desc:'晚餐',type:'meal',cost:0}];}}});
 state.days=nd;state.dayOrder=no;
 }
@@ -776,7 +776,7 @@ eEl.style.display='none';tEl.style.display='flex';
 const r=db.rates;const ss=r.season_pct||0;const hs=state.hotelStar||'4';const hr=db.rates['hotel_'+hs]||3500;
 
 cEl.innerHTML=state.dayOrder.map((id,i)=>{const d=state.days[id];if(!d||!d.costs)return'';const c=db.cities[d.city];const attrs=(db.attractions[d.city]||[]).map(a=>`<option value="${a.id}">${a.name} (₽${a.cost})</option>`).join('');
-let dayCost=0;if(d.costs.hotel)dayCost+=hr*state.rooms;if(d.costs.guideAdu)dayCost+=r.guide_adu_day||30000;if(d.costs.guideCn)dayCost+=r.guide_cn_day||18000;
+let dayCost=0;if(d.costs.hotel)dayCost+=hr*state.rooms;if(d.costs.guideAdu===2)dayCost+=r.guide_adu_day||30000;else if(d.costs.guideAdu===1)dayCost+=r.guide_adu_half||18000;if(d.costs.guideCn===2)dayCost+=r.guide_cn_day||18000;else if(d.costs.guideCn===1)dayCost+=r.guide_cn_half||12000;
 if(d.costs.car)dayCost+=Math.round((state.busType==='bus'?(r.bus_hour||3510):(r.minibus_hour||2500))*8*(1+ss));
 if(d.costs.metro)dayCost+=(r.metro_day||500)*state.pax;
 if(d.costs.pickup)dayCost+=(r.airport_pickup||5000);
@@ -795,8 +795,8 @@ return `<div class="day-card open" id="dc${i}">
 <div class="dc-body">
 <div class="cost-toggles">
 <span class="cost-tag ${d.costs.hotel?'checked':''}" onclick="event.stopPropagation();toggleDayCost('${id}','hotel')">🏨 酒店 ${hs}星</span>
-<span class="cost-tag ${d.costs.guideAdu?'checked':''}" onclick="event.stopPropagation();toggleDayCost('${id}','guideAdu')">⭐ 阿杜导游</span>
-<span class="cost-tag ${d.costs.guideCn?'checked':''}" onclick="event.stopPropagation();toggleDayCost('${id}','guideCn')">👨 中文导游</span>
+<span class="cost-tag ${d.costs.guideAdu?'checked':''}" onclick="event.stopPropagation();cycleGuideCost('${id}','guideAdu')">⭐ 阿杜导游${d.costs.guideAdu===2?'(全天)':d.costs.guideAdu===1?'(半天)':''}</span>
+<span class="cost-tag ${d.costs.guideCn?'checked':''}" onclick="event.stopPropagation();cycleGuideCost('${id}','guideCn')">👨 中文导游${d.costs.guideCn===2?'(全天)':d.costs.guideCn===1?'(半天)':''}</span>
 <span class="cost-tag ${d.costs.car?'checked':''}" onclick="event.stopPropagation();toggleDayCost('${id}','car')">🚐 用车</span>
 <span class="cost-tag ${d.costs.metro?'checked':''}" onclick="event.stopPropagation();toggleDayCost('${id}','metro')">🚇 地铁</span>
 <span class="cost-tag ${d.costs.pickup?'checked':''}" onclick="event.stopPropagation();toggleDayCost('${id}','pickup')">✈️ 接机</span>
@@ -812,8 +812,8 @@ ${d.items.map((item,ji)=>`<div class="day-item"><div class="di-time"><input valu
 <div class="day-add-custom"><input id="cinp_${id}" placeholder="活动名称" onkeydown="if(event.key==='Enter')addCustItem('${id}')" style="width:140px"><input id="cprc_${id}" placeholder="₽/人" onkeydown="if(event.key==='Enter')addCustItem('${id}')" style="width:70px" type="number" min="0"><button onclick="addCustItem('${id}')">+自定义</button></div>
 <div class="day-cost-breakdown"><div class="dcb-title">💰 当日成本明细</div><table class="dcb-table">
 ${d.costs.hotel?`<tr><td>🏨 酒店</td><td>${state.rooms}间 × ₽${hr.toLocaleString()}</td><td class="dcb-amt">₽${(hr*state.rooms).toLocaleString()}</td></tr>`:''}
-${d.costs.guideAdu?`<tr><td>⭐ 阿杜导游</td><td>1天</td><td class="dcb-amt">₽${((r.guide_adu_day||30000)).toLocaleString()}</td></tr>`:''}
-${d.costs.guideCn?`<tr><td>👨 中文导游</td><td>1天</td><td class="dcb-amt">₽${((r.guide_cn_day||18000)).toLocaleString()}</td></tr>`:''}
+${d.costs.guideAdu===2?`<tr><td>⭐ 阿杜导游(全天)</td><td>1天</td><td class="dcb-amt">₽${((r.guide_adu_day||30000)).toLocaleString()}</td></tr>`:''}${d.costs.guideAdu===1?`<tr><td>⭐ 阿杜导游(半天)</td><td>半天</td><td class="dcb-amt">₽${((r.guide_adu_half||18000)).toLocaleString()}</td></tr>`:''}
+${d.costs.guideCn===2?`<tr><td>👨 中文导游(全天)</td><td>1天</td><td class="dcb-amt">₽${((r.guide_cn_day||18000)).toLocaleString()}</td></tr>`:''}${d.costs.guideCn===1?`<tr><td>👨 中文导游(半天)</td><td>半天</td><td class="dcb-amt">₽${((r.guide_cn_half||12000)).toLocaleString()}</td></tr>`:''}
 ${d.costs.car?`<tr><td>🚐 用车</td><td>8小时 × ₽${(state.busType==='bus'?(r.bus_hour||3510):(r.minibus_hour||2500)).toLocaleString()}</td><td class="dcb-amt">₽${Math.round((state.busType==='bus'?(r.bus_hour||3510):(r.minibus_hour||2500))*8*(1+ss)).toLocaleString()}</td></tr>`:''}
 ${d.costs.metro?`<tr><td>🚇 地铁</td><td>${state.pax}人 × ₽${(r.metro_day||500).toLocaleString()}</td><td class="dcb-amt">₽${((r.metro_day||500)*state.pax).toLocaleString()}</td></tr>`:''}
 ${d.costs.pickup?`<tr><td>✈️ 接机</td><td>1次</td><td class="dcb-amt">₽${(r.airport_pickup||5000).toLocaleString()}</td></tr>`:''}
@@ -836,6 +836,7 @@ function expandAll(){document.querySelectorAll('.day-card').forEach(el=>el.class
 function collapseAll(){document.querySelectorAll('.day-card').forEach(el=>el.classList.remove('open'));document.querySelectorAll('.dc-arrow').forEach(el=>el.style.transform='')}
 
 function toggleDayCost(id,costKey){if(!state.days[id])return;state.days[id].costs[costKey]=!state.days[id].costs[costKey];renderDays();recalc()}
+function cycleGuideCost(id,key){if(!state.days[id])return;var v=state.days[id].costs[key]||0;v=(v+1)%3;state.days[id].costs[key]=v;renderDays();recalc()}
 function setDayTransport(id,mode){
   if(!state.days[id])return;
   var c=state.days[id].costs;
@@ -873,7 +874,7 @@ let attrCost=0,ruGuideTotal=0,mealCost=0;
 state.dayOrder.forEach(id=>{
 const d=state.days[id];if(!d||!d.costs)return'';
 if(d.costs.hotel)hotelTotal+=hr*rooms;
-if(d.costs.guideAdu)guideAduTotal+=(r.guide_adu_day||30000);if(d.costs.guideCn)guideCnTotal+=(r.guide_cn_day||18000);
+if(d.costs.guideAdu===2)guideAduTotal+=(r.guide_adu_day||30000);else if(d.costs.guideAdu===1)guideAduTotal+=(r.guide_adu_half||18000);if(d.costs.guideCn===2)guideCnTotal+=(r.guide_cn_day||18000);else if(d.costs.guideCn===1)guideCnTotal+=(r.guide_cn_half||12000);
 if(d.costs.parking)parkingTotal+=(r.parking||2500);
 if(d.costs.highway)highwayTotal+=(r.highway||1500);
 if(d.costs.driverMeal)driverMealTotal+=(r.driver_meal||800);
