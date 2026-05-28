@@ -3,3 +3,4 @@ build_tool.py
 write_app.py
 *.py
 backend/*.db*
+deploy/
